@@ -111,6 +111,7 @@ class HomeScreen extends StatelessWidget {
                       width: 2,
                       color: MyColor.primaryColor,
                     ),
+                    insets: EdgeInsets.only(right: 20),
                   ),
                   unselectedLabelStyle: TextStyle(
                     fontSize: FontTheme.textSizeSmall,
@@ -120,6 +121,7 @@ class HomeScreen extends StatelessWidget {
                     fontWeight: FontWeight.w500,
                     color: MyColor.primaryTextColor,
                   ),
+                  indicatorSize: TabBarIndicatorSize.label,
                   tabs: [
                     Tab(text: "Hottest"),
                     Tab(text: "Popular"),
@@ -128,7 +130,7 @@ class HomeScreen extends StatelessWidget {
                   ],
                 ),
               ),
-
+              SizedBox(height: 15),
               SizedBox(
                 height: 250,
                 child: TabBarView(children: [
