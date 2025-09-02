@@ -3,7 +3,9 @@ import 'package:fruit_hub/basket_screen.dart';
 import 'package:fruit_hub/detail_screen.dart';
 import 'package:fruit_hub/helper/app_constant.dart';
 import 'package:fruit_hub/home_screen.dart';
+import 'package:fruit_hub/login_screen.dart';
 import 'package:fruit_hub/order_track_screen.dart';
+import 'package:fruit_hub/register_screen.dart';
 import 'package:fruit_hub/splash_screen.dart';
 import 'package:fruit_hub/splash_screen2.dart';
 import 'package:fruit_hub/success_order_screen.dart';
@@ -31,6 +33,8 @@ class MyApp extends StatelessWidget {
       getPages: [
         GetPage(name: '/', page: () => SplashScreen()),
         GetPage(name: '/splash2', page: () => SplashScreen2()),
+        GetPage(name: '/login', page: () => LoginScreen()),
+        GetPage(name: '/register', page: () => RegisterScreen()),
         GetPage(name: '/home', page: () => HomeScreen()),
         GetPage(name: '/detail', page: () => DetailScreen()),
         GetPage(name: '/basket', page: () => BasketScreen()),

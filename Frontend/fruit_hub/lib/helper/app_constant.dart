@@ -3,8 +3,11 @@ import 'package:google_fonts/google_fonts.dart';
 
 class MyColor {
   static const Color primaryColor = Color(0xFFFFA451);
-  static const Color lowGreyColor = Color(0xFFF3F1F1);
-  static const Color darkenGeryColor = Color(0xFFC2BDBD);
+  static const Color lowOrangeColor = Color(0xFFFFF2E7);
+
+  static const Color lowGreyColor = Color(0xFFF3F4F9);
+  static const Color darkenGreyColor = Color(0xFFC2BDBD);
+  static const Color extraDarkenGreyColor = Color(0xFF5D577E);
 
   static const Color primaryTextColor = Colors.black;
   static const Color secondaryTextColor = Color(0xFFFFA451);
