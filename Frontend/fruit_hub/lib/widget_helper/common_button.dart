@@ -14,6 +14,7 @@ class CommonButton extends StatelessWidget {
       onTap: onTap,
       child: Container(
         width: double.maxFinite,
+        height: 60,
         decoration: BoxDecoration(
           color: MyColor.primaryColor,
           borderRadius: BorderRadius.circular(10),

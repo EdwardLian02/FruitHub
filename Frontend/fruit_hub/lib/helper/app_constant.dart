@@ -12,6 +12,10 @@ class MyColor {
   static const Color primaryTextColor = Colors.black;
   static const Color secondaryTextColor = Color(0xFFFFA451);
   static const Color whiteTextColor = Colors.white;
+
+  static const Color pinkBackgroundColor = Color(0xFFFEF0F0);
+  static const Color blueBackgroundColor = Color(0xFFF1EFF6);
+  static const Color yelloBackgroundColor = Color(0xFFFFFAEB);
 }
 
 class FontTheme {

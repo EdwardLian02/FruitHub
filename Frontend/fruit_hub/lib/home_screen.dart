@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fruit_hub/helper/app_constant.dart';
 import 'package:fruit_hub/widget_helper/common_searchbar.dart';
 import 'package:fruit_hub/widget_helper/menu_card.dart';
+import 'package:get/get.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -9,7 +10,9 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: MyColor.whiteTextColor,
       appBar: AppBar(
+        backgroundColor: Colors.white,
         leading: IconButton(
           onPressed: () {},
           icon: Image.asset(
@@ -20,7 +23,9 @@ class HomeScreen extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Get.toNamed('/basket');
+            },
             icon: Icon(
               Icons.shopping_basket,
               color: MyColor.primaryColor,
@@ -69,8 +74,10 @@ class HomeScreen extends StatelessWidget {
                   ),
                   SizedBox(width: 20),
                   IconButton(
-                      onPressed: () {},
-                      icon: Image.asset('assets/images/icon/filter.png')),
+                    onPressed: () {},
+                    icon: Image.asset('assets/images/icon/filter.png'),
+                    color: MyColor.primaryColor,
+                  ),
                 ],
               ),
 
@@ -83,14 +90,19 @@ class HomeScreen extends StatelessWidget {
               SizedBox(height: 15),
 
               SizedBox(
-                height: 250,
+                height: 240,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: 4,
                   itemBuilder: (context, index) {
                     return Padding(
                       padding: EdgeInsets.only(right: 10),
-                      child: MenuCard(),
+                      child: GestureDetector(
+                        onTap: () {
+                          Get.toNamed('/detail');
+                        },
+                        child: MenuCard(),
+                      ),
                     );
                   },
                 ),
@@ -132,7 +144,7 @@ class HomeScreen extends StatelessWidget {
               ),
               SizedBox(height: 15),
               SizedBox(
-                height: 250,
+                height: 240,
                 child: TabBarView(children: [
                   ListView.builder(
                     scrollDirection: Axis.horizontal,

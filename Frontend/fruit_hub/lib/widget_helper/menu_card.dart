@@ -10,7 +10,7 @@ class MenuCard extends StatelessWidget {
       width: 180,
       child: Card(
         color: MyColor.whiteTextColor,
-        elevation: 0,
+        elevation: 0.8,
         child: Stack(
           children: [
             Padding(
@@ -36,11 +36,21 @@ class MenuCard extends StatelessWidget {
                     direction: Axis.horizontal,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        '10,000MMK',
-                        style: TextStyle(
-                          fontSize: FontTheme.textSizeSmall,
-                        ),
+                      RichText(
+                        text: TextSpan(
+                            text: "10,000",
+                            style: TextStyle(
+                              fontSize: FontTheme.textSizeSmall,
+                              color: MyColor.primaryColor,
+                            ),
+                            children: <TextSpan>[
+                              TextSpan(
+                                text: ' MMK',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              )
+                            ]),
                       ),
                       Container(
                         decoration: BoxDecoration(
