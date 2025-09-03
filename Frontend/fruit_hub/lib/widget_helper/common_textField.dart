@@ -10,9 +10,13 @@ class CommonTextfield extends StatelessWidget {
     return TextFormField(
       decoration: InputDecoration(
         filled: true,
-        fillColor: MyColor.lowGreyColor,
-        border: InputBorder.none,
+        fillColor: MyColor.textFieldFillColor,
+        border: OutlineInputBorder(
+          borderSide: BorderSide.none,
+          borderRadius: BorderRadius.circular(10),
+        ),
         hintText: hintText,
+        contentPadding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
       ),
     );
   }

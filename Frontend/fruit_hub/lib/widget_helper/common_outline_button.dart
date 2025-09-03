@@ -1,0 +1,38 @@
+import 'package:flutter/material.dart';
+import 'package:fruit_hub/helper/app_constant.dart';
+
+class CommonOutlineButton extends StatelessWidget {
+  final String name;
+  final void Function()? onTap;
+  const CommonOutlineButton({super.key, required this.name, this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        height: 60,
+        decoration: BoxDecoration(
+          color: Colors.transparent,
+          border: Border.all(
+            style: BorderStyle.solid,
+            color: MyColor.primaryColor,
+          ),
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 20),
+          child: Center(
+              child: Text(
+            name,
+            style: TextStyle(
+              color: MyColor.primaryColor,
+              fontSize: FontTheme.textSizeNormal,
+              fontWeight: FontWeight.w300,
+            ),
+          )),
+        ),
+      ),
+    );
+  }
+}

@@ -5,13 +5,18 @@ class MyColor {
   static const Color primaryColor = Color(0xFFFFA451);
   static const Color lowOrangeColor = Color(0xFFFFF2E7);
 
-  static const Color lowGreyColor = Color(0xFFF3F4F9);
+  static const Color lowGreyColor = Color(0xFFF3F1F1);
   static const Color darkenGreyColor = Color(0xFFC2BDBD);
   static const Color extraDarkenGreyColor = Color(0xFF5D577E);
+
+  static const Color textFieldFillColor = Color.fromARGB(223, 229, 226, 226);
 
   static const Color primaryTextColor = Colors.black;
   static const Color secondaryTextColor = Color(0xFFFFA451);
   static const Color whiteTextColor = Colors.white;
+
+  static const Color successGreen = Color(0xFF4CD964);
+  static const Color lowGreen = Color(0xFFE0FFE5);
 
   static const Color pinkBackgroundColor = Color(0xFFFEF0F0);
   static const Color blueBackgroundColor = Color(0xFFF1EFF6);
