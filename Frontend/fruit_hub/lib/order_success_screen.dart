@@ -82,7 +82,13 @@ class OrderSuccessScreen extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(top: 50.0),
               child: SizedBox(
-                  width: 150, child: CommonButton(name: 'Track order')),
+                  width: 150,
+                  child: CommonButton(
+                    name: 'Track order',
+                    onTap: () {
+                      Get.toNamed('/order-track');
+                    },
+                  )),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 50.0),

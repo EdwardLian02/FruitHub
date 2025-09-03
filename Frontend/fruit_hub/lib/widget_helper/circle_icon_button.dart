@@ -29,7 +29,7 @@ class CircleIconButton extends StatelessWidget {
           border: Border.all(
             style: haveBorder ? BorderStyle.solid : BorderStyle.none,
           ),
-          color: MyColor.lowOrangeColor,
+          color: buttonColor,
         ),
         child: icon,
       ),
