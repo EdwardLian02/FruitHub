@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: '/order-success',
+      initialRoute: '/',
       theme: ThemeData(
         textTheme: GoogleFonts.robotoTextTheme(
           Theme.of(context)

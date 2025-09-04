@@ -31,7 +31,7 @@ class DetailScreen extends StatelessWidget {
                   width: 10.0,
                   height: 10.0,
                 ),
-                buttonColor: MyColor.primaryColor,
+                buttonColor: MyColor.lowOrangeColor,
               ),
             ),
             Expanded(
