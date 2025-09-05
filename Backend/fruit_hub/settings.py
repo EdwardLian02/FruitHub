@@ -41,8 +41,10 @@ INSTALLED_APPS = [
 
     #library
     'rest_framework', 
+    'rest_framework.authtoken', 
 
     #application
+    'authentication',
     'order', 
     'menu', 
     'favorites', 
@@ -88,6 +90,13 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
+}
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+
 }
 
 

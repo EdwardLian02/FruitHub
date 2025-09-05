@@ -6,14 +6,11 @@ from core.models import BaseModel
 
 
 class Category(BaseModel): 
-    CATEGORY_CHOICES = [
-        ('Fruits', 'Fruits'), 
-        ('Salad', 'Salad'),
-        ('Juice & Smoothies', 'Juice & Smoothies'), 
-        ('Combo pack', 'Combo pack')
-    ]
+    name = models.CharField(max_length=255)
 
-    name = models.CharField(max_length=255, choices=CATEGORY_CHOICES)
+    def __str__(self):
+        return self.name
+    
 
 class Menu(BaseModel): 
     category = models.ForeignKey(Category, on_delete= models.CASCADE, related_name='category_set')
@@ -21,3 +18,6 @@ class Menu(BaseModel):
     description = models.TextField()
     price = models.DecimalField(max_digits=10, decimal_places=2)
     imageUrl = models.ImageField(upload_to='menu/', blank=False, null=False)
+
+    def __str__(self):
+        return self.name
