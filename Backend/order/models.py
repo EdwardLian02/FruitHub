@@ -1,6 +1,6 @@
 from django.db import models
 from core.models import BaseModel
-from django.contrib.auth.models import User
+from user.models import User
 
 from menu.models import Menu
 
@@ -14,8 +14,8 @@ class Order(BaseModel):
         ('C', 'Confirm'), 
     ]
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_set'), 
-    status = models.CharField(max_length=5, choices=STATUS_CHOICE, default='P'), 
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_set')
+    status = models.CharField(max_length=5, choices=STATUS_CHOICE, default='P')
     
     @property
     def total_price(self): 
