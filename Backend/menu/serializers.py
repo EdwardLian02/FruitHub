@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import Menu, Category
 
+
 class CategorySerializer(serializers.ModelSerializer): 
     class Meta: 
         model = Category
@@ -8,10 +9,11 @@ class CategorySerializer(serializers.ModelSerializer):
             'name',
         )
 
-class MenuSerailzier(serializers.ModelSerializer): 
+class MenuSerailzier(serializers.ModelSerializer):
     class Meta: 
         model = Menu
         fields = [
+            'id',
             'name', 
             'description',
             'price',

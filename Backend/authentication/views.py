@@ -52,26 +52,26 @@ class LoginAPIView(APIView):
 class SignUpAPIView(APIView): 
     
     def post(self, request, format=None): 
-        print('in post method')
+        # Get data thru serializer
         serializer = SignUpSerializer(data=request.data)
-        print('After getting serializer')
+
+        #check if serializer data is valid
         if serializer.is_valid(): 
-            print('serializer is valid')
+
             email = serializer.validated_data['email']
             password = serializer.validated_data['password']
 
-            print(email)
-            print(password)
-            print(User.objects.filter(email=email).exists())
-            print("filter user")
+        
+            # 1. check the email has already exist or not
             if User.objects.filter(email=email).exists(): 
                 print('Filter true')
                 return Response({
                     'detail': 'Your email has already registered with another account' },   status = status.HTTP_400_BAD_REQUEST)
 
-            print('before creating user')
+            # 2. create user
             user = User.objects.create_user(email=email, password= password)
-            print('After creating user')
+
+        
             return Response({"detail": "User created successfully"}, status=status.HTTP_201_CREATED)
         
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
