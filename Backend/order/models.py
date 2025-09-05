@@ -1,7 +1,6 @@
 from django.db import models
 from core.models import BaseModel
 from user.models import User
-
 from menu.models import Menu
 
 

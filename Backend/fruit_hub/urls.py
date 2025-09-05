@@ -8,6 +8,7 @@ urlpatterns = [
     path('auth/', include('authentication.urls')),
     path('api/menu/', include('menu.urls')),
     path('api/order/', include('order.urls')),
+    path('api/favorite/', include('favorites.urls')),
 ] 
 
 if settings.DEBUG:

@@ -8,3 +8,6 @@ from menu.models import Menu
 class Favorite(BaseModel): 
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_fav')
     menu = models.ForeignKey(Menu, on_delete=models.CASCADE, related_name='fav_menu')
+
+    class Meta: 
+        unique_together = ('user', 'menu')
