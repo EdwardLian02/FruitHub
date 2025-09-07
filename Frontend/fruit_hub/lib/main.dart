@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fruit_hub/auth_screen.dart';
 import 'package:fruit_hub/basket_screen.dart';
+import 'package:fruit_hub/controller/authentication_controller.dart';
 import 'package:fruit_hub/detail_screen.dart';
 import 'package:fruit_hub/home_screen.dart';
 import 'package:fruit_hub/login_screen.dart';
@@ -9,7 +10,7 @@ import 'package:fruit_hub/register_screen.dart';
 import 'package:fruit_hub/splash_screen.dart';
 import 'package:fruit_hub/splash_screen2.dart';
 import 'package:fruit_hub/order_success_screen.dart';
-import 'package:get/route_manager.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 void main() {

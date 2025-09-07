@@ -13,6 +13,7 @@ class AuthScreen extends StatelessWidget {
     return Scaffold(
       body: Obx(
         () {
+          print("check isLogin status");
           if (authController.isLogin.value) {
             return HomeScreen();
           } else {

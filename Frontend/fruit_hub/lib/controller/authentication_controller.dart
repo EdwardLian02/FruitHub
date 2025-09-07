@@ -17,8 +17,6 @@ class AuthenticationController extends GetxController {
   Future<void> checkIsLogin() async {
     final token = await secureStorage.readData("token");
     isLogin.value = (token == null) ? false : true;
-    print(token);
-    print(isLogin.value);
   }
 
   Future<void> loginUser(String email, String password) async {
@@ -36,7 +34,7 @@ class AuthenticationController extends GetxController {
             'userId', response.body['user_id'].toString());
         await secureStorage.writeData('userEmail', response.body['email']);
         isLogin(true);
-        // Get.offNamed('/home');
+        Get.offNamed('/home');
       } else {
         errorMessage(response.body['detail']);
       }
@@ -50,7 +48,7 @@ class AuthenticationController extends GetxController {
 
   Future<void> logoutUser() async {
     await secureStorage.deleteAllData();
-    checkIsLogin();
+    Get.offNamed('/login');
   }
 
   @override
