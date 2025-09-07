@@ -5,21 +5,26 @@ import 'package:fruit_hub/detail_screen.dart';
 import 'package:fruit_hub/helper/app_constant.dart';
 import 'package:fruit_hub/widget_helper/common_searchbar.dart';
 import 'package:fruit_hub/widget_helper/menu_card.dart';
+import 'package:fruit_hub/widget_helper/my_drawer.dart';
 import 'package:get/get.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     final authController = Get.put(AuthenticationController());
     final menuRelatedController = Get.put(MenuRelatedController());
     return Scaffold(
+      key: _scaffoldKey,
       backgroundColor: MyColor.whiteTextColor,
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            _scaffoldKey.currentState?.openDrawer();
+          },
           icon: Image.asset(
             'assets/images/icon/drawer.png',
             width: 18,
@@ -48,7 +53,7 @@ class HomeScreen extends StatelessWidget {
               )),
         ],
       ),
-      drawer: Drawer(),
+      drawer: MyDrawer(),
       body: DefaultTabController(
         length: 4,
         child: Padding(
