@@ -7,8 +7,9 @@ import 'package:get/get.dart';
 class AuthenticationController extends GetxController {
   final _authController = Get.put(ApiController());
   final secureStorage = SecureStorageService();
-  final emailTextController = TextEditingController();
-  final passwordTextController = TextEditingController();
+  late final TextEditingController emailTextController;
+  late final TextEditingController passwordTextController;
+  late final TextEditingController confirmPasswordTextController;
 
   var isLogin = false.obs;
   var errorMessage = "".obs;
@@ -46,15 +47,50 @@ class AuthenticationController extends GetxController {
     }
   }
 
+  Future<void> signupUser(String email, String password) async {
+    final authModel =
+        AuthModel.fromJson({'email': email, 'password': password});
+
+    isLoading(true);
+    errorMessage.value = "";
+
+    try {
+      final response = await _authController.register(authModel);
+      print(response.body);
+      if (response.isOk) {
+        Get.offNamed('/login');
+      } else {
+        errorMessage(response.body['detail']);
+      }
+    } catch (e) {
+      print(e.toString());
+      errorMessage("Connection error");
+    } finally {
+      isLoading(false);
+    }
+  }
+
   Future<void> logoutUser() async {
     await secureStorage.deleteAllData();
+    isLogin(false);
     Get.offNamed('/login');
   }
 
   @override
   void onInit() {
     super.onInit();
-
+    emailTextController = TextEditingController();
+    passwordTextController = TextEditingController();
+    confirmPasswordTextController = TextEditingController();
     checkIsLogin();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    emailTextController.dispose();
+    passwordTextController.dispose();
+    confirmPasswordTextController.dispose();
   }
 }

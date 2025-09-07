@@ -48,5 +48,5 @@ class ApiController extends GetConnect {
       post('auth/user/login/', model.toJson());
 
   Future<Response> register(AuthModel model) async =>
-      post('auth/user/register/', model.toJson());
+      post('auth/user/signup/', model.toJson());
 }

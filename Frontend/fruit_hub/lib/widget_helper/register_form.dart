@@ -6,13 +6,13 @@ import 'package:fruit_hub/widget_helper/common_button.dart';
 import 'package:fruit_hub/widget_helper/common_textField.dart';
 import 'package:get/get.dart';
 
-class Loginform extends StatelessWidget {
+class RegisterForm extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
-  Loginform({super.key});
+  RegisterForm({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final authController = Get.find<AuthenticationController>();
+    final authController = Get.put(AuthenticationController());
     return Form(
       key: _formKey,
       child: Obx(() => authController.isLoading.value
@@ -57,6 +57,21 @@ class Loginform extends StatelessWidget {
                   },
                 ),
                 SizedBox(height: 10),
+                CommonTextfield(
+                  hintText: "Confirm password",
+                  controller: authController.confirmPasswordTextController,
+                  validator: (value) {
+                    if (value == null || value == "") {
+                      return "* This fields is required!";
+                    }
+
+                    if (value != authController.passwordTextController.text) {
+                      return "Confirm password need to be exact match with the password";
+                    }
+                    return null;
+                  },
+                ),
+                SizedBox(height: 10),
                 Obx(() {
                   if (authController.errorMessage.isEmpty) {
                     return const SizedBox.shrink(); // nothing if no error
@@ -67,10 +82,10 @@ class Loginform extends StatelessWidget {
                   );
                 }),
                 CommonButton(
-                  name: 'Start Ordering',
+                  name: 'Be your Vegy',
                   onTap: () async {
                     if (_formKey.currentState!.validate()) {
-                      await authController.loginUser(
+                      await authController.signupUser(
                           authController.emailTextController.text,
                           authController.passwordTextController.text);
                     }
@@ -79,19 +94,19 @@ class Loginform extends StatelessWidget {
                 SizedBox(height: 10),
                 RichText(
                   text: TextSpan(
-                      text: "New Vegetarian?",
+                      text: "Already a Vegetarian? ",
                       style: TextStyle(
                         fontSize: FontTheme.textSizeNormal,
                         color: MyColor.darkenGreyColor,
                       ),
                       children: [
                         TextSpan(
-                          text: ' Count me in!',
+                          text: 'Go back',
                           style: TextStyle(
                             color: MyColor.primaryColor,
                           ),
                           recognizer: TapGestureRecognizer()
-                            ..onTap = () => Get.offNamed('/register'),
+                            ..onTap = () => Get.offNamed('/login'),
                         ),
                       ]),
                 ),
