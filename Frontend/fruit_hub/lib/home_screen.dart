@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fruit_hub/controller/authentication_controller.dart';
 import 'package:fruit_hub/helper/app_constant.dart';
 import 'package:fruit_hub/widget_helper/common_searchbar.dart';
 import 'package:fruit_hub/widget_helper/menu_card.dart';
@@ -9,6 +10,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final authController = Get.put(AuthenticationController());
     return Scaffold(
       backgroundColor: MyColor.whiteTextColor,
       appBar: AppBar(
@@ -32,6 +34,15 @@ class HomeScreen extends StatelessWidget {
               size: 25,
             ),
           ),
+          IconButton(
+              onPressed: () {
+                authController.logoutUser();
+              },
+              icon: Icon(
+                Icons.logout,
+                size: 25,
+                color: Colors.red,
+              )),
         ],
       ),
       drawer: Drawer(),

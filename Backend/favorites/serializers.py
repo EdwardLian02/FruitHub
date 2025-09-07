@@ -14,8 +14,7 @@ class CreateFavouriteSerializer(serializers.ModelSerializer):
             'user': {'read_only': True}
         }
 
-
-    # To validate the user does't create same fav menu twice
+    # To validate that user does't create same fav menu twice
     def validate(self, attrs):
         request = self.context.get('request')
         print('in validate function ')

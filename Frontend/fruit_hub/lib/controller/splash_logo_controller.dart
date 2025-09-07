@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 class SplashLogoController extends GetxController {
   var opacity = 0.0.obs;
   var scale = 0.8.obs;
+
   @override
   void onInit() {
     super.onInit();
@@ -12,7 +13,7 @@ class SplashLogoController extends GetxController {
     });
 
     Future.delayed(Duration(seconds: 2), () {
-      Get.offNamed('/splash2');
+      Get.offNamed('/auth');
     });
   }
 }

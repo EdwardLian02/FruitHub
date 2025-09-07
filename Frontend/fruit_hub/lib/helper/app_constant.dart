@@ -37,4 +37,6 @@ class FontTheme {
   static const double textSizeSmall = 14;
 }
 
-class BaseUrl {}
+class BaseUrl {
+  static const String baseUrl = "http://127.0.0.1:8000/";
+}

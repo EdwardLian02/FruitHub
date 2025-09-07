@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fruit_hub/auth_screen.dart';
 import 'package:fruit_hub/basket_screen.dart';
 import 'package:fruit_hub/detail_screen.dart';
 import 'package:fruit_hub/home_screen.dart';
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
       getPages: [
         GetPage(name: '/', page: () => SplashScreen()),
         GetPage(name: '/splash2', page: () => SplashScreen2()),
+        GetPage(name: '/auth', page: () => AuthScreen()),
         GetPage(name: '/login', page: () => LoginScreen()),
         GetPage(name: '/register', page: () => RegisterScreen()),
         GetPage(name: '/home', page: () => HomeScreen()),

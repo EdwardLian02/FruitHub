@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:fruit_hub/apiService/api_controller.dart';
+import 'package:fruit_hub/controller/authentication_controller.dart';
 import 'package:fruit_hub/helper/app_constant.dart';
 import 'package:fruit_hub/widget_helper/login_form.dart';
+import 'package:get/get.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
 
-  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
+    final authController = Get.put(AuthenticationController());
     return Scaffold(
       body: Column(
         children: [
@@ -38,7 +41,9 @@ class LoginScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(height: 60),
-                  Loginform(formKey: _formKey),
+                  Loginform(
+                    authController: authController,
+                  ),
                 ],
               ),
             ),
