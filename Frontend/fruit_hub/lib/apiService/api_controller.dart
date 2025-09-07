@@ -49,4 +49,13 @@ class ApiController extends GetConnect {
 
   Future<Response> register(AuthModel model) async =>
       post('auth/user/signup/', model.toJson());
+
+  Future<Response> fetchMenu(String token) async => await get('menu', headers: {
+        'Authorization': 'token $token',
+      });
+
+  Future<Response> fetchMenuDetail(String menuId, String token) async =>
+      await get('menu/$menuId', headers: {
+        'Authorization': 'token $token',
+      });
 }

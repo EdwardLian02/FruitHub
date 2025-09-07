@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fruit_hub/controller/authentication_controller.dart';
+import 'package:fruit_hub/controller/menu_controller.dart';
+import 'package:fruit_hub/detail_screen.dart';
 import 'package:fruit_hub/helper/app_constant.dart';
 import 'package:fruit_hub/widget_helper/common_searchbar.dart';
 import 'package:fruit_hub/widget_helper/menu_card.dart';
@@ -11,6 +13,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final authController = Get.put(AuthenticationController());
+    final menuRelatedController = Get.put(MenuRelatedController());
     return Scaffold(
       backgroundColor: MyColor.whiteTextColor,
       appBar: AppBar(
@@ -100,22 +103,31 @@ class HomeScreen extends StatelessWidget {
               ),
               SizedBox(height: 15),
 
-              SizedBox(
-                height: 240,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: 4,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: EdgeInsets.only(right: 10),
-                      child: GestureDetector(
-                        onTap: () {
-                          Get.toNamed('/detail');
-                        },
-                        child: MenuCard(),
-                      ),
-                    );
-                  },
+              Obx(
+                () => SizedBox(
+                  height: 240,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: menuRelatedController.menuList.length,
+                    itemBuilder: (context, index) {
+                      final menu = menuRelatedController.menuList[index];
+                      return Padding(
+                        padding: EdgeInsets.only(right: 10),
+                        child: GestureDetector(
+                          onTap: () {
+                            Get.to(() => DetailScreen(
+                                  menuModel: menu,
+                                ));
+                          },
+                          child: MenuCard(
+                            imageUrl: menu.imageUrl,
+                            name: menu.name,
+                            price: menu.price.toString(),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
                 ),
               ),
 
@@ -154,51 +166,51 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 15),
-              SizedBox(
-                height: 240,
-                child: TabBarView(children: [
-                  ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: 4,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: EdgeInsets.only(right: 10),
-                        child: MenuCard(),
-                      );
-                    },
-                  ),
-                  ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: 4,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: EdgeInsets.only(right: 10),
-                        child: MenuCard(),
-                      );
-                    },
-                  ),
-                  ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: 4,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: EdgeInsets.only(right: 10),
-                        child: MenuCard(),
-                      );
-                    },
-                  ),
-                  ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: 4,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: EdgeInsets.only(right: 10),
-                        child: MenuCard(),
-                      );
-                    },
-                  ),
-                ]),
-              )
+              // SizedBox(
+              //   height: 240,
+              //   child: TabBarView(children: [
+              //     ListView.builder(
+              //       scrollDirection: Axis.horizontal,
+              //       itemCount: 4,
+              //       itemBuilder: (context, index) {
+              //         return Padding(
+              //           padding: EdgeInsets.only(right: 10),
+              //           child: MenuCard(),
+              //         );
+              //       },
+              //     ),
+              //     ListView.builder(
+              //       scrollDirection: Axis.horizontal,
+              //       itemCount: 4,
+              //       itemBuilder: (context, index) {
+              //         return Padding(
+              //           padding: EdgeInsets.only(right: 10),
+              //           child: MenuCard(),
+              //         );
+              //       },
+              //     ),
+              //     ListView.builder(
+              //       scrollDirection: Axis.horizontal,
+              //       itemCount: 4,
+              //       itemBuilder: (context, index) {
+              //         return Padding(
+              //           padding: EdgeInsets.only(right: 10),
+              //           child: MenuCard(),
+              //         );
+              //       },
+              //     ),
+              //     ListView.builder(
+              //       scrollDirection: Axis.horizontal,
+              //       itemCount: 4,
+              //       itemBuilder: (context, index) {
+              //         return Padding(
+              //           padding: EdgeInsets.only(right: 10),
+              //           child: MenuCard(),
+              //         );
+              //       },
+              //     ),
+              //   ]),
+              // )
             ],
           ),
         ),

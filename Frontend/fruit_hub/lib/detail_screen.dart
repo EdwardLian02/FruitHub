@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:fruit_hub/controller/basket_controller.dart';
 import 'package:fruit_hub/helper/app_constant.dart';
+import 'package:fruit_hub/model/menu_model.dart';
 import 'package:fruit_hub/widget_helper/circle_icon_button.dart';
 import 'package:fruit_hub/widget_helper/common_button.dart';
 import 'package:get/get.dart';
 
 class DetailScreen extends StatelessWidget {
-  const DetailScreen({super.key});
+  final MenuModel menuModel;
+  const DetailScreen({super.key, required this.menuModel});
 
   @override
   Widget build(BuildContext context) {
+    final basketController = Get.put(BasketController());
     return Scaffold(
       appBar: AppBar(
         backgroundColor: MyColor.primaryColor,
@@ -59,9 +63,7 @@ class DetailScreen extends StatelessWidget {
                 ),
                 Positioned(
                   child: Center(
-                    child: Image.asset(
-                      'assets/images/breakfast-quinoa-and-red-fruit-salad.png',
-                    ),
+                    child: Image.network(menuModel.imageUrl),
                   ),
                 ),
                 Positioned(
@@ -86,7 +88,7 @@ class DetailScreen extends StatelessWidget {
                 children: [
                   //Name
                   Text(
-                    'Quinoa Fruit Salad',
+                    menuModel.name,
                     style: TextStyle(
                       fontSize: FontTheme.textSizeExtraLarge,
                       fontWeight: FontWeight.w500,
@@ -99,53 +101,60 @@ class DetailScreen extends StatelessWidget {
                     direction: Axis.horizontal,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Row(
-                        children: [
-                          GestureDetector(
-                            onTap: () {},
-                            child: Container(
-                              width: 30,
-                              height: 30,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(50),
-                                border: Border.all(
-                                  style: BorderStyle.solid,
+                      Obx(
+                        () => Row(
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                basketController.decreaseCounter();
+                              },
+                              child: Container(
+                                width: 30,
+                                height: 30,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(50),
+                                  border: Border.all(
+                                    style: BorderStyle.solid,
+                                  ),
+                                ),
+                                child: Icon(Icons.remove),
+                              ),
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 20),
+                              child: Text(
+                                basketController.menuBasketCount.toString(),
+                                style: TextStyle(
+                                  fontSize: FontTheme.textSizeLarge,
                                 ),
                               ),
-                              child: Icon(Icons.remove),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 20),
-                            child: Text(
-                              '1',
-                              style: TextStyle(
-                                fontSize: FontTheme.textSizeLarge,
-                              ),
-                            ),
-                          ),
-                          GestureDetector(
-                            onTap: () {},
-                            child: Container(
-                              width: 30,
-                              height: 30,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(50),
-                                border: Border.all(
-                                  style: BorderStyle.none,
+                            GestureDetector(
+                              onTap: () {
+                                basketController.increaseCounter();
+                              },
+                              child: Container(
+                                width: 30,
+                                height: 30,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(50),
+                                  border: Border.all(
+                                    style: BorderStyle.none,
+                                  ),
+                                  color: MyColor.lowOrangeColor,
                                 ),
-                                color: MyColor.lowOrangeColor,
-                              ),
-                              child: Icon(
-                                Icons.add,
-                                color: MyColor.primaryColor,
+                                child: Icon(
+                                  Icons.add,
+                                  color: MyColor.primaryColor,
+                                ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                       Text(
-                        '10,000 MMk',
+                        '${menuModel.price} MMk',
                         style: TextStyle(
                           fontSize: FontTheme.textSizeLarge,
                         ),
@@ -170,7 +179,7 @@ class DetailScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 20),
                   Text(
-                    'Red Quinoa, Lime, Honey, Blueberries, Strawberries, Mango, Fresh mint.',
+                    menuModel.description,
                     style: TextStyle(
                       fontSize: FontTheme.textSizeNormal,
                     ),
