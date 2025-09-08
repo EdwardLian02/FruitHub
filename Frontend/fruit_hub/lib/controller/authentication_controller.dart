@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:fruit_hub/apiService/api_controller.dart';
+import 'package:fruit_hub/controller/basket_controller.dart';
 import 'package:fruit_hub/model/auth_model.dart';
 import 'package:fruit_hub/services/secure_storage_service.dart';
 import 'package:get/get.dart';
 
 class AuthenticationController extends GetxController {
   final _authController = Get.put(ApiController());
+  final _basketController = Get.find<BasketController>();
   final secureStorage = SecureStorageService();
   late final TextEditingController emailTextController;
   late final TextEditingController passwordTextController;
@@ -73,6 +75,7 @@ class AuthenticationController extends GetxController {
 
   Future<void> logoutUser() async {
     await secureStorage.deleteAllData();
+    _basketController.clearBasket();
     isLogin(false);
 
     Get.offNamed('/login');

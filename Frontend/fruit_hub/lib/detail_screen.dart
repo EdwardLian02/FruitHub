@@ -10,7 +10,8 @@ import 'package:get/get.dart';
 
 class DetailScreen extends StatelessWidget {
   final MenuModel menuModel;
-  const DetailScreen({super.key, required this.menuModel});
+  final int? qty;
+  const DetailScreen({super.key, required this.menuModel, this.qty});
 
   @override
   Widget build(BuildContext context) {
@@ -41,19 +42,26 @@ class DetailScreen extends StatelessWidget {
               ),
             ),
             Expanded(
-              child: CommonButton(
-                name: 'Add to Basket',
-                onTap: () {
-                  final qty = basketController.menuBasketCount.value;
-                  basketController.addToBasket({
-                    'menu': menuModel,
-                    'qty': qty,
-                  });
+              child: Obx(
+                () => menuModel.isInBasket.value
+                    ? CommonButton(
+                        name: 'Already in basket',
+                        onTap: () {
+                          Get.toNamed('/basket');
+                        },
+                      )
+                    : CommonButton(
+                        name: 'Add to Basket',
+                        onTap: () {
+                          final qty = basketController.menuBasketCount.value;
+                          basketController.addToBasket({
+                            'menu': menuModel,
+                            'qty': qty,
+                          });
 
-                  MessengerHelper.showGreenCheckToast(context);
-
-                  Get.toNamed('/basket');
-                },
+                          MessengerHelper.showGreenCheckToast(context);
+                        },
+                      ),
               ),
             ),
           ],

@@ -3,7 +3,7 @@ from rest_framework.routers import DefaultRouter
 from . import views
 
 router = DefaultRouter()
-router.register(r'order_api', viewset=views.CreateOrderViewSet),
+router.register(r'', viewset=views.CreateOrderViewSet),
 
 urlpatterns = [
     path('', include(router.urls)),    

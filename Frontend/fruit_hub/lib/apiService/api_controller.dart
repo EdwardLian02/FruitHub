@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
 import 'package:fruit_hub/helper/app_constant.dart';
 import 'package:fruit_hub/model/auth_model.dart';
@@ -58,4 +60,15 @@ class ApiController extends GetConnect {
       await get('menu/$menuId', headers: {
         'Authorization': 'token $token',
       });
+
+  Future<Response> createOrder(
+      List<Map<String, dynamic>> orderItems, String token) async {
+    final postData = [];
+    for (var item in orderItems) {
+      postData.add({'menu': item['menu'].id, 'qty': item['qty']});
+    }
+
+    return await post('order', jsonEncode({"items": postData}),
+        headers: {'Authorization': 'token $token'});
+  }
 }

@@ -1,3 +1,5 @@
+import 'package:get/get.dart';
+
 class MenuModel {
   final String id;
   final String name;
@@ -5,6 +7,7 @@ class MenuModel {
   final double price;
   final String imageUrl;
   final String category;
+  RxBool isInBasket;
 
   MenuModel({
     required this.id,
@@ -13,7 +16,8 @@ class MenuModel {
     required this.price,
     required this.imageUrl,
     required this.category,
-  });
+    bool isInBasket = false,
+  }) : isInBasket = isInBasket.obs;
 
   factory MenuModel.fromJson(Map<String, dynamic> json) {
     return MenuModel(

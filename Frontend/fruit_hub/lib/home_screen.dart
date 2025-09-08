@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fruit_hub/controller/authentication_controller.dart';
+import 'package:fruit_hub/controller/basket_controller.dart';
 import 'package:fruit_hub/controller/menu_controller.dart';
 import 'package:fruit_hub/detail_screen.dart';
 import 'package:fruit_hub/helper/app_constant.dart';
@@ -16,6 +17,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final authController = Get.put(AuthenticationController());
     final menuRelatedController = Get.put(MenuRelatedController());
+    final basketController = Get.find<BasketController>();
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: MyColor.whiteTextColor,
@@ -120,14 +122,14 @@ class HomeScreen extends StatelessWidget {
                         padding: EdgeInsets.only(right: 10),
                         child: GestureDetector(
                           onTap: () {
+                            basketController.clearCounter();
+
                             Get.to(() => DetailScreen(
                                   menuModel: menu,
                                 ));
                           },
                           child: MenuCard(
-                            imageUrl: menu.imageUrl,
-                            name: menu.name,
-                            price: menu.price.toString(),
+                            menuModel: menu,
                           ),
                         ),
                       );

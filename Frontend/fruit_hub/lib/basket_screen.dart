@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:fruit_hub/controller/basket_controller.dart';
+import 'package:fruit_hub/controller/order_controller.dart';
 import 'package:fruit_hub/helper/app_constant.dart';
 import 'package:fruit_hub/widget_helper/basket_order_tile.dart';
 import 'package:fruit_hub/widget_helper/common_button.dart';
@@ -14,6 +15,7 @@ class BasketScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final basketController = Get.find<BasketController>();
+    final orderController = Get.put(OrderController());
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -34,16 +36,21 @@ class BasketScreen extends StatelessWidget {
             Expanded(
               flex: 1,
               child: SizedBox(
-                height: 50,
+                height: 60,
                 child: Flex(
                   direction: Axis.vertical,
                   children: [
-                    Text('Total'),
+                    Text(
+                      'Total',
+                      style: TextStyle(
+                        fontSize: FontTheme.textSizeLarge,
+                      ),
+                    ),
                     Obx(
                       () => Text(
                         '${basketController.totalPrice.value.toInt()} MMK',
                         style: TextStyle(
-                          fontSize: FontTheme.textSizeLarge,
+                          fontSize: FontTheme.textSizeNormal,
                         ),
                       ),
                     ),
@@ -61,7 +68,8 @@ class BasketScreen extends StatelessWidget {
                     context: context,
                     isDismissible: true,
                     enableDrag: false,
-                    builder: (sheetContext) => _buildSheet(sheetContext),
+                    builder: (sheetContext) =>
+                        _buildSheet(sheetContext, orderController),
                   );
                 },
               ),
@@ -90,6 +98,7 @@ class BasketScreen extends StatelessWidget {
                       SlidableAction(
                         onPressed: (context) {
                           basketController.deleteFromBasket(index);
+                          basketItem['menu'].isInBasket.value = false;
                         },
                         backgroundColor: Colors.red,
                         foregroundColor: Colors.white,
@@ -108,92 +117,111 @@ class BasketScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildSheet(BuildContext sheetContext) {
-    return Stack(
-      clipBehavior: Clip.none,
-      children: [
-        // Main sheet
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 50, horizontal: 30),
-          child: SizedBox(
-            height: 330,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  Widget _buildSheet(
+      BuildContext sheetContext, OrderController orderController) {
+    return Obx(
+      () => orderController.isLoading.value
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
+          : Stack(
+              clipBehavior: Clip.none,
               children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 10.0),
-                      child: Text(
-                        "Delivery Address",
-                        style: TextStyle(
-                          fontSize: FontTheme.textSizeLarge,
+                // Main sheet
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 50, horizontal: 30),
+                  child: SizedBox(
+                    height: 330,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 10.0),
+                              child: Text(
+                                "Delivery Address",
+                                style: TextStyle(
+                                  fontSize: FontTheme.textSizeLarge,
+                                ),
+                              ),
+                            ),
+                            CommonTextfield(
+                              hintText:
+                                  "No.579, (39)ward B, Mandalay Street, North Dagon, Yangon",
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(top: 20, bottom: 10.0),
+                              child: Text(
+                                "Number we can call",
+                                style: TextStyle(
+                                  fontSize: FontTheme.textSizeLarge,
+                                ),
+                              ),
+                            ),
+                            CommonTextfield(hintText: "09xxxxxxxx"),
+                            Obx(() {
+                              if (orderController.errorMessage.isEmpty) {
+                                return const SizedBox
+                                    .shrink(); // nothing if no error
+                              }
+                              return Text(
+                                orderController.errorMessage.value,
+                                style: const TextStyle(
+                                    color: Colors.red, fontSize: 14),
+                              );
+                            }),
+                          ],
                         ),
-                      ),
-                    ),
-                    CommonTextfield(
-                      hintText:
-                          "No.579, (39)ward B, Mandalay Street, North Dagon, Yangon",
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 20, bottom: 10.0),
-                      child: Text(
-                        "Number we can call",
-                        style: TextStyle(
-                          fontSize: FontTheme.textSizeLarge,
+                        Flex(
+                          direction: Axis.horizontal,
+                          children: [
+                            Expanded(
+                              flex: 2,
+                              child: CommonOutlineButton(
+                                name: "Pay on delivery",
+                                onTap: () async {
+                                  await orderController.createOrder();
+                                },
+                              ),
+                            ),
+                            Expanded(flex: 1, child: Container()),
+                            Expanded(
+                              flex: 2,
+                              child: CommonButton(name: "Pay with card"),
+                            ),
+                          ],
                         ),
-                      ),
+                      ],
                     ),
-                    CommonTextfield(hintText: "09xxxxxxxx"),
-                  ],
+                  ),
                 ),
-                Flex(
-                  direction: Axis.horizontal,
-                  children: [
-                    Expanded(
-                      flex: 2,
-                      child: CommonOutlineButton(
-                        name: "Pay on delivery",
-                        onTap: () {
-                          print('hi');
-                          Get.toNamed('/order-success');
-                        },
+
+                // Close button
+                Positioned(
+                  top: -60,
+                  left: 0,
+                  right: 0,
+                  child: GestureDetector(
+                    onTap: () {
+                      print('touch');
+                      Navigator.pop(sheetContext);
+                    },
+                    child: Container(
+                      padding: EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        shape: BoxShape.circle,
                       ),
+                      child: Icon(Icons.close, size: 24),
                     ),
-                    Expanded(flex: 1, child: Container()),
-                    Expanded(
-                      flex: 2,
-                      child: CommonButton(name: "Pay with card"),
-                    ),
-                  ],
+                  ),
                 ),
               ],
             ),
-          ),
-        ),
-
-        // Close button
-        Positioned(
-          top: -60,
-          left: 0,
-          right: 0,
-          child: GestureDetector(
-            onTap: () {
-              print('touch');
-              Navigator.pop(sheetContext);
-            },
-            child: Container(
-              padding: EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                shape: BoxShape.circle,
-              ),
-              child: Icon(Icons.close, size: 24),
-            ),
-          ),
-        ),
-      ],
     );
   }
 }
