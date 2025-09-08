@@ -18,6 +18,9 @@ dependencies:
   get: ^4.7.2
   logger: ^2.6.1
   flutter_secure_storage: ^9.2.4
+  flutter_slidable: ^4.0.1
+  fluttertoast: ^8.2.12
+  flutter_styled_toast: ^2.2.1
 
 dev_dependencies:
   flutter_test:

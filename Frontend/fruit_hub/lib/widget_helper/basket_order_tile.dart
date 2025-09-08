@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:fruit_hub/helper/app_constant.dart';
+import 'package:fruit_hub/model/menu_model.dart';
 
 class BasketOrderTile extends StatelessWidget {
-  const BasketOrderTile({super.key});
+  final MenuModel menuModel;
+  final int qty;
+  const BasketOrderTile(
+      {super.key, required this.qty, required this.menuModel});
 
   @override
   Widget build(BuildContext context) {
@@ -28,8 +33,8 @@ class BasketOrderTile extends StatelessWidget {
               ),
               child: Padding(
                 padding: EdgeInsets.all(15),
-                child: Image.asset(
-                  'assets/images/breakfast-quinoa-and-red-fruit-salad.png',
+                child: Image.network(
+                  menuModel.imageUrl,
                   width: 55,
                   height: 55,
                 ),
@@ -39,23 +44,26 @@ class BasketOrderTile extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  'Quinoa Fruit Salad',
-                  style: TextStyle(
-                    fontSize: FontTheme.textSizeNormal,
-                    fontWeight: FontWeight.w600,
-                    overflow: TextOverflow.ellipsis,
+                SizedBox(
+                  width: 150,
+                  child: Text(
+                    menuModel.name,
+                    style: TextStyle(
+                      fontSize: FontTheme.textSizeNormal,
+                      fontWeight: FontWeight.w600,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
                 ),
                 Text(
-                  '2 packs',
+                  'qty: $qty',
                   style: TextStyle(
                     fontSize: FontTheme.textSizeSmall,
                   ),
                 ),
               ],
             ),
-            Text('20,000 MMK'),
+            Text('${menuModel.price} MMK'),
           ],
         ),
       ),

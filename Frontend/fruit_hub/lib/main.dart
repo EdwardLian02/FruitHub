@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fruit_hub/auth_screen.dart';
 import 'package:fruit_hub/basket_screen.dart';
 import 'package:fruit_hub/controller/authentication_controller.dart';
+import 'package:fruit_hub/controller/basket_controller.dart';
 import 'package:fruit_hub/detail_screen.dart';
 import 'package:fruit_hub/home_screen.dart';
 import 'package:fruit_hub/login_screen.dart';
@@ -14,6 +15,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 void main() {
+  Get.put(BasketController(), permanent: true);
   runApp(const MyApp());
 }
 

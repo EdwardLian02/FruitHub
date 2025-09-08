@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fruit_hub/controller/basket_controller.dart';
 import 'package:fruit_hub/helper/app_constant.dart';
 import 'package:fruit_hub/model/menu_model.dart';
 import 'package:fruit_hub/widget_helper/circle_icon_button.dart';
 import 'package:fruit_hub/widget_helper/common_button.dart';
+import 'package:fruit_hub/widget_helper/messenger_helper.dart';
 import 'package:get/get.dart';
 
 class DetailScreen extends StatelessWidget {
@@ -12,7 +14,7 @@ class DetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final basketController = Get.put(BasketController());
+    final basketController = Get.find<BasketController>();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: MyColor.primaryColor,
@@ -42,6 +44,14 @@ class DetailScreen extends StatelessWidget {
               child: CommonButton(
                 name: 'Add to Basket',
                 onTap: () {
+                  final qty = basketController.menuBasketCount.value;
+                  basketController.addToBasket({
+                    'menu': menuModel,
+                    'qty': qty,
+                  });
+
+                  MessengerHelper.showGreenCheckToast(context);
+
                   Get.toNamed('/basket');
                 },
               ),

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:fruit_hub/controller/basket_controller.dart';
 import 'package:fruit_hub/helper/app_constant.dart';
 import 'package:fruit_hub/widget_helper/basket_order_tile.dart';
 import 'package:fruit_hub/widget_helper/common_button.dart';
@@ -11,6 +13,7 @@ class BasketScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final basketController = Get.find<BasketController>();
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -36,10 +39,12 @@ class BasketScreen extends StatelessWidget {
                   direction: Axis.vertical,
                   children: [
                     Text('Total'),
-                    Text(
-                      '100,000 MMK',
-                      style: TextStyle(
-                        fontSize: FontTheme.textSizeLarge,
+                    Obx(
+                      () => Text(
+                        '${basketController.totalPrice.value.toInt()} MMK',
+                        style: TextStyle(
+                          fontSize: FontTheme.textSizeLarge,
+                        ),
                       ),
                     ),
                   ],
@@ -64,11 +69,41 @@ class BasketScreen extends StatelessWidget {
           ],
         ),
       ),
-      body: Column(
-        children: [
-          BasketOrderTile(),
-          BasketOrderTile(),
-        ],
+      body: Obx(
+        () => basketController.basket.isEmpty
+            ? Center(
+                child: Text(
+                  "No menu in the basket",
+                  style: TextStyle(
+                    fontSize: FontTheme.textSizeNormal,
+                    color: MyColor.darkenGreyColor,
+                  ),
+                ),
+              )
+            : ListView.builder(
+                itemCount: basketController.basket.length,
+                itemBuilder: (context, index) {
+                  final basketItem = basketController.basket[index];
+                  return Slidable(
+                    endActionPane:
+                        ActionPane(motion: ScrollMotion(), children: [
+                      SlidableAction(
+                        onPressed: (context) {
+                          basketController.deleteFromBasket(index);
+                        },
+                        backgroundColor: Colors.red,
+                        foregroundColor: Colors.white,
+                        icon: Icons.delete,
+                        label: 'Delete',
+                      ),
+                    ]),
+                    child: BasketOrderTile(
+                      menuModel: basketItem['menu'],
+                      qty: basketItem['qty'],
+                    ),
+                  );
+                },
+              ),
       ),
     );
   }

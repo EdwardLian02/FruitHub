@@ -17,17 +17,15 @@ class MyDrawer extends StatelessWidget {
         child: ListView(
           children: [
             //Profile info display section
-            Container(
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: 150,
-                    child: Image.asset(
-                      'assets/images/buutee_profile_image.png',
-                    ),
-                  )
-                ],
-              ),
+            Column(
+              children: [
+                SizedBox(
+                  height: 150,
+                  child: Image.asset(
+                    'assets/images/buutee_profile_image.png',
+                  ),
+                )
+              ],
             ),
 
             //List tile section (List items)
