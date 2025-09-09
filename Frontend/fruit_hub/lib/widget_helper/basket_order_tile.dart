@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:fruit_hub/helper/app_constant.dart';
+import 'package:fruit_hub/model/basket_model.dart';
 import 'package:fruit_hub/model/menu_model.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 
 class BasketOrderTile extends StatelessWidget {
-  final MenuModel menuModel;
-  final int qty;
-  const BasketOrderTile(
-      {super.key, required this.qty, required this.menuModel});
+  final BasketItem basketItem;
+  const BasketOrderTile({super.key, required this.basketItem});
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +34,7 @@ class BasketOrderTile extends StatelessWidget {
               child: Padding(
                 padding: EdgeInsets.all(15),
                 child: Image.network(
-                  menuModel.imageUrl,
+                  basketItem.menu.imageUrl,
                   width: 55,
                   height: 55,
                 ),
@@ -47,7 +47,7 @@ class BasketOrderTile extends StatelessWidget {
                 SizedBox(
                   width: 150,
                   child: Text(
-                    menuModel.name,
+                    basketItem.menu.name,
                     style: TextStyle(
                       fontSize: FontTheme.textSizeNormal,
                       fontWeight: FontWeight.w600,
@@ -56,14 +56,14 @@ class BasketOrderTile extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  'qty: $qty',
+                  'qty: ${basketItem.qty}',
                   style: TextStyle(
                     fontSize: FontTheme.textSizeSmall,
                   ),
                 ),
               ],
             ),
-            Text('${menuModel.price} MMK'),
+            Text('${basketItem.menu.price} MMK'),
           ],
         ),
       ),

@@ -75,9 +75,8 @@ class DetailScreen extends StatelessWidget {
                             //Update the basket again.
                             basketController.updateBasketQty(menuModel.id);
                             MessengerHelper.showGreenCheckToast(context);
-                          } else {
-                            Get.toNamed('/basket');
                           }
+                          Get.offNamed('/basket');
                         },
                       )
                     : CommonButton(

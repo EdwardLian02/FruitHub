@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:fruit_hub/controller/basket_controller.dart';
 import 'package:fruit_hub/controller/order_controller.dart';
+import 'package:fruit_hub/detail_screen.dart';
 import 'package:fruit_hub/helper/app_constant.dart';
 import 'package:fruit_hub/widget_helper/basket_order_tile.dart';
 import 'package:fruit_hub/widget_helper/common_button.dart';
@@ -106,9 +107,13 @@ class BasketScreen extends StatelessWidget {
                         label: 'Delete',
                       ),
                     ]),
-                    child: BasketOrderTile(
-                      menuModel: basketItem.menu,
-                      qty: basketItem.qty,
+                    child: GestureDetector(
+                      onTap: () {
+                        Get.off(() => DetailScreen(menuModel: basketItem.menu));
+                      },
+                      child: BasketOrderTile(
+                        basketItem: basketItem,
+                      ),
                     ),
                   );
                 },

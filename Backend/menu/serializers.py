@@ -34,12 +34,12 @@ class MenuSerailzier(serializers.ModelSerializer):
             return False
         return Favorite.objects.filter(user=request.user, menu=obj).exists()
     
+    
     def get_favorite_id(self, obj):
         request = self.context.get('request')
         if request.user is None:
             return None
 
-        # Get the favorite object for this user and menu
         favorite = Favorite.objects.filter(user=request.user, menu=obj).first()
         
         if favorite:
