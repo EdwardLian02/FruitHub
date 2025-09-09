@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:fruit_hub/controller/authentication_controller.dart';
 import 'package:fruit_hub/helper/app_constant.dart';
 import 'package:fruit_hub/model/auth_model.dart';
+import 'package:fruit_hub/model/basket_model.dart';
 import 'package:fruit_hub/services/secure_storage_service.dart';
 import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/request/request.dart';
@@ -65,10 +66,10 @@ class ApiController extends GetConnect {
       });
 
   Future<Response> createOrder(
-      List<Map<String, dynamic>> orderItems, String token) async {
+      List<BasketItem> orderItems, String token) async {
     final postData = [];
     for (var item in orderItems) {
-      postData.add({'menu': item['menu'].id, 'qty': item['qty']});
+      postData.add({'menu': item.menu.id, 'qty': item.qty});
     }
 
     return await post('order', jsonEncode({"items": postData}),

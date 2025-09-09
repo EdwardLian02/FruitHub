@@ -1,11 +1,13 @@
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:fruit_hub/model/basket_model.dart';
 import 'package:get/get.dart';
 
 class BasketController extends GetxController {
-  RxInt menuBasketCount = 1.obs;
+  RxInt menuBasketCount = 1.obs; //Main counter
+  RxInt originalMenuQty = 1
+      .obs; //To track if the user has changed the menu count that is already in the basket
 
-  RxBool isChanging = false.obs;
-  RxList<Map<String, dynamic>> basket = <Map<String, dynamic>>[].obs;
+  RxList<BasketItem> basket = <BasketItem>[].obs;
   RxDouble totalPrice = 0.0.obs;
   /*
     basket = {
@@ -21,9 +23,31 @@ class BasketController extends GetxController {
 
   clearCounter() => menuBasketCount.value = 1;
 
+  setAlreadyInBasketMenuQtyInDetailScreen(String menuId) {
+    BasketItem basketItem = basket.firstWhere((e) => e.menu.id == menuId);
+    menuBasketCount.value = basketItem.qty;
+
+    //Also set the current basket count
+    //to track changes later on
+    originalMenuQty.value = menuBasketCount.value;
+  }
+
+  bool checkIfTheCurrentQtyIsChanged() {
+    return menuBasketCount.value != originalMenuQty.value;
+  }
+
+  void updateBasketQty(String menuId) {
+    BasketItem basketItem = basket.firstWhere((e) => e.menu.id == menuId);
+    basketItem.qty = menuBasketCount.value;
+
+    originalMenuQty.value = menuBasketCount.value;
+    calculateTotalPrice(basket);
+  }
+
   void addToBasket(Map<String, dynamic> basketItem) {
     basketItem['menu'].isInBasket.value = true;
-    basket.add(basketItem);
+
+    basket.add(BasketItem.fromMap(basketItem)); //including qty
     calculateTotalPrice(basket);
   }
 
@@ -32,18 +56,17 @@ class BasketController extends GetxController {
     calculateTotalPrice(basket);
   }
 
-  void calculateTotalPrice(List<Map<String, dynamic>> basket) {
+  void calculateTotalPrice(List basket) {
     totalPrice(0.0);
-    for (Map<String, dynamic> basketItem in basket) {
-      totalPrice.value += basketItem['menu'].price * basketItem['qty'];
+    for (BasketItem basketItem in basket) {
+      totalPrice.value += basketItem.menu.price * basketItem.qty;
     }
   }
 
   void clearBasket() {
     print('clear basket');
     for (var basketItem in basket) {
-      print('hi');
-      basketItem['menu'].isInBasket.value = false;
+      basketItem.menu.isInBasket.value = false;
     }
 
     basket.clear();

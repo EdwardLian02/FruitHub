@@ -10,8 +10,8 @@ import 'package:get/get.dart';
 
 class DetailScreen extends StatelessWidget {
   final MenuModel menuModel;
-  final int? qty;
-  const DetailScreen({super.key, required this.menuModel, this.qty});
+
+  const DetailScreen({super.key, required this.menuModel});
 
   @override
   Widget build(BuildContext context) {
@@ -45,9 +45,20 @@ class DetailScreen extends StatelessWidget {
               child: Obx(
                 () => menuModel.isInBasket.value
                     ? CommonButton(
-                        name: 'Already in basket',
+                        name: basketController.checkIfTheCurrentQtyIsChanged()
+                            ? "Save"
+                            : "Already in basket",
                         onTap: () {
-                          Get.toNamed('/basket');
+                          print(
+                              basketController.checkIfTheCurrentQtyIsChanged());
+                          if (basketController
+                              .checkIfTheCurrentQtyIsChanged()) {
+                            //Update the basket again.
+                            basketController.updateBasketQty(menuModel.id);
+                            MessengerHelper.showGreenCheckToast(context);
+                          } else {
+                            Get.toNamed('/basket');
+                          }
                         },
                       )
                     : CommonButton(

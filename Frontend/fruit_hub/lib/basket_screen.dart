@@ -98,7 +98,7 @@ class BasketScreen extends StatelessWidget {
                       SlidableAction(
                         onPressed: (context) {
                           basketController.deleteFromBasket(index);
-                          basketItem['menu'].isInBasket.value = false;
+                          basketItem.menu.isInBasket.value = false;
                         },
                         backgroundColor: Colors.red,
                         foregroundColor: Colors.white,
@@ -107,8 +107,8 @@ class BasketScreen extends StatelessWidget {
                       ),
                     ]),
                     child: BasketOrderTile(
-                      menuModel: basketItem['menu'],
-                      qty: basketItem['qty'],
+                      menuModel: basketItem.menu,
+                      qty: basketItem.qty,
                     ),
                   );
                 },

@@ -131,6 +131,11 @@ class HomeScreen extends StatelessWidget {
                         child: GestureDetector(
                           onTap: () {
                             basketController.clearCounter();
+                            if (menu.isInBasket.value) {
+                              basketController
+                                  .setAlreadyInBasketMenuQtyInDetailScreen(
+                                      menu.id);
+                            }
 
                             Get.to(() => DetailScreen(
                                   menuModel: menu,

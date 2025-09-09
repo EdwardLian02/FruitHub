@@ -1,11 +1,8 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:fruit_hub/controller/search_controller.dart' as searchC;
 import 'package:fruit_hub/helper/app_constant.dart';
 import 'package:fruit_hub/widget_helper/common_searchbar.dart';
+import 'package:fruit_hub/controller/search_controller.dart' as searchC;
 import 'package:fruit_hub/widget_helper/menu_card.dart';
-import 'package:fruit_hub/widget_helper/messenger_helper.dart';
 import 'package:get/get.dart';
 
 class SearchScreen extends StatelessWidget {
