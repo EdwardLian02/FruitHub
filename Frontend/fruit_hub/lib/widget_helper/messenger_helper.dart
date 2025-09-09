@@ -4,12 +4,12 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fruit_hub/helper/app_constant.dart';
 
 class MessengerHelper {
-  static showToasteMessage(String message) => Fluttertoast.showToast(
+  static showErrorToasteMessage(String message) => Fluttertoast.showToast(
         msg: message,
-        backgroundColor: MyColor.successGreen,
+        backgroundColor: Colors.red,
         toastLength: Toast.LENGTH_LONG,
         textColor: Colors.white,
-        gravity: ToastGravity.CENTER,
+        gravity: ToastGravity.BOTTOM,
         timeInSecForIosWeb: 1,
       );
 

@@ -9,7 +9,7 @@ class AuthScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final authController = Get.put(AuthenticationController());
+    final authController = Get.find<AuthenticationController>();
     return Scaffold(
       body: Obx(
         () {

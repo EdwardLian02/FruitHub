@@ -2,11 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:fruit_hub/helper/app_constant.dart';
 
 class CommonSearchbar extends StatelessWidget {
-  const CommonSearchbar({super.key});
+  void Function(String)? onChanged;
+  void Function(String)? onSubmitted;
+  final bool? isEnabled;
+  CommonSearchbar(
+      {super.key, this.onChanged, this.onSubmitted, this.isEnabled});
 
   @override
   Widget build(BuildContext context) {
     return SearchBar(
+        enabled: isEnabled ?? true,
+        onChanged: onChanged,
+        onSubmitted: onSubmitted,
         leading: Padding(
           padding: const EdgeInsets.only(left: 10.0),
           child: Icon(Icons.search),

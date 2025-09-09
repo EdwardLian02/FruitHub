@@ -4,6 +4,7 @@ import 'package:fruit_hub/controller/basket_controller.dart';
 import 'package:fruit_hub/controller/menu_controller.dart';
 import 'package:fruit_hub/detail_screen.dart';
 import 'package:fruit_hub/helper/app_constant.dart';
+import 'package:fruit_hub/search_screen.dart';
 import 'package:fruit_hub/widget_helper/common_searchbar.dart';
 import 'package:fruit_hub/widget_helper/menu_card.dart';
 import 'package:fruit_hub/widget_helper/my_drawer.dart';
@@ -15,7 +16,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final authController = Get.put(AuthenticationController());
+    final authController = Get.find<AuthenticationController>();
     final menuRelatedController = Get.put(MenuRelatedController());
     final basketController = Get.find<BasketController>();
     return Scaffold(
@@ -91,7 +92,14 @@ class HomeScreen extends StatelessWidget {
                 children: [
                   Expanded(
                     flex: 1,
-                    child: CommonSearchbar(),
+                    child: GestureDetector(
+                      onTap: () {
+                        Get.to(() => SearchScreen());
+                      },
+                      child: CommonSearchbar(
+                        isEnabled: false,
+                      ), // Your search bar widget
+                    ),
                   ),
                   SizedBox(width: 20),
                   IconButton(

@@ -13,6 +13,8 @@ class AuthenticationController extends GetxController {
   late final TextEditingController passwordTextController;
   late final TextEditingController confirmPasswordTextController;
 
+  RxString authToken = "".obs;
+
   var isLogin = false.obs;
   var errorMessage = "".obs;
   var isLoading = false.obs;
@@ -37,6 +39,7 @@ class AuthenticationController extends GetxController {
             'userId', response.body['user_id'].toString());
         await secureStorage.writeData('userEmail', response.body['email']);
         isLogin(true);
+        authToken(response.body['token']);
 
         Get.offNamed('/home');
       } else {

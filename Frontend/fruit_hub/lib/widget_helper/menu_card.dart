@@ -9,13 +9,13 @@ class MenuCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 180,
-      child: Obx(
-        () => Card(
+    return Obx(
+      () => SizedBox(
+        width: 180,
+        child: Card(
           color: MyColor.whiteTextColor,
           elevation: 0.8,
-          child: Stack(
+          child: Column(
             children: [
               Padding(
                 padding:
@@ -34,10 +34,12 @@ class MenuCard extends StatelessWidget {
                       style: TextStyle(
                         fontSize: FontTheme.textSizeNormal,
                       ),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                     ),
                     SizedBox(height: 10),
-                    Flex(
-                      direction: Axis.horizontal,
+                    Row(
+                      // direction: Axis.horizontal,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         RichText(
@@ -77,14 +79,6 @@ class MenuCard extends StatelessWidget {
                   ],
                 ),
               ),
-              Positioned(
-                right: 10,
-                top: 10,
-                child: Image.asset(
-                  'assets/images/icon/heart_outline.png',
-                  color: MyColor.primaryColor,
-                ),
-              ),
             ],
           ),
         ),
@@ -92,3 +86,14 @@ class MenuCard extends StatelessWidget {
     );
   }
 }
+
+
+  //Heart-icon
+              // Positioned(
+              //   right: 10,
+              //   top: 10,
+              //   child: Image.asset(
+              //     'assets/images/icon/heart_outline.png',
+              //     color: MyColor.primaryColor,
+              //   ),
+              // ),

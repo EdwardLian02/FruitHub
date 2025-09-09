@@ -1,8 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
+import 'package:fruit_hub/controller/authentication_controller.dart';
 import 'package:fruit_hub/helper/app_constant.dart';
 import 'package:fruit_hub/model/auth_model.dart';
+import 'package:fruit_hub/services/secure_storage_service.dart';
 import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/request/request.dart';
 import 'package:logger/web.dart';
@@ -11,6 +13,7 @@ class ApiController extends GetConnect {
   var logger = Logger(printer: PrettyPrinter(colors: true, printEmojis: true));
   @override
   void onInit() {
+    print('hi api init');
     //Every request will start from this base URL, so you don’t repeat it in every API call.
     httpClient.baseUrl = BaseUrl.baseUrl;
 
@@ -71,4 +74,7 @@ class ApiController extends GetConnect {
     return await post('order', jsonEncode({"items": postData}),
         headers: {'Authorization': 'token $token'});
   }
+
+  Future<Response> search(String parameter, String token) =>
+      get('menu?search=$parameter', headers: {'Authorization': 'token $token'});
 }
