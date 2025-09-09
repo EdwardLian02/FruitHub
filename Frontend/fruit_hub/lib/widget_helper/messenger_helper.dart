@@ -13,6 +13,15 @@ class MessengerHelper {
         timeInSecForIosWeb: 1,
       );
 
+  static showSuccessToasteMessage(String message) => Fluttertoast.showToast(
+        msg: message,
+        backgroundColor: Colors.green,
+        toastLength: Toast.LENGTH_LONG,
+        textColor: Colors.white,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+      );
+
   static showGreenCheckToast(context) => showToastWidget(
         Opacity(
           opacity: 0.9,

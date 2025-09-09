@@ -88,10 +88,15 @@ class MenuCard extends StatelessWidget {
               Positioned(
                 right: 10,
                 top: 10,
-                child: Image.asset(
-                  'assets/images/icon/heart_outline.png',
-                  color: MyColor.primaryColor,
-                ),
+                child: menuModel.isFavorite.value
+                    ? Image.asset(
+                        'assets/images/icon/heart_fill.png',
+                        color: Colors.red,
+                      )
+                    : Image.asset(
+                        'assets/images/icon/heart_outline.png',
+                        color: MyColor.primaryColor,
+                      ),
               ),
             ],
           ),

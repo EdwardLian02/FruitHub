@@ -20,6 +20,7 @@ class MenuRelatedController extends GetxController {
     isLoading(true);
     try {
       final response = await _apiController.fetchMenu(token);
+      print(response.body);
       if (response.isOk) {
         for (var menu in response.body) {
           menuList.add(MenuModel.fromJson(menu));

@@ -78,4 +78,16 @@ class ApiController extends GetConnect {
 
   Future<Response> search(String parameter, String token) =>
       get('menu?search=$parameter', headers: {'Authorization': 'token $token'});
+
+  Future<Response> createFavorite(String menuId, String token) =>
+      post('favorite/favorite_api/', {
+        'menu': menuId
+      }, headers: {
+        'Authorization': 'token $token',
+      });
+
+  Future<Response> deleteFavorite(String favId, String token) =>
+      delete('favorite/favorite_api/$favId/', headers: {
+        'Authorization': 'token $token',
+      });
 }

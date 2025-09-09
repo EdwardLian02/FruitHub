@@ -7,7 +7,9 @@ class MenuModel {
   final double price;
   final String imageUrl;
   final String category;
+  RxBool isFavorite;
   RxBool isInBasket;
+  String? favoriteId;
 
   MenuModel({
     required this.id,
@@ -16,8 +18,11 @@ class MenuModel {
     required this.price,
     required this.imageUrl,
     required this.category,
+    required bool isFavorite,
+    this.favoriteId,
     bool isInBasket = false,
-  }) : isInBasket = isInBasket.obs;
+  })  : isInBasket = isInBasket.obs,
+        isFavorite = isFavorite.obs;
 
   factory MenuModel.fromJson(Map<String, dynamic> json) {
     return MenuModel(
@@ -27,6 +32,8 @@ class MenuModel {
       price: double.parse(json['price']),
       imageUrl: json['imageUrl'],
       category: json['category'],
+      isFavorite: json['is_favorite'],
+      favoriteId: json['favorite_id'],
     );
   }
 
@@ -38,6 +45,7 @@ class MenuModel {
       'price': price.toString(),
       'imageUrl': imageUrl,
       'category': category,
+      'is_favorite': isFavorite,
     };
   }
 }

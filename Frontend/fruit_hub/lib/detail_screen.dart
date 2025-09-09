@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fruit_hub/controller/basket_controller.dart';
+import 'package:fruit_hub/controller/favorite_controller.dart';
 import 'package:fruit_hub/helper/app_constant.dart';
 import 'package:fruit_hub/model/menu_model.dart';
 import 'package:fruit_hub/widget_helper/circle_icon_button.dart';
@@ -16,6 +17,7 @@ class DetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final basketController = Get.find<BasketController>();
+    final favoriteController = Get.put(FavoriteController());
     return Scaffold(
       appBar: AppBar(
         backgroundColor: MyColor.primaryColor,
@@ -29,16 +31,33 @@ class DetailScreen extends StatelessWidget {
               padding: const EdgeInsets.only(
                 right: 30,
               ),
-              child: CircleIconButton(
-                width: 70,
-                height: 70,
-                haveBorder: false,
-                icon: Image.asset(
-                  'assets/images/icon/bigger_heart_icon.png',
-                  width: 10.0,
-                  height: 10.0,
+              child: Obx(
+                () => CircleIconButton(
+                  width: 70,
+                  height: 70,
+                  haveBorder: false,
+                  icon: menuModel.isFavorite.value
+                      ? Image.asset(
+                          'assets/images/icon/heart_fill.png',
+                          width: 10.0,
+                          height: 10.0,
+                          color: Colors.red,
+                        )
+                      : Image.asset(
+                          'assets/images/icon/bigger_heart_icon.png',
+                          width: 10.0,
+                          height: 10.0,
+                        ),
+                  buttonColor: MyColor.lowOrangeColor,
+                  onTap: () async {
+                    print("hi");
+                    if (!menuModel.isFavorite.value) {
+                      await favoriteController.createFavorite(menuModel);
+                    } else {
+                      await favoriteController.deleteFavorite(menuModel);
+                    }
+                  },
                 ),
-                buttonColor: MyColor.lowOrangeColor,
               ),
             ),
             Expanded(

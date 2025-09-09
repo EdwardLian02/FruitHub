@@ -19,6 +19,7 @@ class CreateFavouriteSerializer(serializers.ModelSerializer):
         request = self.context.get('request')
         print('in validate function ')
         menu = attrs['menu']
-        if Favorite.objects.filter(user=hasattr(request, 'user'), menu=menu).exists():
+
+        if Favorite.objects.filter(user=request.user, menu=menu).exists():
             raise serializers.ValidationError('This menu is already in favorite!')
         return attrs
