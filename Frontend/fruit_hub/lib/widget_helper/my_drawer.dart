@@ -38,9 +38,12 @@ class MyDrawer extends StatelessWidget {
               leading: Icon(Icons.shopping_basket, size: 30),
               title: Text("basket"),
             ),
-            ListTile(
-              leading: Icon(Icons.favorite, size: 30),
-              title: Text("favorite"),
+            GestureDetector(
+              onTap: () => Get.toNamed('/favorite'),
+              child: ListTile(
+                leading: Icon(Icons.favorite, size: 30),
+                title: Text("favorite"),
+              ),
             ),
 
             ListTile(

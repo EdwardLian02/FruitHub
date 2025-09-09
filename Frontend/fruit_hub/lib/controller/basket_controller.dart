@@ -48,6 +48,7 @@ class BasketController extends GetxController {
     basketItem['menu'].isInBasket.value = true;
 
     basket.add(BasketItem.fromMap(basketItem)); //including qty
+    originalMenuQty.value = menuBasketCount.value;
     calculateTotalPrice(basket);
   }
 

@@ -4,6 +4,7 @@ import 'package:fruit_hub/basket_screen.dart';
 import 'package:fruit_hub/controller/authentication_controller.dart';
 import 'package:fruit_hub/controller/basket_controller.dart';
 import 'package:fruit_hub/detail_screen.dart';
+import 'package:fruit_hub/favourite_screen.dart';
 import 'package:fruit_hub/home_screen.dart';
 import 'package:fruit_hub/login_screen.dart';
 import 'package:fruit_hub/order_track_screen.dart';
@@ -47,6 +48,7 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/search', page: () => SearchScreen()),
         GetPage(name: '/order-track', page: () => OrderTrackScreen()),
         GetPage(name: '/order-success', page: () => OrderSuccessScreen()),
+        GetPage(name: '/favorite', page: () => FavouriteScreen()),
       ],
     );
   }
