@@ -1,7 +1,4 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:fruit_hub/controller/authentication_controller.dart';
 import 'package:fruit_hub/helper/app_constant.dart';
 import 'package:get/get.dart';
 
@@ -9,7 +6,6 @@ class MyDrawer extends StatelessWidget {
   const MyDrawer({super.key});
   @override
   Widget build(BuildContext context) {
-    final authController = Get.find<AuthenticationController>();
     return Drawer(
       backgroundColor: MyColor.primaryColor,
       child: Padding(
@@ -32,7 +28,7 @@ class MyDrawer extends StatelessWidget {
             GestureDetector(
               onTap: () {
                 Get.back();
-                Get.toNamed('/home');
+                Get.offNamed('/home');
               },
               child: ListTile(
                 leading: Icon(Icons.home, size: 30),
@@ -43,7 +39,7 @@ class MyDrawer extends StatelessWidget {
             GestureDetector(
               onTap: () {
                 Get.back();
-                Get.toNamed('/favorite');
+                Get.offNamed('/favorite');
               },
               child: ListTile(
                 leading: Icon(Icons.favorite, size: 30),
@@ -51,9 +47,15 @@ class MyDrawer extends StatelessWidget {
               ),
             ),
 
-            ListTile(
-              leading: Icon(Icons.sort, size: 30),
-              title: Text("Order"),
+            GestureDetector(
+              onTap: () {
+                Get.back();
+                Get.offNamed('/order');
+              },
+              child: ListTile(
+                leading: Icon(Icons.sort, size: 30),
+                title: Text("Order"),
+              ),
             ),
 
             ListTile(

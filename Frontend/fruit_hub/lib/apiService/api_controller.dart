@@ -65,6 +65,10 @@ class ApiController extends GetConnect {
         'Authorization': 'token $token',
       });
 
+  Future<Response> fetchOrder(String token) => get('order/', headers: {
+        'Authorization': 'token $token',
+      });
+
   Future<Response> createOrder(
       List<BasketItem> orderItems, String token) async {
     final postData = [];
@@ -72,7 +76,7 @@ class ApiController extends GetConnect {
       postData.add({'menu': item.menu.id, 'qty': item.qty});
     }
 
-    return await post('order', jsonEncode({"items": postData}),
+    return await post('order/', jsonEncode({"items": postData}),
         headers: {'Authorization': 'token $token'});
   }
 

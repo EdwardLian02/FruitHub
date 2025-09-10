@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 class MenuRelatedController extends GetxController {
   final _apiController = Get.put(ApiController());
   final _secureStorage = SecureStorageService();
-  final _favoriteController = Get.put(FavoriteController());
+  final _favoriteController = Get.put(FavoriteController(), permanent: true);
 
   RxList<MenuModel> menuList = <MenuModel>[].obs;
 

@@ -1,8 +1,10 @@
 from django.db import transaction
+
+from menu.serializers import MenuSerailzier
 from .models import Order, OrderItem
 from rest_framework import serializers
 
-class CreateOrderSerializer(serializers.ModelSerializer):
+class CreateOrDeleteOrderSerializer(serializers.ModelSerializer):
     class OrderItemSerializer(serializers.ModelSerializer): 
         class Meta: 
             model = OrderItem
@@ -14,7 +16,11 @@ class CreateOrderSerializer(serializers.ModelSerializer):
     items = OrderItemSerializer(many=True)
     class Meta: 
         model = Order
-        fields = ['user', 'status', 'items']
+        fields = [
+            'user',
+            'status',
+            'items',
+            ]
         extra_kwargs = {
             "user": {"read_only": True}
         }
@@ -32,8 +38,40 @@ class CreateOrderSerializer(serializers.ModelSerializer):
 
             #Create each order item record
             print('creating order items')
-            for item in order_items: 
-                OrderItem.objects.create(order=order, **item)
+            OrderItem.objects.bulk_create([
+                OrderItem(order=order, **item) for item in order_items      
+            ])
 
             return order
     
+class ViewOrderSerializer(serializers.ModelSerializer):
+
+    class OrderItemSerializer(serializers.ModelSerializer):
+        menu = MenuSerailzier()
+        class Meta: 
+            model = OrderItem
+            fields = [
+                'menu', 
+                'qty', 
+            ]
+
+    items = OrderItemSerializer(many=True)
+    class Meta: 
+        model = Order
+        fields = [
+            'id',
+            'user',
+            'status',
+            'total_price', 
+            'items',
+        ]
+
+
+class OrderSerializer(serializers.ModelSerializer):
+    class Meta: 
+        model = Order
+        fields = [
+            'id',
+            'user', 
+            'status',
+        ]

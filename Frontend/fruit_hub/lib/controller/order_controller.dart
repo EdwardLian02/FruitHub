@@ -12,6 +12,8 @@ class OrderController extends GetxController {
   RxString errorMessage = "".obs;
   RxBool isLoading = false.obs;
 
+  Future<void> fetchOrder() async {}
+
   Future<void> createOrder() async {
     String? token = await _secureStorage.readData('token');
     if (token == null) return;
