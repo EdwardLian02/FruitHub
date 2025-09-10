@@ -7,8 +7,13 @@ import 'package:get/get.dart';
 class FavoriteController extends GetxController {
   final _apiController = Get.put(ApiController());
   final _secureStroage = SecureStorageService();
+  RxList<MenuModel> favoriteList = <MenuModel>[].obs;
 
   RxString errorMessage = "".obs;
+
+  void fetchFavoriteList(List<MenuModel> favList) {
+    favoriteList(favList);
+  }
 
   Future<void> createFavorite(MenuModel menu) async {
     final token = await _secureStroage.readData('token');
@@ -21,6 +26,7 @@ class FavoriteController extends GetxController {
       if (response.isOk) {
         menu.favoriteId = response.body['id'];
         menu.isFavorite.value = true;
+        favoriteList.add(menu);
         MessengerHelper.showSuccessToasteMessage("Added to favorite");
       } else {
         errorMessage('Something went wrong');
@@ -41,6 +47,11 @@ class FavoriteController extends GetxController {
       print(response.body);
       if (response.isOk) {
         menu.isFavorite.value = false;
+
+        //also remove from the favoriteList
+        favoriteList.remove(menu);
+
+        //Show toaste message
         MessengerHelper.showErrorToasteMessage("Removed from Favorite");
       } else {
         errorMessage('Something went wrong');
