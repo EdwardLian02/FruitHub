@@ -1,20 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:fruit_hub/helper/app_constant.dart';
+import 'package:fruit_hub/model/order_model.dart';
 
 class OrderTile extends StatelessWidget {
-  final String orderId;
-  final String status;
-  final double totalPrice;
-  final VoidCallback onTrackOrder;
-  final VoidCallback onCancelOrder;
+  final OrderModel orderModel;
+  final VoidCallback? onTrackOrder;
+  final VoidCallback? onCancelOrder;
 
   const OrderTile({
     super.key,
-    required this.orderId,
-    required this.status,
-    required this.totalPrice,
-    required this.onTrackOrder,
-    required this.onCancelOrder,
+    required this.orderModel,
+    this.onTrackOrder,
+    this.onCancelOrder,
   });
 
   @override
@@ -22,7 +19,7 @@ class OrderTile extends StatelessWidget {
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      elevation: 2,
+      elevation: 0.3,
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -33,26 +30,18 @@ class OrderTile extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Order ID: $orderId",
+                  "Order ID: \n${orderModel.id}",
                   style: const TextStyle(
                       fontWeight: FontWeight.bold, fontSize: 16),
                 ),
-                Text(
-                  status,
-                  style: TextStyle(
-                    color: status.toLowerCase() == "delivered"
-                        ? Colors.green
-                        : Colors.orange,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
+                Text(orderModel.status),
               ],
             ),
             const SizedBox(height: 8),
 
             // Total Price
             Text(
-              "Total: \$${totalPrice.toStringAsFixed(2)}",
+              "Total: ${orderModel.totalPrice.toStringAsFixed(2)} MMK",
               style: const TextStyle(fontSize: 15),
             ),
             const SizedBox(height: 12),

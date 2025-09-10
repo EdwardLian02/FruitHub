@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:fruit_hub/controller/order_controller.dart';
 import 'package:fruit_hub/helper/app_constant.dart';
 import 'package:fruit_hub/widget_helper/my_drawer.dart';
 import 'package:fruit_hub/widget_helper/order_tile.dart';
+import 'package:get/get.dart';
 
 class OrderListScreen extends StatelessWidget {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -9,11 +11,17 @@ class OrderListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final orderController = Get.put(OrderController());
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        title: Text('My Orders'),
-        backgroundColor: MyColor.primaryColor,
+        title: Text(
+          'My Orders',
+          style: TextStyle(
+            fontSize: FontTheme.textSizeExtraLarge,
+            color: MyColor.primaryColor,
+          ),
+        ),
         leading: IconButton(
           onPressed: () {
             _scaffoldKey.currentState?.openDrawer();
@@ -26,20 +34,21 @@ class OrderListScreen extends StatelessWidget {
         ),
       ),
       drawer: MyDrawer(),
-      body: Column(
-        children: [
-          OrderTile(
-            orderId: "12345",
-            status: "Processing",
-            totalPrice: 49.99,
-            onTrackOrder: () {
-              print("Tracking order 12345");
-            },
-            onCancelOrder: () {
-              print("Cancelled order 12345");
-            },
-          ),
-        ],
+      body: Obx(
+        () => orderController.isLoading.value
+            ? Center(
+                child: CircularProgressIndicator(),
+              )
+            : ListView.builder(
+                itemCount: orderController.orderList.length,
+                itemBuilder: (context, index) {
+                  final orderModel = orderController.orderList[index];
+                  return OrderTile(
+                    orderModel: orderModel,
+                    onCancelOrder: () {},
+                  );
+                },
+              ),
       ),
     );
   }
