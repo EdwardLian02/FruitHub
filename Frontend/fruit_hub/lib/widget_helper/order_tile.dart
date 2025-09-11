@@ -1,6 +1,12 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:fruit_hub/detail_screen.dart';
 import 'package:fruit_hub/helper/app_constant.dart';
+import 'package:fruit_hub/helper/widget_constant.dart';
 import 'package:fruit_hub/model/order_model.dart';
+import 'package:fruit_hub/order_detail_screen.dart';
+import 'package:fruit_hub/widget_helper/status_badge.dart';
+import 'package:get/get.dart';
 
 class OrderTile extends StatelessWidget {
   final OrderModel orderModel;
@@ -19,25 +25,34 @@ class OrderTile extends StatelessWidget {
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      elevation: 0.3,
+      color: Colors.white,
+      elevation: 0.5,
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Align(
+                alignment: Alignment.topLeft,
+                child: StatusBadge(status: orderModel.status)),
+            SizedBox(height: 10),
             // Order ID and Status
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "Order ID: \n${orderModel.id}",
-                  style: const TextStyle(
-                      fontWeight: FontWeight.bold, fontSize: 16),
+
+            GestureDetector(
+              onTap: () =>
+                  Get.to(() => OrderDetailScreen(orderModel: orderModel)),
+              child: Text(
+                orderModel.id,
+                style: const TextStyle(
+                  fontSize: FontTheme.textSizeNormal,
+                  color: MyColor.primaryTextColor,
+                  fontWeight: FontWeight.bold,
                 ),
-                Text(orderModel.status),
-              ],
+              ),
             ),
-            const SizedBox(height: 8),
+            const SizedBox(
+              height: 8,
+            ),
 
             // Total Price
             Text(
@@ -48,19 +63,23 @@ class OrderTile extends StatelessWidget {
 
             // Buttons
             Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 OutlinedButton(
                   onPressed: onTrackOrder,
+                  style: ButtonStyle(elevation: WidgetStatePropertyAll(0.0)),
                   child: Text(
                     "Track Order",
                     style: TextStyle(color: MyColor.primaryTextColor),
                   ),
                 ),
-                const SizedBox(width: 8),
+                const SizedBox(width: 15),
                 ElevatedButton(
                   onPressed: onCancelOrder,
-                  style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.red,
+                    elevation: 0,
+                  ),
                   child: const Text(
                     "Cancel Order",
                     style: TextStyle(

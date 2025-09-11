@@ -16,7 +16,8 @@ class FavouriteScreen extends StatelessWidget {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        toolbarHeight: 100,
+        backgroundColor: MyColor.primaryColor,
         leading: IconButton(
           onPressed: () {
             _scaffoldKey.currentState?.openDrawer();
@@ -25,12 +26,13 @@ class FavouriteScreen extends StatelessWidget {
             'assets/images/icon/drawer.png',
             width: 18,
             height: 18,
+            color: MyColor.whiteTextColor,
           ),
         ),
         title: Text(
           "My Favorite",
           style: TextStyle(
-            color: MyColor.primaryColor,
+            color: MyColor.whiteTextColor,
             fontSize: FontTheme.textSizeExtraLarge,
           ),
         ),

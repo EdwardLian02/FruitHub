@@ -21,6 +21,7 @@ dependencies:
   flutter_slidable: ^4.0.1
   fluttertoast: ^8.2.12
   flutter_styled_toast: ^2.2.1
+  liquid_pull_to_refresh: ^3.0.1
 
 dev_dependencies:
   flutter_test:

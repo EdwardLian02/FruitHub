@@ -24,6 +24,7 @@ class OrderController extends GetxController {
     try {
       final response = await _apiController.fetchOrder(token);
       if (response.isOk) {
+        print("Response.OK");
         print(response.body);
 
         for (var order in response.body) {

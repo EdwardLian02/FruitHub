@@ -21,6 +21,14 @@ class MyColor {
   static const Color pinkBackgroundColor = Color(0xFFFEF0F0);
   static const Color blueBackgroundColor = Color(0xFFF1EFF6);
   static const Color yelloBackgroundColor = Color(0xFFFFFAEB);
+
+  //Status Color
+  static const Color statusConfirmColor = Color(0xFF3865a3);
+  static const Color statusPendingColor = Color(0xFFffcc00);
+  static const Color statusRejectColor = Color(0xFFe03b24);
+  static const Color statusBeingDelivered = Color(0xFF78923D);
+  static const Color statusDeliveredColor = Color(0xFF64a338);
+  static const Color statusDefaultColor = Colors.grey;
 }
 
 class FontTheme {

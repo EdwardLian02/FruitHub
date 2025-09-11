@@ -11,6 +11,8 @@ class Order(BaseModel):
         ('P', 'Pending'), 
         ('R', 'Reject'), 
         ('C', 'Confirm'), 
+        ('BD', 'Being Delivered'),
+        ('D', 'Delivered'),
     ]
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_set')
