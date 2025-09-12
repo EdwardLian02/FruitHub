@@ -1,5 +1,6 @@
 import 'dart:ffi';
 
+import 'package:flutter/widgets.dart';
 import 'package:fruit_hub/apiService/api_controller.dart';
 import 'package:fruit_hub/controller/basket_controller.dart';
 import 'package:fruit_hub/model/order_model.dart';
@@ -14,7 +15,9 @@ class OrderController extends GetxController {
   RxList<OrderModel> orderList = <OrderModel>[].obs;
 
   RxString errorMessage = "".obs;
-  RxBool isLoading = false.obs;
+  RxBool isLoading = true.obs;
+
+  RxBool isOrderCancelButtonActive = false.obs;
 
   Future<void> fetchOrder() async {
     String? token = await _secureStorage.readData('token');
@@ -65,10 +68,37 @@ class OrderController extends GetxController {
     }
   }
 
+  Future<void> cancelOrder(OrderModel orderModel) async {
+    String? token = await _secureStorage.readData('token');
+    if (token == null) return;
+
+    isLoading(true);
+    errorMessage("");
+
+    try {
+      final response = await _apiController.deleteOrder(orderModel.id, token);
+      if (response.isOk) {
+        deleteOrderModelFromOrderList(orderModel);
+        Get.back();
+      } else {
+        errorMessage(
+            'Something went wrong! Please refresh the page and try again later');
+      }
+    } catch (e) {
+      errorMessage(e.toString());
+    } finally {
+      isLoading(false);
+    }
+  }
+
+  void deleteOrderModelFromOrderList(OrderModel orderModel) {
+    orderList
+        .remove(orderList.firstWhere((order) => order.id == orderModel.id));
+  }
+
   @override
   void onInit() async {
     super.onInit();
-
     await fetchOrder();
   }
 }

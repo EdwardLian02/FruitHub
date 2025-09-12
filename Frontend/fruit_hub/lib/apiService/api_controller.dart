@@ -80,6 +80,9 @@ class ApiController extends GetConnect {
         headers: {'Authorization': 'token $token'});
   }
 
+  Future<Response> deleteOrder(String orderId, String token) =>
+      delete('order/$orderId/', headers: {'Authorization': 'token $token'});
+
   Future<Response> search(String parameter, String token) =>
       get('menu?search=$parameter', headers: {'Authorization': 'token $token'});
 

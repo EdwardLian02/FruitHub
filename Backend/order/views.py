@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from rest_framework import viewsets
+from rest_framework.exceptions import ValidationError
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from .serializers import CreateOrDeleteOrderSerializer, ViewOrderSerializer, OrderSerializer
 from .models import Order, OrderItem
@@ -26,3 +27,9 @@ class OrderViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
+
+    def perform_destroy(self, instance):    
+        if instance.status != 'P': 
+            raise ValidationError("ONLY orders with status 'Pending' can be deleted.")
+        instance.delete()
+        

@@ -61,35 +61,21 @@ class OrderTile extends StatelessWidget {
             ),
             const SizedBox(height: 12),
 
-            // Buttons
             Row(
-              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                OutlinedButton(
-                  onPressed: onTrackOrder,
-                  style: ButtonStyle(elevation: WidgetStatePropertyAll(0.0)),
-                  child: Text(
-                    "Track Order",
-                    style: TextStyle(color: MyColor.primaryTextColor),
-                  ),
-                ),
-                const SizedBox(width: 15),
-                ElevatedButton(
-                  onPressed: onCancelOrder,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.red,
-                    elevation: 0,
-                  ),
-                  child: const Text(
-                    "Cancel Order",
-                    style: TextStyle(
-                      fontSize: FontTheme.textSizeNormal,
-                      color: MyColor.whiteTextColor,
+                Expanded(
+                  child: OutlinedButton(
+                    onPressed: () =>
+                        Get.to(() => OrderDetailScreen(orderModel: orderModel)),
+                    style: ButtonStyle(elevation: WidgetStatePropertyAll(0.0)),
+                    child: Text(
+                      "Detail",
+                      style: TextStyle(color: MyColor.primaryTextColor),
                     ),
                   ),
                 ),
               ],
-            ),
+            )
           ],
         ),
       ),
