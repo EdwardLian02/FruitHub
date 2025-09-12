@@ -6,12 +6,15 @@ class CommonTextfield extends StatelessWidget {
   void Function(String)? onChanged;
   String? Function(String?)? validator;
   final TextEditingController? controller;
-  CommonTextfield(
-      {super.key,
-      required this.hintText,
-      this.validator,
-      this.controller,
-      this.onChanged});
+  bool? obsecureText;
+  CommonTextfield({
+    super.key,
+    required this.hintText,
+    this.validator,
+    this.controller,
+    this.onChanged,
+    this.obsecureText,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +22,7 @@ class CommonTextfield extends StatelessWidget {
       controller: controller,
       validator: validator,
       onChanged: onChanged,
+      obscureText: obsecureText ?? false,
       decoration: InputDecoration(
         filled: true,
         fillColor: MyColor.textFieldFillColor,

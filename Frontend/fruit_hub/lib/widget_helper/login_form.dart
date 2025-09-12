@@ -27,7 +27,7 @@ class Loginform extends StatelessWidget {
           : Column(
               children: [
                 CommonTextfield(
-                  hintText: "tony12@gmail.com",
+                  hintText: "Email",
                   controller: authController.emailTextController,
                   validator: (value) {
                     final emailRegex = RegExp(
@@ -48,6 +48,7 @@ class Loginform extends StatelessWidget {
                 CommonTextfield(
                   hintText: "**********",
                   controller: authController.passwordTextController,
+                  obsecureText: true,
                   validator: (value) {
                     if (value == null || value == "") {
                       return "* This field is required!";
@@ -91,7 +92,11 @@ class Loginform extends StatelessWidget {
                             color: MyColor.primaryColor,
                           ),
                           recognizer: TapGestureRecognizer()
-                            ..onTap = () => Get.offNamed('/register'),
+                            ..onTap = () {
+                              authController.clearInputText();
+                              authController.errorMessage("");
+                              Get.offNamed('/register');
+                            },
                         ),
                       ]),
                 ),

@@ -88,6 +88,12 @@ class AuthenticationController extends GetxController {
     Get.offNamed('/login');
   }
 
+  void clearInputText() {
+    emailTextController.clear();
+    passwordTextController.clear();
+    confirmPasswordTextController.clear();
+  }
+
   @override
   void onInit() {
     super.onInit();
@@ -99,7 +105,6 @@ class AuthenticationController extends GetxController {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     emailTextController.dispose();
     passwordTextController.dispose();

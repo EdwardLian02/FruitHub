@@ -27,7 +27,7 @@ class RegisterForm extends StatelessWidget {
           : Column(
               children: [
                 CommonTextfield(
-                  hintText: "tony12@gmail.com",
+                  hintText: "example@gmail.com",
                   controller: authController.emailTextController,
                   validator: (value) {
                     final emailRegex = RegExp(
@@ -48,6 +48,7 @@ class RegisterForm extends StatelessWidget {
                 CommonTextfield(
                   hintText: "**********",
                   controller: authController.passwordTextController,
+                  obsecureText: true,
                   validator: (value) {
                     if (value == null || value == "") {
                       return "* This field is required!";
@@ -60,6 +61,7 @@ class RegisterForm extends StatelessWidget {
                 CommonTextfield(
                   hintText: "Confirm password",
                   controller: authController.confirmPasswordTextController,
+                  obsecureText: true,
                   validator: (value) {
                     if (value == null || value == "") {
                       return "* This fields is required!";
@@ -106,7 +108,11 @@ class RegisterForm extends StatelessWidget {
                             color: MyColor.primaryColor,
                           ),
                           recognizer: TapGestureRecognizer()
-                            ..onTap = () => Get.offNamed('/login'),
+                            ..onTap = () {
+                              authController.clearInputText();
+                              authController.errorMessage("");
+                              Get.offNamed('/login');
+                            },
                         ),
                       ]),
                 ),
