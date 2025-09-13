@@ -76,7 +76,7 @@ class ApiController extends GetConnect {
       postData.add({'menu': item.menu.id, 'qty': item.qty});
     }
 
-    return await post('order/', jsonEncode({"items": postData}),
+    return await post('order/', jsonEncode({"orders": postData}),
         headers: {'Authorization': 'token $token'});
   }
 

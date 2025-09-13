@@ -18,7 +18,7 @@ class OrderModel {
 //         "user": 2,
 //         "status": "P",
 //         "total_price": 122000.0,
-//         "items": [
+//         "orders": [
 //             {
 //                 "menu": {},
 //                 "qty": 3
@@ -30,7 +30,7 @@ class OrderModel {
 //         ]
 //     },
   factory OrderModel.fromJson(Map<String, dynamic> json) {
-    final itemList = json['items'] as List;
+    final itemList = json['orders'] as List;
 
     final parseItemList = itemList.map((item) {
       return OrderItemModel.fromJson(item as Map<String, dynamic>);

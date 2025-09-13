@@ -20,10 +20,10 @@ class Order(BaseModel):
     
     @property
     def total_price(self): 
-        return sum(item.qty * item.menu.price for item in self.items.all()) 
+        return sum(item.qty * item.menu.price for item in self.orders.all()) 
     
 
 class OrderItem(BaseModel): 
-    order  = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='items')
+    order  = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='orders')
     menu = models.ForeignKey(Menu,on_delete=models.DO_NOTHING, related_name='order_item')
     qty = models.IntegerField()

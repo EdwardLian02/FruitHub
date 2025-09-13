@@ -31,10 +31,13 @@ class OrderController extends GetxController {
         print(response.body);
 
         for (var order in response.body) {
+          print("print order");
+          print(order);
           orderList.add(OrderModel.fromJson(order));
         }
-
         print(orderList);
+        print("print out order list length");
+        print(orderList.length);
       } else {
         errorMessage("Something went wrong!");
       }

@@ -3,11 +3,11 @@ import 'package:fruit_hub/helper/app_constant.dart';
 
 class CommonTextfield extends StatelessWidget {
   final String hintText;
-  void Function(String)? onChanged;
-  String? Function(String?)? validator;
+  final void Function(String)? onChanged;
+  final String? Function(String?)? validator;
   final TextEditingController? controller;
-  bool? obsecureText;
-  CommonTextfield({
+  final bool? obsecureText;
+  const CommonTextfield({
     super.key,
     required this.hintText,
     this.validator,

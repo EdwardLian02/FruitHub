@@ -2,13 +2,12 @@ from django.shortcuts import render
 from rest_framework import viewsets
 from rest_framework.exceptions import ValidationError
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
-from .serializers import CreateOrDeleteOrderSerializer, ViewOrderSerializer, OrderSerializer
+from .serializers import CreateOrDeleteOrderSerializer, ViewOrderSerializer
 from .models import Order, OrderItem
 
 # Create your views here.
 class OrderViewSet(viewsets.ModelViewSet):
     queryset = Order.objects.all()
-    serializer_class = OrderSerializer
     permission_classes = (IsAuthenticated,)
 
     def get_queryset(self):
@@ -21,7 +20,6 @@ class OrderViewSet(viewsets.ModelViewSet):
         if self.action in ['list', 'retrieve']: 
             return ViewOrderSerializer
         else : 
-
             return CreateOrDeleteOrderSerializer
 
 
@@ -32,4 +30,5 @@ class OrderViewSet(viewsets.ModelViewSet):
         if instance.status != 'P': 
             raise ValidationError("ONLY orders with status 'Pending' can be deleted.")
         instance.delete()
+        
         

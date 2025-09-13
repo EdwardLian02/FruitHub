@@ -13,13 +13,13 @@ class CreateOrDeleteOrderSerializer(serializers.ModelSerializer):
                 'qty',
             ]
 
-    items = OrderItemSerializer(many=True)
+    orders = OrderItemSerializer(many=True)
     class Meta: 
         model = Order
         fields = [
             'user',
             'status',
-            'items',
+            'orders',
             ]
         extra_kwargs = {
             "user": {"read_only": True}
@@ -28,16 +28,14 @@ class CreateOrDeleteOrderSerializer(serializers.ModelSerializer):
     
     #To create "OrderItem" in the order 
     def create(self, validated_data):
-        print('create method')
-        order_items = validated_data.pop('items')
-        print(f'validate data: {validated_data}')
+        order_items = validated_data.pop('orders')
         with transaction.atomic(): 
             #create order first
-            print('creating order')
+
             order = Order.objects.create(**validated_data)
 
             #Create each order item record
-            print('creating order items')
+
             OrderItem.objects.bulk_create([
                 OrderItem(order=order, **item) for item in order_items      
             ])
@@ -57,7 +55,7 @@ class ViewOrderSerializer(serializers.ModelSerializer):
                 'qty', 
             ]
 
-    items = OrderItemSerializer(many=True)
+    orders = OrderItemSerializer(many=True)
     class Meta: 
         model = Order
         fields = [
@@ -65,15 +63,6 @@ class ViewOrderSerializer(serializers.ModelSerializer):
             'user',
             'status',
             'total_price', 
-            'items',
-        ]
-
-
-class OrderSerializer(serializers.ModelSerializer):
-    class Meta: 
-        model = Order
-        fields = [
-            'id',
-            'user', 
-            'status',
+            'created_at',
+            'orders',
         ]
