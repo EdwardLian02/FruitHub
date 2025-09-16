@@ -3,7 +3,7 @@ from rest_framework import generics
 from rest_framework.authentication import TokenAuthentication
 from rest_framework import viewsets
 from rest_framework import filters
-from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny
 from .models import Menu, Category
 from . import serializers
 
@@ -37,6 +37,7 @@ class MenuViewSet(viewsets.ModelViewSet):
 
 class MenuTypeView(generics.ListAPIView):
     serializer_class = serializers.MenuSerailzier
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         #Hottest (most order recently -> within 7 days)

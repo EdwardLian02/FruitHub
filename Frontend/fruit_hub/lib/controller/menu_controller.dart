@@ -10,6 +10,9 @@ class MenuRelatedController extends GetxController {
   final _favoriteController = Get.put(FavoriteController(), permanent: true);
 
   RxList<MenuModel> menuList = <MenuModel>[].obs;
+  RxList<MenuModel> menuByHottest = <MenuModel>[].obs;
+  RxList<MenuModel> menuByPopular = <MenuModel>[].obs;
+  RxList<MenuModel> menuByNew = <MenuModel>[].obs;
 
   RxString errorMessage = "".obs;
   RxBool isLoading = false.obs;
@@ -38,6 +41,27 @@ class MenuRelatedController extends GetxController {
         _favoriteController.fetchFavoriteList(favList);
       } else {
         errorMessage("Something wrong in the backend");
+      }
+    } catch (e) {
+      errorMessage(e.toString());
+    } finally {
+      isLoading(false);
+    }
+  }
+
+  Future<void> fetchMenuByType(type) async {
+    String? token = await _secureStorage.readData('token');
+    if (token == null) return;
+    isLoading(true);
+    try {
+      final response = await _apiController.fetchMenuByType(token, type);
+
+      if (response.isOk) {
+        for (var menu in response.body) {
+          final menuObj = MenuModel.fromJson(menu);
+        }
+      } else {
+        errorMessage("Sorry! Something went wrong");
       }
     } catch (e) {
       errorMessage(e.toString());

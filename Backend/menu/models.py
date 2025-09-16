@@ -23,9 +23,11 @@ class Menu(BaseModel):
     description = models.TextField()
     price = models.DecimalField(max_digits=10, decimal_places=2)
     imageUrl = models.ImageField(upload_to='menu/', blank=False, null=False)
-    type = models.CharField(choices=TYPE_CHOICE, max_length=20, null=True, blank=False)
+    type = models.CharField(choices=TYPE_CHOICE, max_length=20, null=True, blank=True)
     rating = models.FloatField(default=0.0)   #for storing avg rating. 
     rating_count = models.IntegerField(default=0) 
 
     def __str__(self):
         return self.name
+
+       
