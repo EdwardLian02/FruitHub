@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from django.contrib.auth import authenticate
 from rest_framework.authtoken.models import Token
 from rest_framework import status
+from rest_framework.permissions import IsAuthenticated
 from .serializers import LoginSerializer, SignUpSerializer
 from user.models import User
 
@@ -76,3 +77,13 @@ class SignUpAPIView(APIView):
         
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
+
+class LogoutAPIView(APIView): 
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, format=None):
+       try:
+            request.user.auth_token.delete()
+            return Response({"detail": "Logout success"}, status=status.HTTP_200_OK)
+       except: 
+            return Response({"detail": "Token not found"}, status=status.HTTP_400_BAD_REQUEST)

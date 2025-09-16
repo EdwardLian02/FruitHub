@@ -8,7 +8,7 @@ import 'package:fruit_hub/services/secure_storage_service.dart';
 import 'package:get/get.dart';
 
 class AuthenticationController extends GetxController {
-  final _authController = Get.put(ApiController());
+  final _apiController = Get.put(ApiController());
   final secureStorage = SecureStorageService();
   late final TextEditingController emailTextController;
   late final TextEditingController passwordTextController;
@@ -32,7 +32,7 @@ class AuthenticationController extends GetxController {
     isLoading(true);
     errorMessage.value = "";
     try {
-      final response = await _authController.login(authModel);
+      final response = await _apiController.login(authModel);
       if (response.isOk) {
         //isOk is true when statusCode is between 200 and 299.
         await secureStorage.writeData('token', response.body['token']);
@@ -62,7 +62,7 @@ class AuthenticationController extends GetxController {
     errorMessage.value = "";
 
     try {
-      final response = await _authController.register(authModel);
+      final response = await _apiController.register(authModel);
       print(response.body);
       if (response.isOk) {
         Get.offNamed('/login');
@@ -78,14 +78,29 @@ class AuthenticationController extends GetxController {
   }
 
   Future<void> logoutUser() async {
-    await secureStorage.deleteAllData();
-    Get.delete<BasketController>();
-    Get.delete<FavoriteController>();
-    Get.delete<OrderController>();
+    String? token = await secureStorage.readData('token');
+    if (token == null) return;
 
-    isLogin(false);
-
-    Get.offNamed('/login');
+    isLoading(true);
+    errorMessage("");
+    try {
+      final response = await _apiController.logout(token);
+      if (response.isOk) {
+        print(response.body);
+        await secureStorage.deleteAllData();
+        Get.delete<BasketController>();
+        Get.delete<FavoriteController>();
+        Get.delete<OrderController>();
+        isLogin(false);
+        Get.offNamed('/login');
+      } else {
+        errorMessage("Something went wrong");
+      }
+    } catch (e) {
+      errorMessage(e.toString());
+    } finally {
+      isLoading(false);
+    }
   }
 
   void clearInputText() {

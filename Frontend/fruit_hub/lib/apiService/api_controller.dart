@@ -56,6 +56,11 @@ class ApiController extends GetConnect {
   Future<Response> register(AuthModel model) async =>
       post('auth/user/signup/', model.toJson());
 
+  Future<Response> logout(String token) async =>
+      post('auth/user/logout/', {}, headers: {
+        "Authorization": "token $token",
+      });
+
   Future<Response> fetchMenu(String token) async => await get('menu', headers: {
         'Authorization': 'token $token',
       });

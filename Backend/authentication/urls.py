@@ -6,4 +6,5 @@ urlpatterns= [
     path('api-token-auth/', views.obtain_auth_token), 
     path('user/login/', thisView.LoginAPIView.as_view(), name='login'),
     path('user/signup/', thisView.SignUpAPIView.as_view(), name='signup'),
+    path('user/logout/', thisView.LogoutAPIView.as_view(), name='logout'),
 ]
