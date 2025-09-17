@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fruit_hub/helper/app_constant.dart';
+import 'package:fruit_hub/helper/function_constant.dart';
 import 'package:fruit_hub/model/menu_model.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 
@@ -46,19 +47,12 @@ class MenuCard extends StatelessWidget {
                           children: [
                             RichText(
                               text: TextSpan(
-                                  text: menuModel.price.toString(),
+                                  text: currencyFormatHelper(menuModel.price),
                                   style: TextStyle(
                                     fontSize: FontTheme.textSizeSmall,
                                     color: MyColor.primaryColor,
                                   ),
-                                  children: <TextSpan>[
-                                    TextSpan(
-                                      text: ' MMK',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    )
-                                  ]),
+                                  children: <TextSpan>[]),
                             ),
                             Container(
                               decoration: BoxDecoration(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:fruit_hub/helper/app_constant.dart';
+import 'package:fruit_hub/helper/function_constant.dart';
 import 'package:fruit_hub/model/basket_model.dart';
 import 'package:fruit_hub/model/menu_model.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
@@ -63,7 +64,7 @@ class BasketOrderTile extends StatelessWidget {
                 ),
               ],
             ),
-            Text('${basketItem.menu.price} MMK'),
+            Text(currencyFormatHelper(basketItem.menu.price)),
           ],
         ),
       ),

@@ -4,6 +4,7 @@ import 'package:fruit_hub/controller/basket_controller.dart';
 import 'package:fruit_hub/controller/order_controller.dart';
 import 'package:fruit_hub/detail_screen.dart';
 import 'package:fruit_hub/helper/app_constant.dart';
+import 'package:fruit_hub/helper/function_constant.dart';
 import 'package:fruit_hub/widget_helper/basket_order_tile.dart';
 import 'package:fruit_hub/widget_helper/common_button.dart';
 import 'package:fruit_hub/widget_helper/common_outline_button.dart';
@@ -49,7 +50,7 @@ class BasketScreen extends StatelessWidget {
                     ),
                     Obx(
                       () => Text(
-                        '${basketController.totalPrice.value.toInt()} MMK',
+                        currencyFormatHelper(basketController.totalPrice.value),
                         style: TextStyle(
                           fontSize: FontTheme.textSizeNormal,
                         ),

@@ -4,6 +4,7 @@ import 'package:fruit_hub/controller/basket_controller.dart';
 import 'package:fruit_hub/controller/menu_controller.dart';
 import 'package:fruit_hub/detail_screen.dart';
 import 'package:fruit_hub/helper/app_constant.dart';
+import 'package:fruit_hub/helper/function_constant.dart';
 import 'package:fruit_hub/search_screen.dart';
 import 'package:fruit_hub/widget_helper/common_searchbar.dart';
 import 'package:fruit_hub/widget_helper/menu_card.dart';

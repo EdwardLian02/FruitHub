@@ -3,6 +3,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fruit_hub/controller/basket_controller.dart';
 import 'package:fruit_hub/controller/favorite_controller.dart';
 import 'package:fruit_hub/helper/app_constant.dart';
+import 'package:fruit_hub/helper/function_constant.dart';
 import 'package:fruit_hub/model/menu_model.dart';
 import 'package:fruit_hub/widget_helper/circle_icon_button.dart';
 import 'package:fruit_hub/widget_helper/common_button.dart';
@@ -201,7 +202,7 @@ class DetailScreen extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        '${menuModel.price} MMk',
+                        currencyFormatHelper(menuModel.price),
                         style: TextStyle(
                           fontSize: FontTheme.textSizeLarge,
                         ),

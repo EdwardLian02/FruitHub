@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:fruit_hub/detail_screen.dart';
 import 'package:fruit_hub/helper/app_constant.dart';
+import 'package:fruit_hub/helper/function_constant.dart';
 import 'package:fruit_hub/helper/widget_constant.dart';
 import 'package:fruit_hub/model/order_model.dart';
 import 'package:fruit_hub/order_detail_screen.dart';
@@ -56,7 +57,7 @@ class OrderTile extends StatelessWidget {
 
             // Total Price
             Text(
-              "Total: ${orderModel.totalPrice.toStringAsFixed(2)} MMK",
+              currencyFormatHelper(orderModel.totalPrice),
               style: const TextStyle(fontSize: 15),
             ),
             const SizedBox(height: 12),

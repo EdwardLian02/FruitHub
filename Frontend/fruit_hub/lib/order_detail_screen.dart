@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fruit_hub/controller/order_controller.dart';
 import 'package:fruit_hub/helper/app_constant.dart';
+import 'package:fruit_hub/helper/function_constant.dart';
 import 'package:fruit_hub/helper/widget_constant.dart';
 import 'package:fruit_hub/model/menu_model.dart';
 import 'package:fruit_hub/model/order_item_model.dart';
@@ -295,7 +296,7 @@ class OrderDetailScreen extends StatelessWidget {
               ),
             ),
             Text(
-              '${orderModel.totalPrice} MMK',
+              currencyFormatHelper(orderModel.totalPrice),
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
@@ -336,7 +337,7 @@ class OrderDetailScreen extends StatelessWidget {
             const SizedBox(height: 8),
             _buildInfoRow(
               'Total Amount',
-              "${orderModel.totalPrice} MMK",
+              currencyFormatHelper(orderModel.totalPrice),
               isBold: true,
               valueColor: MyColor.primaryColor,
             ),
@@ -463,7 +464,7 @@ class OrderDetailScreen extends StatelessWidget {
           style: TextStyle(color: MyColor.darkenGreyColor),
         ),
         trailing: Text(
-          '\$${(orderItem.qty * orderItem.menu.price).toStringAsFixed(2)}',
+          currencyFormatHelper(orderItem.qty * orderItem.menu.price),
           style: TextStyle(
             fontWeight: FontWeight.bold,
             color: MyColor.primaryColor,
