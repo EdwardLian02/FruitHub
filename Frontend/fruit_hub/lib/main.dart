@@ -14,6 +14,7 @@ import 'package:fruit_hub/search_screen.dart';
 import 'package:fruit_hub/splash_screen.dart';
 import 'package:fruit_hub/splash_screen2.dart';
 import 'package:fruit_hub/order_success_screen.dart';
+import 'package:fruit_hub/test_screen.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -51,6 +52,7 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/order-track', page: () => OrderTrackScreen()),
         GetPage(name: '/order-success', page: () => OrderSuccessScreen()),
         GetPage(name: '/favorite', page: () => FavouriteScreen()),
+        GetPage(name: '/test-screen', page: () => TestScreen()),
       ],
     );
   }

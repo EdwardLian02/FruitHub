@@ -14,7 +14,17 @@ from django.db.models import Count
 class CategoryViewSet(viewsets.ModelViewSet): 
     queryset = Category.objects.all()
     serializer_class = serializers.CategorySerializer
-    authentication_classes = [IsAdminUser] #only for admin
+
+    #Admin -> CRUD
+    #User -> View
+    def get_permissions(self):
+        if self.action in ['create', 'update', 'partial_update', 'destroy']:
+            permission_classes = (IsAdminUser,)
+        else: 
+            print("HIIIIII I am printing out because I am user")
+            permission_classes = [IsAuthenticated] 
+        
+        return [permission() for permission in permission_classes]
 
 class MenuViewSet(viewsets.ModelViewSet): 
     queryset = Menu.objects.all()

@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:fruit_hub/controller/authentication_controller.dart';
 import 'package:fruit_hub/controller/basket_controller.dart';
+import 'package:fruit_hub/controller/category_controller.dart';
 import 'package:fruit_hub/controller/menu_controller.dart';
 import 'package:fruit_hub/detail_screen.dart';
 import 'package:fruit_hub/helper/app_constant.dart';
-import 'package:fruit_hub/helper/function_constant.dart';
 import 'package:fruit_hub/search_screen.dart';
 import 'package:fruit_hub/widget_helper/common_searchbar.dart';
+import 'package:fruit_hub/widget_helper/filter_items.dart';
+import 'package:fruit_hub/widget_helper/filter_row.dart';
 import 'package:fruit_hub/widget_helper/menu_card.dart';
 import 'package:fruit_hub/widget_helper/my_drawer.dart';
 import 'package:get/get.dart';
+import 'package:popover/popover.dart';
 
 class HomeScreen extends StatelessWidget {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
@@ -18,8 +21,11 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final authController = Get.find<AuthenticationController>();
+
     final menuRelatedController = Get.put(MenuRelatedController());
+    final categoryController = Get.put(CategoryController());
     final basketController = Get.find<BasketController>();
+
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: MyColor.whiteTextColor,
@@ -103,16 +109,48 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                   SizedBox(width: 20),
-                  IconButton(
-                    onPressed: () {},
-                    icon: Image.asset('assets/images/icon/filter.png'),
-                    color: MyColor.primaryColor,
-                  ),
+                  Obx(
+                    () => IconButton(
+                      onPressed: () {
+                        categoryController
+                            .isFilter(!categoryController.isFilter.value);
+                      },
+                      icon: Image.asset(
+                        'assets/images/icon/filter.png',
+                        color: categoryController.isFilter.value
+                            ? Colors.white
+                            : Colors.black,
+                      ),
+                      style: ButtonStyle(
+                        backgroundColor: categoryController.isFilter.value
+                            ? WidgetStatePropertyAll(MyColor.primaryColor)
+                            : null,
+                        shape: WidgetStatePropertyAll(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                        ),
+                      ),
+                    ),
+                  )
                 ],
               ),
 
+              SizedBox(height: 10),
+
+              //Filter by category section
+              AnimatedSize(
+                duration: Duration(milliseconds: 300),
+                curve: Curves.easeInOut,
+                child: Obx(
+                  () => categoryController.isFilter.value
+                      ? FilterRow()
+                      : SizedBox.shrink(),
+                ),
+              ),
+
+              SizedBox(height: 10),
               //Recommended Combo section
-              SizedBox(height: 40),
               Text(
                 'Recommended Combo',
                 style: TextStyle(fontSize: FontTheme.textSizeExtraLarge),
