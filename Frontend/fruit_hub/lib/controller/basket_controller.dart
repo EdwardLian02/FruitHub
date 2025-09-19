@@ -1,6 +1,6 @@
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fruit_hub/model/basket_model.dart';
 import 'package:get/get.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class BasketController extends GetxController {
   RxInt menuBasketCount = 1.obs; //Main counter

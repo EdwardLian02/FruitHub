@@ -1,5 +1,4 @@
 from rest_framework import serializers
-
 from favorites.models import Favorite
 from .models import Menu, Category
 
@@ -12,7 +11,6 @@ class CategorySerializer(serializers.ModelSerializer):
         )
 
 class MenuSerailzier(serializers.ModelSerializer):
-
     is_favorite = serializers.SerializerMethodField()
     favorite_id = serializers.SerializerMethodField()
     class Meta: 
