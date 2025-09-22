@@ -144,7 +144,7 @@ class HomeScreen extends StatelessWidget {
                 curve: Curves.easeInOut,
                 child: Obx(
                   () => categoryController.isFilter.value
-                      ? FilterRow()
+                      ? Hero(tag: "filter", child: FilterRow())
                       : SizedBox.shrink(),
                 ),
               ),

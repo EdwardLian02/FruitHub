@@ -5,6 +5,7 @@ import 'package:fruit_hub/controller/authentication_controller.dart';
 import 'package:fruit_hub/helper/app_constant.dart';
 import 'package:fruit_hub/model/auth_model.dart';
 import 'package:fruit_hub/model/basket_model.dart';
+import 'package:fruit_hub/model/category_model.dart';
 import 'package:fruit_hub/services/secure_storage_service.dart';
 import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/request/request.dart';
@@ -70,6 +71,20 @@ class ApiController extends GetConnect {
     return await get('menu/category_api', headers: {
       "Authorization": "Token $token",
     });
+  }
+
+  Future<Response> filterMenu(
+      String token, List<CategoryModel> filterList) async {
+    //Filter url format
+    // /menu/menu_api?category=[ID]&category=[ID]
+
+    String filterUrl = "";
+    //concat filter url
+    for (var filCat in filterList) {
+      filterUrl += "category=${filCat.id}&";
+    }
+    return await get('menu/menu_api?$filterUrl',
+        headers: {'Authorization': 'token $token'});
   }
 
   Future<Response> fetchMenuByType(String token, String para) async =>
