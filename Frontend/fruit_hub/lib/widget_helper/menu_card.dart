@@ -13,6 +13,7 @@ class MenuCard extends StatelessWidget {
     return Obx(
       () => SizedBox(
         width: 180,
+        height: 240,
         child: Card(
           color: MyColor.whiteTextColor,
           elevation: 0.8,

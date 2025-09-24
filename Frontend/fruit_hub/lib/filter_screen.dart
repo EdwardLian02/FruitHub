@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fruit_hub/controller/category_controller.dart';
+import 'package:fruit_hub/helper/app_constant.dart';
 import 'package:fruit_hub/widget_helper/filter_row.dart';
 import 'package:fruit_hub/widget_helper/menu_card.dart';
 import 'package:fruit_hub/widget_helper/my_app_bar.dart';
@@ -14,7 +15,11 @@ class FilterScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final categoryController = Get.find<CategoryController>();
     return Scaffold(
-      appBar: AppBar(),
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: MyColor.primaryColor,
+        automaticallyImplyLeading: false,
+      ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
         child: Column(
@@ -29,7 +34,7 @@ class FilterScreen extends StatelessWidget {
                 child: GridView.builder(
                   itemCount: categoryController.filterMenuList.length,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2),
+                      crossAxisCount: 2, childAspectRatio: 0.8),
                   itemBuilder: (context, index) {
                     final menu = categoryController.filterMenuList[index];
                     return MenuCard(menuModel: menu);

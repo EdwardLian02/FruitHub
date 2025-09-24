@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:fruit_hub/helper/app_constant.dart';
 import 'package:fruit_hub/widget_helper/order_tracking_tile.dart';
+import 'package:timeline_tile/timeline_tile.dart';
 
 class OrderTrackScreen extends StatelessWidget {
   const OrderTrackScreen({super.key});
@@ -25,27 +28,31 @@ class OrderTrackScreen extends StatelessWidget {
         child: Column(
           children: [
             OrderTrackingTile(
-              title: 'Order Taken',
-              iconImageUrl: 'assets/images/icon/take-order.png',
-              isDone: true,
-              containerBgColor: MyColor.blueBackgroundColor,
+              isFirst: true,
+              isPast: true,
+              title: "Order Taken",
+              description:
+                  "Your order has been taken and confirmed by the admin. We will prepared your order soon",
+              iconUrl: "assets/images/icon/take-order.png",
             ),
-            SizedBox(height: 50),
             OrderTrackingTile(
-              title: 'Order is being prepared',
-              iconImageUrl: 'assets/images/icon/prepared-order.png',
-              isDone: false,
-              containerBgColor: MyColor.yelloBackgroundColor,
+              title: "Order is Being Prepared",
+              description:
+                  "We are preparing your order. Will be on your way soon!",
+              iconUrl: "assets/images/icon/prepared-order.png",
             ),
-            SizedBox(height: 50),
             OrderTrackingTile(
-              title: 'Order is being delivered',
-              iconImageUrl:
-                  'assets/images/icon/delivery-man-riding-red-scooter.png',
-              isDone: false,
-              containerBgColor: MyColor.pinkBackgroundColor,
+              isLast: false,
+              title: "Delivering",
+              description: "Order is on it's way. Get ready for your order",
+              iconUrl: 'assets/images/icon/delivery-man-riding-red-scooter.png',
             ),
-            SizedBox(height: 50),
+            OrderTrackingTile(
+              isLast: true,
+              title: "Order Received",
+              description:
+                  "Thank you for your purchased. I hope we will come across very often",
+            ),
           ],
         ),
       ),

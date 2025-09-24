@@ -1,61 +1,83 @@
 import 'package:flutter/material.dart';
 import 'package:fruit_hub/helper/app_constant.dart';
-import 'package:fruit_hub/widget_helper/circle_icon_button.dart';
+import 'package:timeline_tile/timeline_tile.dart';
 
 class OrderTrackingTile extends StatelessWidget {
   final String title;
-  final String iconImageUrl;
-  final Color containerBgColor;
-  final bool isDone;
-  const OrderTrackingTile(
-      {super.key,
-      required this.title,
-      required this.containerBgColor,
-      required this.isDone,
-      required this.iconImageUrl});
+  final String description;
+  final String? iconUrl;
+  final bool isFirst;
+  final bool isLast;
+  final bool isPast;
+  const OrderTrackingTile({
+    super.key,
+    required this.title,
+    required this.description,
+    this.iconUrl,
+    this.isFirst = false,
+    this.isLast = false,
+    this.isPast = false,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Row(
-          children: [
-            Container(
-              width: 80,
-              height: 80,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
-                color: containerBgColor,
-              ),
-              child: Padding(
-                padding: EdgeInsets.all(10),
-                child: Image.asset(iconImageUrl),
-              ),
-            ),
-            SizedBox(width: 20),
-            Text(
-              title,
-              style: TextStyle(
-                fontSize: FontTheme.textSizeLarge,
-              ),
-            ),
-          ],
+    return SizedBox(
+      height: 150,
+      child: TimelineTile(
+        isFirst: isFirst,
+        isLast: isLast,
+        indicatorStyle: IndicatorStyle(
+            width: 50,
+            height: 50,
+            color: isPast ? MyColor.successGreen : Colors.grey,
+            iconStyle: isPast
+                ? IconStyle(
+                    iconData: Icons.check, color: MyColor.whiteTextColor)
+                : null,
+            indicator: iconUrl != null
+                ? Container(
+                    decoration: BoxDecoration(
+                      color: isPast ? MyColor.primaryColor : Colors.grey,
+                      shape: BoxShape.circle,
+                    ),
+                    child: Image.asset(iconUrl!),
+                  )
+                : null),
+        beforeLineStyle: LineStyle(
+          color: isPast ? MyColor.primaryColor : Colors.grey,
         ),
-        CircleIconButton(
-          haveBorder: isDone ? false : true,
-          icon: isDone
-              ? Icon(
-                  Icons.check,
-                  color: Colors.white,
-                )
-              : Icon(
-                  Icons.check,
-                  color: Colors.black,
+        hasIndicator: true,
+        endChild: Container(
+          margin: EdgeInsets.only(top: 40, right: 10, left: 10),
+          decoration: BoxDecoration(
+            color: isPast ? MyColor.primaryColor : Colors.grey,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: TextStyle(
+                    fontSize: FontTheme.textSizeLarge,
+                    color: MyColor.whiteTextColor,
+                  ),
                 ),
-          buttonColor: isDone ? MyColor.successGreen : Colors.transparent,
+                SizedBox(height: 6),
+                Text(
+                  description,
+                  style: TextStyle(
+                    fontSize: FontTheme.textSizeSmall,
+                    color: MyColor.whiteTextColor,
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
-      ],
+      ),
     );
   }
 }
