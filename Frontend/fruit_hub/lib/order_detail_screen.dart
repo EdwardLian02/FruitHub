@@ -6,6 +6,7 @@ import 'package:fruit_hub/helper/widget_constant.dart';
 import 'package:fruit_hub/model/menu_model.dart';
 import 'package:fruit_hub/model/order_item_model.dart';
 import 'package:fruit_hub/model/order_model.dart';
+import 'package:fruit_hub/model/status_enum.dart';
 import 'package:fruit_hub/widget_helper/common_textField.dart';
 import 'package:get/get.dart';
 
@@ -39,6 +40,55 @@ class OrderDetailScreen extends StatelessWidget {
             _buildOrderStatusCard(),
             const SizedBox(height: 20),
 
+            //button
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: OutlinedButton(
+                    onPressed: () => Get.toNamed('/order-track'),
+                    style: ButtonStyle(
+                      elevation: WidgetStatePropertyAll(0.0),
+                    ),
+                    child: Text(
+                      orderModel.status == Status.delivered
+                          ? "Already Delivered"
+                          : "Track Order",
+                      style: TextStyle(
+                        color: orderModel.status == Status.delivered
+                            ? MyColor.successGreen
+                            : MyColor.primaryTextColor,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 15),
+                Visibility(
+                  visible: orderModel.status == Status.pending ? true : false,
+                  child: Expanded(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        orderController.isOrderCancelButtonActive(false);
+
+                        _showConfirmationPopUp(context, orderController);
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.red,
+                        elevation: 0,
+                      ),
+                      child: const Text(
+                        "Cancel Order",
+                        style: TextStyle(
+                          fontSize: FontTheme.textSizeNormal,
+                          color: MyColor.whiteTextColor,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 10),
             // Order Summary
             _buildSectionTitle('Order Summary'),
             const SizedBox(height: 10),
@@ -63,55 +113,6 @@ class OrderDetailScreen extends StatelessWidget {
             SizedBox(
               height: 250,
               child: _buildOrderItems(),
-            ),
-
-            //button
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Expanded(
-                  child: OutlinedButton(
-                    onPressed: () => Get.toNamed('/order-track'),
-                    style: ButtonStyle(
-                      elevation: WidgetStatePropertyAll(0.0),
-                    ),
-                    child: Text(
-                      orderModel.status == 'D'
-                          ? "Already Delivered"
-                          : "Track Order",
-                      style: TextStyle(
-                        color: orderModel.status == 'D'
-                            ? MyColor.successGreen
-                            : MyColor.primaryTextColor,
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 15),
-                Visibility(
-                  visible: orderModel.status == 'P' ? true : false,
-                  child: Expanded(
-                    child: ElevatedButton(
-                      onPressed: () {
-                        orderController.isOrderCancelButtonActive(false);
-
-                        _showConfirmationPopUp(context, orderController);
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.red,
-                        elevation: 0,
-                      ),
-                      child: const Text(
-                        "Cancel Order",
-                        style: TextStyle(
-                          fontSize: FontTheme.textSizeNormal,
-                          color: MyColor.whiteTextColor,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
             ),
           ],
         ),

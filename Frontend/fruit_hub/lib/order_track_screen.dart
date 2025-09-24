@@ -1,9 +1,6 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:fruit_hub/helper/app_constant.dart';
 import 'package:fruit_hub/widget_helper/order_tracking_tile.dart';
-import 'package:timeline_tile/timeline_tile.dart';
 
 class OrderTrackScreen extends StatelessWidget {
   const OrderTrackScreen({super.key});
@@ -27,6 +24,22 @@ class OrderTrackScreen extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 30),
         child: Column(
           children: [
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: MyColor.statusRejectColor,
+              ),
+              child: Padding(
+                padding: EdgeInsets.all(10),
+                child: Text(
+                  "We are sorry! Your order was rejected due to some condition.",
+                  style: TextStyle(
+                    fontSize: FontTheme.textSizeSmall,
+                    color: MyColor.whiteTextColor,
+                  ),
+                ),
+              ),
+            ),
             OrderTrackingTile(
               isFirst: true,
               isPast: true,

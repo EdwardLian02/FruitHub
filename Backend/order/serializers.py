@@ -66,3 +66,11 @@ class ViewOrderSerializer(serializers.ModelSerializer):
             'created_at',
             'orders',
         ]
+
+
+class OrderStatusSerializer(serializers.ModelSerializer):
+    class Meta: 
+        model = Order
+        fields = [
+            'status'
+        ]

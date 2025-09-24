@@ -2,19 +2,23 @@ from django.shortcuts import render
 from rest_framework import viewsets
 from rest_framework.exceptions import ValidationError
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
-from .serializers import CreateOrDeleteOrderSerializer, ViewOrderSerializer
+from rest_framework.views import APIView
+from .serializers import CreateOrDeleteOrderSerializer, ViewOrderSerializer, OrderStatusSerializer
 from .models import Order, OrderItem
+from . import permissions
 
 # Create your views here.
 class OrderViewSet(viewsets.ModelViewSet):
     queryset = Order.objects.all()
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated,permissions.IsOrderOwnerOrAdmin)
 
     def get_queryset(self):
-        if self.request.user.is_staff: 
-            return super().get_queryset()
+        qs = super().get_queryset()
 
-        return self.queryset.filter(user=self.request.user)
+        if self.request.user.is_staff: 
+            return qs
+
+        return qs.filter(user=self.request.user)
     
     def get_serializer_class(self):
         if self.action in ['list', 'retrieve']: 
@@ -32,3 +36,10 @@ class OrderViewSet(viewsets.ModelViewSet):
         instance.delete()
         
         
+class OrderStatusReadOnlyViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = Order.objects.all()
+    serializer_class = OrderStatusSerializer
+    permission_classes = (IsAuthenticated,permissions.IsOrderOwnerOrAdmin)
+
+
+

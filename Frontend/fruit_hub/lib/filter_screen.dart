@@ -3,8 +3,6 @@ import 'package:fruit_hub/controller/category_controller.dart';
 import 'package:fruit_hub/helper/app_constant.dart';
 import 'package:fruit_hub/widget_helper/filter_row.dart';
 import 'package:fruit_hub/widget_helper/menu_card.dart';
-import 'package:fruit_hub/widget_helper/my_app_bar.dart';
-import 'package:fruit_hub/widget_helper/my_drawer.dart';
 import 'package:get/get.dart';
 
 class FilterScreen extends StatelessWidget {

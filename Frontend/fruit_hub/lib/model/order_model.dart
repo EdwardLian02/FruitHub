@@ -1,9 +1,10 @@
 import 'package:fruit_hub/model/menu_model.dart';
 import 'package:fruit_hub/model/order_item_model.dart';
+import 'package:fruit_hub/model/status_enum.dart';
 
 class OrderModel {
   final String id;
-  final String status;
+  final Status status;
   final double totalPrice;
   final List<OrderItemModel> items;
 
@@ -38,9 +39,26 @@ class OrderModel {
 
     return OrderModel(
       id: json['id'] as String,
-      status: json['status'] as String,
+      status: statusToEnumConverter(json['status'] as String),
       totalPrice: (json['total_price'] as num).toDouble(),
       items: parseItemList,
     );
+  }
+}
+
+Status statusToEnumConverter(String statusString) {
+  switch (statusString) {
+    case 'P':
+      return Status.pending;
+    case 'R':
+      return Status.reject;
+    case 'C':
+      return Status.confirm;
+    case 'BD':
+      return Status.beingDeliver;
+    case 'D':
+      return Status.delivered;
+    default:
+      return Status.none;
   }
 }

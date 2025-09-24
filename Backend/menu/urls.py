@@ -3,8 +3,8 @@ from . import views
 from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
-router.register(r'category_api', views.CategoryViewSet)
-router.register(r'menu_api', views.MenuViewSet)
+router.register(r'menu/category', views.CategoryViewSet)
+router.register(r'menu/', views.MenuViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),

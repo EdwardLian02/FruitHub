@@ -1,34 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:fruit_hub/helper/app_constant.dart';
+import 'package:fruit_hub/model/status_enum.dart';
 
-String statusConverter(String status) {
+String statusConverter(Status status) {
   switch (status) {
-    case 'P':
+    case Status.pending:
       return 'Pending';
-    case 'C':
+    case Status.confirm:
       return 'Confirm';
-    case 'R':
+    case Status.reject:
       return 'Reject';
-    case 'BD':
+    case Status.beingDeliver:
       return 'Being Delivered';
-    case 'D':
+    case Status.delivered:
       return 'Delivered';
     default:
       return 'No status';
   }
 }
 
-Color convertStatusColor(String status) {
+Color convertStatusColor(Status status) {
   switch (status) {
-    case 'P':
+    case Status.pending:
       return MyColor.statusPendingColor;
-    case 'C':
+    case Status.confirm:
       return MyColor.statusConfirmColor;
-    case 'R':
+    case Status.reject:
       return MyColor.statusRejectColor;
-    case 'BD':
+    case Status.beingDeliver:
       return MyColor.statusBeingDelivered;
-    case 'D':
+    case Status.delivered:
       return MyColor.statusDeliveredColor;
     default:
       return MyColor.statusDefaultColor;

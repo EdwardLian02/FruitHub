@@ -1,22 +1,22 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:fruit_hub/helper/app_constant.dart';
-import 'package:fruit_hub/helper/widget_constant.dart';
 import 'package:fruit_hub/model/status_enum.dart';
 
-class StatusBadge extends StatelessWidget {
+class MessageCardWidget extends StatelessWidget {
   final Status status;
-  @override
-  const StatusBadge({super.key, required this.status});
+  const MessageCardWidget({super.key, required this.status});
 
+  @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          color: convertStatusColor(status),
-          borderRadius: BorderRadius.circular(20)),
+        borderRadius: BorderRadius.circular(10),
+        color: MyColor.statusRejectColor,
+      ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+        padding: EdgeInsets.all(10),
         child: Text(
-          statusConverter(status),
+          "We are sorry! Your order was rejected due to some condition.",
           style: TextStyle(
             fontSize: FontTheme.textSizeSmall,
             color: MyColor.whiteTextColor,
