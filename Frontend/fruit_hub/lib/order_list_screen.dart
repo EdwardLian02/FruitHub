@@ -53,20 +53,103 @@ class OrderListScreen extends StatelessWidget {
                   await Future.delayed(Duration(seconds: 2));
                   await orderController.fetchOrder();
                 },
-                child: ListView.builder(
-                  itemCount: orderController.orderList.length,
-                  itemBuilder: (context, index) {
-                    final orderModel = orderController.orderList[index];
-                    return OrderTile(
-                      orderModel: orderModel,
-                      onTrackOrder: () {
-                        Get.toNamed('/order-track');
-                      },
-                      onCancelOrder: () {},
-                    );
-                  },
-                ),
-              ),
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16),
+                  child: Column(
+                    children: [
+                      SizedBox(height: 10),
+                      //Filter button section
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Text(
+                            "Filter ",
+                            style: TextStyle(
+                              fontSize: FontTheme.textSizeNormal,
+                            ),
+                          ),
+                          SizedBox(width: 10),
+                          Container(
+                            width: 150,
+                            height: 40,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                style: BorderStyle.solid,
+                                color: MyColor.darkenGreyColor,
+                              ),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: DropdownButtonHideUnderline(
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 10),
+                                child: DropdownButton(
+                                    style: TextStyle(
+                                      fontSize: FontTheme.textSizeSmall,
+                                      color: MyColor.primaryTextColor,
+                                    ),
+                                    isExpanded: true,
+                                    borderRadius: BorderRadius.circular(10),
+                                    hint: Text("filter by status"),
+                                    value:
+                                        orderController.filterStatusValue.value,
+                                    alignment: Alignment.center,
+                                    items: [
+                                      DropdownMenuItem(
+                                        value: '',
+                                        child: Text("All"),
+                                      ),
+                                      DropdownMenuItem(
+                                        value: 'P',
+                                        child: Text("Pending"),
+                                      ),
+                                      DropdownMenuItem(
+                                        value: 'R',
+                                        child: Text("Reject"),
+                                      ),
+                                      DropdownMenuItem(
+                                        value: 'PP',
+                                        child: Text("Being Prepared"),
+                                      ),
+                                      DropdownMenuItem(
+                                        value: 'BD',
+                                        child: Text("Being Delivered"),
+                                      ),
+                                      DropdownMenuItem(
+                                        value: 'D',
+                                        child: Text("Delivered"),
+                                      ),
+                                    ],
+                                    onChanged: (value) async {
+                                      orderController.filterStatusValue(value);
+                                      if (value == "") {
+                                        await orderController.fetchOrder();
+                                      } else {
+                                        await orderController.filterOrder();
+                                      }
+                                    }),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Expanded(
+                        child: ListView.builder(
+                          itemCount: orderController.orderList.length,
+                          itemBuilder: (context, index) {
+                            final orderModel = orderController.orderList[index];
+                            return OrderTile(
+                              orderModel: orderModel,
+                              onTrackOrder: () {
+                                Get.toNamed('/order-track');
+                              },
+                              onCancelOrder: () {},
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                )),
       ),
     );
   }

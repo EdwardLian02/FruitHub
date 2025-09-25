@@ -1,9 +1,11 @@
 import 'dart:ffi';
 
+import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:fruit_hub/apiService/api_controller.dart';
 import 'package:fruit_hub/controller/basket_controller.dart';
 import 'package:fruit_hub/model/order_model.dart';
+import 'package:fruit_hub/order_list_screen.dart';
 import 'package:fruit_hub/services/secure_storage_service.dart';
 import 'package:get/get.dart';
 
@@ -18,6 +20,7 @@ class OrderController extends GetxController {
   RxBool isLoading = true.obs;
 
   RxBool isOrderCancelButtonActive = false.obs;
+  RxString filterStatusValue = "".obs;
 
   Future<void> fetchOrder() async {
     String? token = await _secureStorage.readData('token');
@@ -27,17 +30,34 @@ class OrderController extends GetxController {
     try {
       final response = await _apiController.fetchOrder(token);
       if (response.isOk) {
-        print("Response.OK");
-        print(response.body);
-
         for (var order in response.body) {
-          print("print order");
-          print(order);
           orderList.add(OrderModel.fromJson(order));
         }
-        print(orderList);
-        print("print out order list length");
-        print(orderList.length);
+      } else {
+        errorMessage("Something went wrong!");
+      }
+    } catch (e) {
+      errorMessage(e.toString());
+    } finally {
+      isLoading(false);
+    }
+  }
+
+  Future<void> filterOrder() async {
+    String? token = await _secureStorage.readData('token');
+    if (token == null) return;
+    isLoading(true);
+    errorMessage("");
+
+    try {
+      final response =
+          await _apiController.filterOrder(token, filterStatusValue.value);
+
+      if (response.isOk) {
+        orderList.clear();
+        for (var order in response.body) {
+          orderList.add(OrderModel.fromJson(order));
+        }
       } else {
         errorMessage("Something went wrong!");
       }

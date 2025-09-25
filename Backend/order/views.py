@@ -3,6 +3,7 @@ from rest_framework import viewsets
 from rest_framework.exceptions import ValidationError
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.views import APIView
+from django_filters.rest_framework import DjangoFilterBackend
 from .serializers import CreateOrDeleteOrderSerializer, ViewOrderSerializer, OrderStatusSerializer
 from .models import Order, OrderItem
 from . import permissions
@@ -11,6 +12,9 @@ from . import permissions
 class OrderViewSet(viewsets.ModelViewSet):
     queryset = Order.objects.all()
     permission_classes = (IsAuthenticated,permissions.IsOrderOwnerOrAdmin)
+    filter_backends = (DjangoFilterBackend,)
+    filterset_fields = ['status',]
+    
 
     def get_queryset(self):
         qs = super().get_queryset()
@@ -18,7 +22,7 @@ class OrderViewSet(viewsets.ModelViewSet):
         if self.request.user.is_staff: 
             return qs
 
-        return qs.filter(user=self.request.user)
+        return qs.filter(user=self.request.user).order_by('-created_at')
     
     def get_serializer_class(self):
         if self.action in ['list', 'retrieve']: 

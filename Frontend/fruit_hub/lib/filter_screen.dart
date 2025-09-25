@@ -15,6 +15,12 @@ class FilterScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        title: Text(
+          'Filter',
+          style: TextStyle(
+            color: MyColor.whiteTextColor,
+          ),
+        ),
         backgroundColor: MyColor.primaryColor,
         automaticallyImplyLeading: false,
       ),

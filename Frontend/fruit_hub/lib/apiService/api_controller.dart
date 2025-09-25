@@ -99,6 +99,11 @@ class ApiController extends GetConnect {
         'Authorization': 'token $token',
       });
 
+  Future<Response> filterOrder(String token, String value) =>
+      get('api/order?status=$value', headers: {
+        'Authorization': 'token $token',
+      });
+
   Future<Response> createOrder(
       List<BasketItem> orderItems, String token) async {
     final postData = [];
