@@ -7,6 +7,7 @@ import 'package:fruit_hub/model/menu_model.dart';
 import 'package:fruit_hub/model/order_item_model.dart';
 import 'package:fruit_hub/model/order_model.dart';
 import 'package:fruit_hub/model/status_enum.dart';
+import 'package:fruit_hub/order_track_screen.dart';
 import 'package:fruit_hub/widget_helper/common_textField.dart';
 import 'package:get/get.dart';
 
@@ -46,18 +47,15 @@ class OrderDetailScreen extends StatelessWidget {
               children: [
                 Expanded(
                   child: OutlinedButton(
-                    onPressed: () => Get.toNamed('/order-track'),
+                    onPressed: () =>
+                        Get.to(() => OrderTrackScreen(orderModel: orderModel)),
                     style: ButtonStyle(
                       elevation: WidgetStatePropertyAll(0.0),
                     ),
                     child: Text(
-                      orderModel.status == Status.delivered
-                          ? "Already Delivered"
-                          : "Track Order",
+                      getOrderStatusButtonText(orderModel.status),
                       style: TextStyle(
-                        color: orderModel.status == Status.delivered
-                            ? MyColor.successGreen
-                            : MyColor.primaryTextColor,
+                        color: getOrderStatusButtonTextColor(orderModel.status),
                       ),
                     ),
                   ),
@@ -118,6 +116,28 @@ class OrderDetailScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  String getOrderStatusButtonText(Status status) {
+    switch (status) {
+      case Status.delivered:
+        return "Already Delivered";
+      case Status.reject:
+        return "Rejected";
+      default:
+        return "Track Order";
+    }
+  }
+
+  Color getOrderStatusButtonTextColor(Status status) {
+    switch (status) {
+      case Status.delivered:
+        return MyColor.successGreen;
+      case Status.reject:
+        return MyColor.statusRejectColor;
+      default:
+        return MyColor.primaryTextColor;
+    }
   }
 
   void _showProgressPopUp(context) => showDialog(

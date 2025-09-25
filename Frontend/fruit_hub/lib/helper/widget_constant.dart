@@ -8,6 +8,8 @@ String statusConverter(Status status) {
       return 'Pending';
     case Status.confirm:
       return 'Confirm';
+    case Status.prepared:
+      return 'Being Prepared';
     case Status.reject:
       return 'Reject';
     case Status.beingDeliver:
@@ -27,6 +29,8 @@ Color convertStatusColor(Status status) {
       return MyColor.statusConfirmColor;
     case Status.reject:
       return MyColor.statusRejectColor;
+    case Status.prepared:
+      return MyColor.statusPreparedColor;
     case Status.beingDeliver:
       return MyColor.statusBeingDelivered;
     case Status.delivered:

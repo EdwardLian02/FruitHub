@@ -1,12 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
-import 'package:fruit_hub/controller/authentication_controller.dart';
 import 'package:fruit_hub/helper/app_constant.dart';
 import 'package:fruit_hub/model/auth_model.dart';
 import 'package:fruit_hub/model/basket_model.dart';
 import 'package:fruit_hub/model/category_model.dart';
-import 'package:fruit_hub/services/secure_storage_service.dart';
 import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/request/request.dart';
 import 'package:logger/web.dart';
@@ -63,12 +61,12 @@ class ApiController extends GetConnect {
       });
 
   Future<Response> fetchMenu(String token) async =>
-      await get('menu/menu_api', headers: {
+      await get('api/menu', headers: {
         'Authorization': 'token $token',
       });
 
   Future<Response> fetchCategory(String token) async {
-    return await get('menu/category_api', headers: {
+    return await get('api/menu/category', headers: {
       "Authorization": "Token $token",
     });
   }
@@ -83,21 +81,21 @@ class ApiController extends GetConnect {
     for (var filCat in filterList) {
       filterUrl += "category=${filCat.id}&";
     }
-    return await get('menu/menu_api?$filterUrl',
+    return await get('api/menu?$filterUrl',
         headers: {'Authorization': 'token $token'});
   }
 
   Future<Response> fetchMenuByType(String token, String para) async =>
-      await get('menu/menu_api/type/$para', headers: {
+      await get('api/menu/type/$para', headers: {
         'Authorization': 'token $token',
       });
 
   Future<Response> fetchMenuDetail(String menuId, String token) async =>
-      await get('menu/menu_api/$menuId', headers: {
+      await get('api/menu/$menuId', headers: {
         'Authorization': 'token $token',
       });
 
-  Future<Response> fetchOrder(String token) => get('order/', headers: {
+  Future<Response> fetchOrder(String token) => get('api/order', headers: {
         'Authorization': 'token $token',
       });
 
@@ -108,26 +106,26 @@ class ApiController extends GetConnect {
       postData.add({'menu': item.menu.id, 'qty': item.qty});
     }
 
-    return await post('order/', jsonEncode({"orders": postData}),
+    return await post('api/order/', jsonEncode({"orders": postData}),
         headers: {'Authorization': 'token $token'});
   }
 
   Future<Response> deleteOrder(String orderId, String token) =>
-      delete('order/$orderId/', headers: {'Authorization': 'token $token'});
+      delete('order/$orderId', headers: {'Authorization': 'token $token'});
 
   Future<Response> search(String parameter, String token) =>
-      get('menu/menu_api?search=$parameter',
+      get('api/menu?search=$parameter',
           headers: {'Authorization': 'token $token'});
 
   Future<Response> createFavorite(String menuId, String token) =>
-      post('favorite/favorite_api/', {
+      post('api/favorite/', {
         'menu': menuId
       }, headers: {
         'Authorization': 'token $token',
       });
 
   Future<Response> deleteFavorite(String favId, String token) =>
-      delete('favorite/favorite_api/$favId/', headers: {
+      delete('api/favorite/$favId/', headers: {
         'Authorization': 'token $token',
       });
 }

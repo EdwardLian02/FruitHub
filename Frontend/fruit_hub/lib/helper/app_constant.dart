@@ -26,6 +26,7 @@ class MyColor {
   static const Color statusConfirmColor = Color(0xFF3865a3);
   static const Color statusPendingColor = Color(0xFFffcc00);
   static const Color statusRejectColor = Color(0xFFe03b24);
+  static const Color statusPreparedColor = Color(0xFFFFA451);
   static const Color statusBeingDelivered = Color(0xFF78923D);
   static const Color statusDeliveredColor = Color(0xFF64a338);
   static const Color statusDefaultColor = Colors.grey;

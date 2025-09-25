@@ -20,6 +20,7 @@ class OrderAdmin(admin.ModelAdmin):
     readonly_fields = ('user', 'total_price')  
     inlines = [OrderItemInline]
     list_filter = ('status',)
+    search_fields = ('id__icontains',)
     
     def has_add_permission(self, request):
         return False  

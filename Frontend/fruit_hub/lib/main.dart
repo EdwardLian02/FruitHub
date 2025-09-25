@@ -48,7 +48,6 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/basket', page: () => BasketScreen()),
         GetPage(name: '/search', page: () => SearchScreen()),
         GetPage(name: '/order', page: () => OrderListScreen()),
-        GetPage(name: '/order-track', page: () => OrderTrackScreen()),
         GetPage(name: '/order-success', page: () => OrderSuccessScreen()),
         GetPage(name: '/favorite', page: () => FavouriteScreen()),
         GetPage(name: '/test-screen', page: () => TestScreen()),

@@ -54,8 +54,11 @@ Status statusToEnumConverter(String statusString) {
       return Status.reject;
     case 'C':
       return Status.confirm;
+
     case 'BD':
       return Status.beingDeliver;
+    case 'PP':
+      return Status.prepared;
     case 'D':
       return Status.delivered;
     default:

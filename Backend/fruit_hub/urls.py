@@ -15,6 +15,7 @@ schema_view = get_schema_view(
       contact=openapi.Contact(email="contact@snippets.local"),
       license=openapi.License(name="BSD License"),
    ),
+
    public=True,
    permission_classes=(permissions.AllowAny,),
 )
@@ -23,9 +24,9 @@ schema_view = get_schema_view(
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('auth/', include('authentication.urls')),
-    path('api', include('menu.urls')),
+    path('api/', include('menu.urls')),
     path('api', include('order.urls')),
-    path('api', include('favorites.urls')),
+    path('api/', include('favorites.urls')),
 
     #api documentation - swagger
     path('swagger.<format>/', schema_view.without_ui(cache_timeout=0), name='schema-json'),

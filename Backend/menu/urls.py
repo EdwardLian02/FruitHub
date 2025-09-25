@@ -3,8 +3,9 @@ from . import views
 from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
-router.register(r'menu/category', views.CategoryViewSet)
-router.register(r'menu/', views.MenuViewSet)
+router.register(r'menu/category', views.CategoryViewSet, basename='category')
+router.register(r'menu', views.MenuViewSet, basename='menus')
+
 
 urlpatterns = [
     path('', include(router.urls)),

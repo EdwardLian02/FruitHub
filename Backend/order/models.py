@@ -11,6 +11,7 @@ class Order(BaseModel):
         ('P', 'Pending'), 
         ('R', 'Reject'), 
         ('C', 'Confirm'), 
+        ('PP', 'Prepared'),
         ('BD', 'Being Delivered'),
         ('D', 'Delivered'),
     ]
