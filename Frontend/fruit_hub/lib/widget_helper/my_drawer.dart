@@ -7,23 +7,35 @@ class MyDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      backgroundColor: MyColor.primaryColor,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 40),
         child: ListView(
           children: [
             //Profile info display section
-            Column(
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SizedBox(
-                  height: 150,
-                  child: Image.asset(
-                    'assets/images/buutee_profile_image.png',
+                Text(
+                  "David Robison",
+                  style: TextStyle(
+                    fontSize: FontTheme.textSizeLarge,
+                    fontWeight: FontWeight.bold,
                   ),
-                )
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Get.back();
+                    Get.toNamed('/profile');
+                  },
+                  child: Icon(
+                    Icons.arrow_forward_ios,
+                    size: 18,
+                    color: MyColor.extraDarkenGreyColor,
+                  ),
+                ),
               ],
             ),
-
+            SizedBox(height: 20),
             //List tile section (List items)
             GestureDetector(
               onTap: () {
@@ -36,6 +48,16 @@ class MyDrawer extends StatelessWidget {
               ),
             ),
 
+            GestureDetector(
+              onTap: () {
+                Get.back();
+                Get.offNamed('/profile');
+              },
+              child: ListTile(
+                leading: Icon(Icons.person, size: 30),
+                title: Text("Profile"),
+              ),
+            ),
             GestureDetector(
               onTap: () {
                 Get.back();
@@ -56,11 +78,6 @@ class MyDrawer extends StatelessWidget {
                 leading: Icon(Icons.sort, size: 30),
                 title: Text("Order"),
               ),
-            ),
-
-            ListTile(
-              leading: Icon(Icons.settings, size: 30),
-              title: Text("Settings"),
             ),
           ],
         ),

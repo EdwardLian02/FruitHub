@@ -39,16 +39,12 @@ class OrderTile extends StatelessWidget {
             SizedBox(height: 10),
             // Order ID and Status
 
-            GestureDetector(
-              onTap: () =>
-                  Get.to(() => OrderDetailScreen(orderModel: orderModel)),
-              child: Text(
-                orderModel.id,
-                style: const TextStyle(
-                  fontSize: FontTheme.textSizeNormal,
-                  color: MyColor.primaryTextColor,
-                  fontWeight: FontWeight.bold,
-                ),
+            Text(
+              orderModel.id,
+              style: const TextStyle(
+                fontSize: FontTheme.textSizeNormal,
+                color: MyColor.primaryTextColor,
+                fontWeight: FontWeight.bold,
               ),
             ),
             const SizedBox(

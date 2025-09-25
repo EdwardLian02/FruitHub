@@ -52,15 +52,6 @@ class HomeScreen extends StatelessWidget {
               size: 25,
             ),
           ),
-          IconButton(
-              onPressed: () {
-                authController.logoutUser();
-              },
-              icon: Icon(
-                Icons.logout,
-                size: 25,
-                color: Colors.red,
-              )),
         ],
       ),
       drawer: MyDrawer(),
