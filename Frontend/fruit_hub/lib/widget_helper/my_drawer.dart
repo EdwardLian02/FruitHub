@@ -43,7 +43,20 @@ class MyDrawer extends StatelessWidget {
                 Get.offNamed('/home');
               },
               child: ListTile(
-                leading: Icon(Icons.home, size: 30),
+                leading: Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: MyColor.lowOrangeColor,
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.all(8),
+                    child: Image.asset(
+                      'assets/images/icon/home_icon.png',
+                      width: 25,
+                      color: MyColor.primaryColor,
+                    ),
+                  ),
+                ),
                 title: Text("Home"),
               ),
             ),
@@ -51,21 +64,24 @@ class MyDrawer extends StatelessWidget {
             GestureDetector(
               onTap: () {
                 Get.back();
-                Get.offNamed('/profile');
-              },
-              child: ListTile(
-                leading: Icon(Icons.person, size: 30),
-                title: Text("Profile"),
-              ),
-            ),
-            GestureDetector(
-              onTap: () {
-                Get.back();
                 Get.offNamed('/favorite');
               },
               child: ListTile(
-                leading: Icon(Icons.favorite, size: 30),
-                title: Text("favorite"),
+                leading: Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: MyColor.lowOrangeColor,
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.all(8),
+                    child: Image.asset(
+                      'assets/images/icon/favorite_icon.png',
+                      width: 25,
+                      color: MyColor.primaryColor,
+                    ),
+                  ),
+                ),
+                title: Text("Favorite"),
               ),
             ),
 
@@ -75,8 +91,21 @@ class MyDrawer extends StatelessWidget {
                 Get.offNamed('/order');
               },
               child: ListTile(
-                leading: Icon(Icons.sort, size: 30),
-                title: Text("Order"),
+                leading: Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: MyColor.lowOrangeColor,
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.all(8),
+                    child: Image.asset(
+                      'assets/images/icon/order_icon.png',
+                      width: 25,
+                      color: MyColor.primaryColor,
+                    ),
+                  ),
+                ),
+                title: Text("Orders"),
               ),
             ),
           ],

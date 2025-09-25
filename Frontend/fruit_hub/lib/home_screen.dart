@@ -43,15 +43,20 @@ class HomeScreen extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            onPressed: () {
-              Get.toNamed('/basket');
-            },
-            icon: Icon(
-              Icons.shopping_basket,
-              color: MyColor.primaryColor,
-              size: 25,
-            ),
-          ),
+              onPressed: () {
+                Get.toNamed('/basket');
+              },
+              icon: Badge(
+                offset: Offset(6, -1),
+                label: Obx(
+                  () => Text(basketController.basket.length.toString()),
+                ),
+                child: Icon(
+                  Icons.shopping_basket,
+                  color: MyColor.primaryColor,
+                  size: 30,
+                ),
+              )),
         ],
       ),
       drawer: MyDrawer(),
@@ -109,17 +114,15 @@ class HomeScreen extends StatelessWidget {
                       icon: Image.asset(
                         'assets/images/icon/filter.png',
                         color: categoryController.isFilter.value
-                            ? Colors.white
+                            ? MyColor.primaryColor
                             : Colors.black,
                       ),
                       style: ButtonStyle(
                         backgroundColor: categoryController.isFilter.value
-                            ? WidgetStatePropertyAll(MyColor.primaryColor)
+                            ? WidgetStatePropertyAll(MyColor.lowOrangeColor)
                             : null,
                         shape: WidgetStatePropertyAll(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5),
-                          ),
+                          CircleBorder(),
                         ),
                       ),
                     ),
