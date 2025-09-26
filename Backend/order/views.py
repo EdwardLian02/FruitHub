@@ -6,12 +6,12 @@ from rest_framework.views import APIView
 from django_filters.rest_framework import DjangoFilterBackend
 from .serializers import CreateOrDeleteOrderSerializer, ViewOrderSerializer, OrderStatusSerializer
 from .models import Order, OrderItem
-from . import permissions
+from core import permissions
 
 # Create your views here.
 class OrderViewSet(viewsets.ModelViewSet):
     queryset = Order.objects.all()
-    permission_classes = (IsAuthenticated,permissions.IsOrderOwnerOrAdmin)
+    permission_classes = (IsAuthenticated,permissions.IsOwnerOrAdmin)
     filter_backends = (DjangoFilterBackend,)
     filterset_fields = ['status',]
     
@@ -43,7 +43,7 @@ class OrderViewSet(viewsets.ModelViewSet):
 class OrderStatusReadOnlyViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Order.objects.all()
     serializer_class = OrderStatusSerializer
-    permission_classes = (IsAuthenticated,permissions.IsOrderOwnerOrAdmin)
+    permission_classes = (IsAuthenticated,permissions.IsOwnerOrAdmin)
 
 
 

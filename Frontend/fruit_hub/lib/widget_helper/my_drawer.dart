@@ -12,6 +12,12 @@ class MyDrawer extends StatelessWidget {
         child: ListView(
           children: [
             //Profile info display section
+            Text(
+              "Profile",
+              style: TextStyle(
+                fontSize: FontTheme.textSizeNormal,
+              ),
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

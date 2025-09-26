@@ -1,6 +1,8 @@
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db import models
 
+from core.models import BaseModel
+
 class UserManager(BaseUserManager):
     use_in_migrations = True
 
@@ -33,3 +35,12 @@ class User(AbstractUser):
 
     def __str__(self):
         return self.email
+    
+
+class UserAddress(BaseModel):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100)
+    address = models.CharField(max_length= 255)
+
+    def _str_(self): 
+        return self.name
