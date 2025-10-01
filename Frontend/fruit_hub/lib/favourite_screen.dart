@@ -51,7 +51,9 @@ class FavouriteScreen extends StatelessWidget {
               print('in item builder');
               final menuModel = favoriteController.favoriteList[index];
               return GestureDetector(
-                  onTap: () {}, child: MenuCard(menuModel: menuModel));
+                onTap: () {},
+                child: MenuCard(menuModel: menuModel),
+              );
             },
           ),
         ),

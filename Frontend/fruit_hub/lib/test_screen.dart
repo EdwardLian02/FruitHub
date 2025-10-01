@@ -1,47 +1,59 @@
-import 'package:flutter/material.dart';
-import 'package:fruit_hub/model/menu_model.dart';
-import 'package:fruit_hub/widget_helper/filter_items.dart';
-import 'package:fruit_hub/widget_helper/menu_card.dart';
-import 'package:popover/popover.dart';
+import 'dart:async';
 
-class TestScreen extends StatelessWidget {
+import 'package:flutter/material.dart';
+
+class TestScreen extends StatefulWidget {
   const TestScreen({super.key});
 
   @override
+  State<TestScreen> createState() => TestScreenState();
+}
+
+class TestScreenState extends State<TestScreen> {
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(),
-        body: GridView(
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            crossAxisSpacing: 30,
-            childAspectRatio: 0.85,
-            mainAxisSpacing: 10,
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            backgroundColor: Colors.red,
+            expandedHeight: 400,
+            toolbarHeight: 100,
+            title: Text("HI"),
           ),
-          children: [
-            MenuCard(
-              menuModel: MenuModel(
-                  id: "002",
-                  name: "Kyaw YGi MENU",
-                  description: "Some shit",
-                  price: 10.0,
-                  imageUrl:
-                      "http://127.0.0.1:8000/media/menu/breakfast-quinoa-and-red-fruit-salad_1mGlGum.png",
-                  category: "Something",
-                  isFavorite: true),
+          SliverAppBar(
+            pinned: true,
+            flexibleSpace: FlexibleSpaceBar(
+              background: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  _buildBox(
+                    Colors.black,
+                  ),
+                  _buildBox(
+                    Colors.black,
+                  ),
+                  _buildBox(
+                    Colors.black,
+                  ),
+                ],
+              ),
             ),
-            MenuCard(
-              menuModel: MenuModel(
-                  id: "002",
-                  name: "My My is not too bad menu",
-                  description: "Some shit",
-                  price: 10.0,
-                  imageUrl:
-                      "http://127.0.0.1:8000/media/menu/breakfast-quinoa-and-red-fruit-salad_1mGlGum.png",
-                  category: "Something",
-                  isFavorite: true),
-            ),
-          ],
-        ));
+          ),
+          SliverFillRemaining()
+        ],
+      ),
+    );
+  }
+
+  Widget _buildBox(Color color) {
+    return Container(
+      width: 100,
+      height: 100,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: color,
+      ),
+    );
   }
 }

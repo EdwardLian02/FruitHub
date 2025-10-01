@@ -27,6 +27,7 @@ class UserManager(BaseUserManager):
 class User(AbstractUser):
     username = None
     email = models.EmailField(unique=True)
+    profile_pic = models.ImageField(upload_to='profile', default='profile/default_profile.png')
 
     USERNAME_FIELD = "email"   # <- use email to log in
     REQUIRED_FIELDS = []       # <- no extra required fields

@@ -19,12 +19,14 @@ class DetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final basketController = Get.find<BasketController>();
     final favoriteController = Get.put(FavoriteController());
+
     return Scaffold(
       appBar: AppBar(
+        scrolledUnderElevation: 0,
         backgroundColor: MyColor.primaryColor,
       ),
-      backgroundColor: Colors.white,
-      bottomNavigationBar: Padding(
+      bottomNavigationBar: Container(
+        color: Colors.white,
         padding: EdgeInsets.symmetric(horizontal: 16, vertical: 40),
         child: Row(
           children: [
@@ -98,6 +100,7 @@ class DetailScreen extends StatelessWidget {
         ),
       ),
       body: SingleChildScrollView(
+        physics: ClampingScrollPhysics(),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -129,123 +132,127 @@ class DetailScreen extends StatelessWidget {
               ],
             ),
             //Content section
-            Padding(
+            Container(
+              color: Colors.white,
               padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  //Name
-                  Text(
-                    menuModel.name,
-                    style: TextStyle(
-                      fontSize: FontTheme.textSizeExtraLarge,
-                      fontWeight: FontWeight.w500,
+              child: SizedBox(
+                height: MediaQuery.of(context).size.height - 300,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    //Name
+                    Text(
+                      menuModel.name,
+                      style: TextStyle(
+                        fontSize: FontTheme.textSizeExtraLarge,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
-                  ),
 
-                  //Counter
-                  SizedBox(height: 20),
-                  Flex(
-                    direction: Axis.horizontal,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Obx(
-                        () => Row(
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                basketController.decreaseCounter();
-                              },
-                              child: Container(
-                                width: 30,
-                                height: 30,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(50),
-                                  border: Border.all(
-                                    style: BorderStyle.solid,
+                    //Counter
+                    SizedBox(height: 20),
+                    Flex(
+                      direction: Axis.horizontal,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Obx(
+                          () => Row(
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  basketController.decreaseCounter();
+                                },
+                                child: Container(
+                                  width: 30,
+                                  height: 30,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(50),
+                                    border: Border.all(
+                                      style: BorderStyle.solid,
+                                    ),
+                                  ),
+                                  child: Icon(Icons.remove),
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 20),
+                                child: Text(
+                                  basketController.menuBasketCount.toString(),
+                                  style: TextStyle(
+                                    fontSize: FontTheme.textSizeLarge,
                                   ),
                                 ),
-                                child: Icon(Icons.remove),
                               ),
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 20),
-                              child: Text(
-                                basketController.menuBasketCount.toString(),
-                                style: TextStyle(
-                                  fontSize: FontTheme.textSizeLarge,
-                                ),
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                basketController.increaseCounter();
-                              },
-                              child: Container(
-                                width: 30,
-                                height: 30,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(50),
-                                  border: Border.all(
-                                    style: BorderStyle.none,
+                              GestureDetector(
+                                onTap: () {
+                                  basketController.increaseCounter();
+                                },
+                                child: Container(
+                                  width: 30,
+                                  height: 30,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(50),
+                                    border: Border.all(
+                                      style: BorderStyle.none,
+                                    ),
+                                    color: MyColor.lowOrangeColor,
                                   ),
-                                  color: MyColor.lowOrangeColor,
-                                ),
-                                child: Icon(
-                                  Icons.add,
-                                  color: MyColor.primaryColor,
+                                  child: Icon(
+                                    Icons.add,
+                                    color: MyColor.primaryColor,
+                                  ),
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                      Text(
-                        currencyFormatHelper(menuModel.price),
-                        style: TextStyle(
-                          fontSize: FontTheme.textSizeLarge,
+                        Text(
+                          currencyFormatHelper(menuModel.price),
+                          style: TextStyle(
+                            fontSize: FontTheme.textSizeLarge,
+                          ),
                         ),
+                      ],
+                    ),
+
+                    //divider
+                    Padding(
+                      padding: const EdgeInsets.only(top: 50, bottom: 30),
+                      child: Divider(
+                        color: Colors.grey.shade300,
                       ),
-                    ],
-                  ),
+                    ),
 
-                  //divider
-                  Padding(
-                    padding: const EdgeInsets.only(top: 50, bottom: 30),
-                    child: Divider(
-                      color: Colors.grey.shade300,
+                    //Description section
+                    Text(
+                      'One Pack Contains',
+                      style: TextStyle(
+                        fontSize: FontTheme.textSizeLarge,
+                      ),
                     ),
-                  ),
+                    SizedBox(height: 20),
+                    Text(
+                      menuModel.description,
+                      style: TextStyle(
+                        fontSize: FontTheme.textSizeNormal,
+                      ),
+                      textAlign: TextAlign.justify,
+                    ),
 
-                  //Description section
-                  Text(
-                    'One Pack Contains',
-                    style: TextStyle(
-                      fontSize: FontTheme.textSizeLarge,
+                    //Conclusion section
+                    //divider
+                    Padding(
+                      padding: const EdgeInsets.only(top: 50, bottom: 30),
+                      child: Divider(
+                        color: Colors.grey.shade300,
+                      ),
                     ),
-                  ),
-                  SizedBox(height: 20),
-                  Text(
-                    menuModel.description,
-                    style: TextStyle(
-                      fontSize: FontTheme.textSizeNormal,
+                    Text(
+                      'If you are looking for a new fruit salad to eat today, quinoa is the perfect brunch for you. make',
                     ),
-                    textAlign: TextAlign.justify,
-                  ),
-
-                  //Conclusion section
-                  //divider
-                  Padding(
-                    padding: const EdgeInsets.only(top: 50, bottom: 30),
-                    child: Divider(
-                      color: Colors.grey.shade300,
-                    ),
-                  ),
-                  Text(
-                    'If you are looking for a new fruit salad to eat today, quinoa is the perfect brunch for you. make',
-                  ),
-                ],
+                  ],
+                ),
               ),
             )
           ],
