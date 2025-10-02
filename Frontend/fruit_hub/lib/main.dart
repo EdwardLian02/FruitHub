@@ -4,6 +4,7 @@ import 'package:fruit_hub/auth_screen.dart';
 import 'package:fruit_hub/basket_screen.dart';
 import 'package:fruit_hub/controller/authentication_controller.dart';
 import 'package:fruit_hub/controller/basket_controller.dart';
+import 'package:fruit_hub/faq_screen.dart';
 import 'package:fruit_hub/favourite_screen.dart';
 import 'package:fruit_hub/home_screen.dart';
 import 'package:fruit_hub/login_screen.dart';
@@ -58,6 +59,7 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/manage-info', page: () => ManageInfoScreen()),
         GetPage(name: '/screen-mode', page: () => ScreenModeScreen()),
         GetPage(name: '/address', page: () => AddressScreen()),
+        GetPage(name: '/faq', page: () => FAQScreen()),
         GetPage(name: '/test-screen', page: () => TestScreen()),
       ],
     );

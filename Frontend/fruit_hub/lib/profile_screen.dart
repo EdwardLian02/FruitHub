@@ -345,6 +345,7 @@ Widget _buildAboutTileSection() {
       ),
       SizedBox(height: 10),
       ProfileItemTile(
+        onTap: () => Get.toNamed('faq'),
         icon: Image.asset(
           'assets/images/icon/faq_icon.png',
           width: 30,

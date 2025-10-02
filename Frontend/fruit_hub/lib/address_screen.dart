@@ -14,7 +14,7 @@ class AddressScreen extends StatelessWidget {
         backgroundColor: MyColor.primaryColor,
         foregroundColor: MyColor.whiteTextColor,
         title: Text(
-          "Manage Info",
+          "Address",
           style: TextStyle(color: MyColor.whiteTextColor),
         ),
       ),

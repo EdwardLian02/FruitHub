@@ -5,6 +5,7 @@ class CommonSearchbar extends StatelessWidget {
   void Function(String)? onChanged;
   void Function(String)? onSubmitted;
   final bool? isEnabled;
+
   CommonSearchbar(
       {super.key, this.onChanged, this.onSubmitted, this.isEnabled});
 
