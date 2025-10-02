@@ -270,7 +270,7 @@ Widget _buildProfileTileSection() {
         ),
         title: "Address",
         lowBackgroundColor: MyColor.lowOrangeColor,
-        onTap: () => Get.toNamed('/manage-info'),
+        onTap: () => Get.toNamed('address'),
       ),
     ],
   );
@@ -299,6 +299,7 @@ Widget _buildSettingTileSection() {
       ),
       SizedBox(height: 10),
       ProfileItemTile(
+        onTap: () => Get.toNamed("screen-mode"),
         icon: Image.asset(
           'assets/images/icon/moon.png',
           width: 30,
