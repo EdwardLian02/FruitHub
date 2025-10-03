@@ -85,7 +85,7 @@ class FAQScreen extends StatelessWidget {
                         () => AnimatedContainer(
                           height:
                               faqController.animatedAnswerContainerHeight.value,
-                          duration: Duration(milliseconds: 200),
+                          duration: Duration(milliseconds: 100),
                           curve: Curves.easeInOut,
                           child: Text(
                             "The Pritchett-Dunphy-Tucker clan is a wonderfully large and blended family. They give us an honest and often hilarious look into the sometimes warm, sometimes twisted, embrace of the modern family.",

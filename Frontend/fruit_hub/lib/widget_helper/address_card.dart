@@ -1,12 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:fruit_hub/controller/address_controller.dart';
 import 'package:fruit_hub/helper/app_constant.dart';
+import 'package:fruit_hub/model/address_model.dart';
+import 'package:get/get.dart';
+import 'package:get/get_rx/get_rx.dart';
 
 class AddressCard extends StatelessWidget {
-  const AddressCard({super.key});
+  final AddressModel address;
+  final Function(String) onSelect;
+
+  const AddressCard({super.key, required this.address, required this.onSelect});
 
   @override
   Widget build(BuildContext context) {
+    final addressController = Get.find<AddressController>();
     return Container(
+      margin: EdgeInsets.symmetric(vertical: 5),
       width: double.maxFinite,
       decoration: BoxDecoration(
           color: Colors.white,
@@ -34,7 +43,7 @@ class AddressCard extends StatelessWidget {
                     ),
                     SizedBox(width: 10),
                     Text(
-                      "Home",
+                      address.name,
                       style: TextStyle(
                         fontSize: FontTheme.textSizeLarge,
                         fontWeight: FontWeight.bold,
@@ -42,21 +51,27 @@ class AddressCard extends StatelessWidget {
                     ),
                   ],
                 ),
-                Radio(
-                  activeColor: MyColor.primaryColor,
-                  value: false,
-                  groupValue: "location_radio",
-                  onChanged: (value) {},
+                Obx(
+                  () => Radio(
+                    activeColor: MyColor.primaryColor,
+                    value: address.id,
+                    groupValue: addressController.currentAddressId.value,
+                    onChanged: (value) {
+                      if (value != null) {
+                        onSelect(value);
+                      }
+                    },
+                  ),
                 )
               ],
             ),
             SizedBox(height: 5),
-            Text("No.123, Sanchaung, Yangon",
+            Text(address.address,
                 style: TextStyle(
                   fontSize: FontTheme.textSizeNormal,
                 )),
             SizedBox(height: 5),
-            Text("+959344323243",
+            Text(address.phone,
                 style: TextStyle(
                   fontSize: FontTheme.textSizeNormal,
                 )),

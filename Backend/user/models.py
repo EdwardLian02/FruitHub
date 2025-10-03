@@ -42,6 +42,9 @@ class UserAddress(BaseModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
     address = models.CharField(max_length= 255)
+    phone =models.CharField(max_length=20, null=True, blank=True)
+    isCurrentAddress = models.BooleanField(default=False)
+
 
     def _str_(self): 
         return self.name

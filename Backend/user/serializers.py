@@ -8,6 +8,8 @@ class UserAddressSerializer(serializers.ModelSerializer):
                     'id',
                     'name',
                     'address',
+                    'isCurrentAddress',
+                    'phone',
                     'created_at'
                 ]
         

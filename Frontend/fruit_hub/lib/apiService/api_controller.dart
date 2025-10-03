@@ -95,6 +95,9 @@ class ApiController extends GetConnect {
         'Authorization': 'token $token',
       });
 
+  Future<Response> fetchAddress(String token) async =>
+      await get('api/user/address', headers: {'Authorization': 'token $token'});
+
   Future<Response> fetchOrder(String token) => get('api/order', headers: {
         'Authorization': 'token $token',
       });
