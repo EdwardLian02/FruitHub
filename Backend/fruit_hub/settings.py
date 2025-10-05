@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken', 
     'django_filters',
     'drf_yasg',
+    'phonenumber_field',
 
     #application
     'authentication',
@@ -149,6 +150,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 AUTH_USER_MODEL = 'user.User'
 
+PHONENUMBER_DEFAULT_REGION = 'MM'
 
 
 

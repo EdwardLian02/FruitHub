@@ -9,3 +9,7 @@ String currencyFormatHelper(double moneyNumber) {
   );
   return currencyFormat.format(moneyNumber);
 }
+
+DateTime stringToDateTimeFormatConverter(String datetime) {
+  return DateTime.parse(datetime);
+}

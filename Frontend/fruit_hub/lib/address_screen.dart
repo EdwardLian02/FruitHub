@@ -28,9 +28,7 @@ class AddressScreen extends StatelessWidget {
           children: [
             //Add new address button section
             GestureDetector(
-              onTap: () {
-                print("Hi");
-              },
+              onTap: () {},
               child: Row(
                 children: [
                   Expanded(
@@ -49,7 +47,7 @@ class AddressScreen extends StatelessWidget {
                           ),
                           title: Text("Add New Address"),
                         )),
-                  ))
+                  )),
                 ],
               ),
             ),

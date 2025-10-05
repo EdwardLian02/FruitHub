@@ -60,6 +60,11 @@ class ApiController extends GetConnect {
         "Authorization": "token $token",
       });
 
+  Future<Response> fetchUserInfo(String token) async =>
+      get('api/user', headers: {
+        "Authorization": "token $token",
+      });
+
   Future<Response> fetchMenu(String token) async =>
       await get('api/menu', headers: {
         'Authorization': 'token $token',
