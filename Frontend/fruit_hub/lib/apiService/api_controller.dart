@@ -65,6 +65,15 @@ class ApiController extends GetConnect {
         "Authorization": "token $token",
       });
 
+  Future<Response> updateUserInfo({
+    required String token,
+    required int userId,
+    required Map<String, dynamic> updateData,
+  }) =>
+      patch("api/user/$userId/", jsonEncode(updateData), headers: {
+        'Authorization': 'token $token',
+      });
+
   Future<Response> fetchMenu(String token) async =>
       await get('api/menu', headers: {
         'Authorization': 'token $token',

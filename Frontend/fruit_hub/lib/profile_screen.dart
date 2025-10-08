@@ -68,13 +68,21 @@ class ProfileScreen extends StatelessWidget {
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
-                                  Text(
-                                    userProfile.username!,
-                                    style: TextStyle(
-                                      fontSize: FontTheme.textSizeNormal,
-                                      color: MyColor.whiteTextColor,
-                                    ),
-                                  ),
+                                  userProfile.username == null
+                                      ? Text(
+                                          "Not Set",
+                                          style: TextStyle(
+                                            fontSize: FontTheme.textSizeNormal,
+                                            color: Colors.red,
+                                          ),
+                                        )
+                                      : Text(
+                                          userProfile.username!,
+                                          style: TextStyle(
+                                            fontSize: FontTheme.textSizeNormal,
+                                            color: MyColor.whiteTextColor,
+                                          ),
+                                        ),
                                   Text(
                                     userProfile.email,
                                     style: TextStyle(
@@ -106,14 +114,21 @@ class ProfileScreen extends StatelessWidget {
                       _buildProfileImagePart(
                           userProfile.profilePic, userProfile.dateJoined.year),
                       SizedBox(height: 20),
-                      Text(
-                        userProfile.username!,
-                        style: TextStyle(
-                          fontSize: FontTheme.textSizeExtraLarge,
-                          color: MyColor.whiteTextColor,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+                      userProfile.username == null
+                          ? Text(
+                              "Not Set",
+                              style: TextStyle(
+                                fontSize: FontTheme.textSizeLarge,
+                                color: Colors.red,
+                              ),
+                            )
+                          : Text(
+                              userProfile.username!,
+                              style: TextStyle(
+                                fontSize: FontTheme.textSizeLarge,
+                                color: MyColor.whiteTextColor,
+                              ),
+                            ),
                       Text(
                         userProfile.email,
                         style: TextStyle(
@@ -121,13 +136,21 @@ class ProfileScreen extends StatelessWidget {
                           color: MyColor.lowGreyColor,
                         ),
                       ),
-                      Text(
-                        userProfile.userPhone,
-                        style: TextStyle(
-                          fontSize: FontTheme.textSizeNormal,
-                          color: MyColor.lowGreyColor,
-                        ),
-                      ),
+                      userProfile.userPhone == null
+                          ? Text(
+                              "[Phone Number]",
+                              style: TextStyle(
+                                fontSize: FontTheme.textSizeNormal,
+                                color: Colors.red,
+                              ),
+                            )
+                          : Text(
+                              userProfile.userPhone!,
+                              style: TextStyle(
+                                fontSize: FontTheme.textSizeNormal,
+                                color: MyColor.whiteTextColor,
+                              ),
+                            ),
                     ],
                   ),
                 ),
@@ -155,7 +178,7 @@ class ProfileScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     SizedBox(height: 20),
-                    _buildProfileTileSection(),
+                    _buildProfileTileSection(profileController),
                     SizedBox(height: 30),
                     _buildSettingTileSection(),
                     SizedBox(height: 30),
@@ -241,7 +264,7 @@ Widget _buildNamePart() {
   );
 }
 
-Widget _buildProfileTileSection() {
+Widget _buildProfileTileSection(ProfileController profileController) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -262,7 +285,10 @@ Widget _buildProfileTileSection() {
         ),
         title: "Manage Info",
         lowBackgroundColor: MyColor.lowOrangeColor,
-        onTap: () => Get.toNamed('/manage-info'),
+        onTap: () {
+          profileController.assignTextController();
+          Get.toNamed('/manage-info');
+        },
       ),
       SizedBox(height: 10),
       ProfileItemTile(

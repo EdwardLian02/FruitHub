@@ -3,6 +3,7 @@ from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
 from core.models import BaseModel
 
+
 class UserManager(BaseUserManager):
     use_in_migrations = True
 
@@ -25,7 +26,7 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractUser):
-    username = None
+    username = models.CharField(max_length=255, blank=True, null=True)
     email = models.EmailField(unique=True)
     profile_pic = models.ImageField(upload_to='profile', default='profile/default_profile.png')
     user_phone = PhoneNumberField(blank=True, unique= True, null=True, region='MM')

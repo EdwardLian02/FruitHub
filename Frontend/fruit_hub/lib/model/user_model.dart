@@ -4,7 +4,7 @@ class UserModel {
   final int id;
   final String? username;
   final String email;
-  final String userPhone;
+  final String? userPhone;
   final String profilePic;
   final DateTime dateJoined;
 
@@ -19,9 +19,9 @@ class UserModel {
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
       id: json['id'],
-      username: json['username'] ?? "Not set",
+      username: json['username'],
       email: json['email'],
-      userPhone: json['user_phone'] ?? "Not set",
+      userPhone: json['user_phone'],
       profilePic: json['profile_pic'],
       dateJoined: stringToDateTimeFormatConverter(json['date_joined']),
     );
