@@ -41,20 +41,21 @@ class ManageInfoScreen extends StatelessWidget {
                             profileController.user.value!.profilePic),
                       ),
                       Positioned(
-                          bottom: 0,
-                          right: 10,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10),
+                        bottom: 0,
+                        right: 10,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(2.0),
+                            child: Icon(
+                              Icons.camera_alt,
                             ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(2.0),
-                              child: Icon(
-                                Icons.camera_alt,
-                              ),
-                            ),
-                          ))
+                          ),
+                        ),
+                      )
                     ],
                   ),
                   SizedBox(height: 20),

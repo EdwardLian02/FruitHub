@@ -1,7 +1,7 @@
 from django.contrib.auth.models import AbstractUser, BaseUserManager
-from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
 from core.models import BaseModel
+from django.db import models
 
 
 class UserManager(BaseUserManager):
@@ -45,7 +45,6 @@ class UserAddress(BaseModel):
     address = models.CharField(max_length= 255)
     phone =models.CharField(max_length=20, null=True, blank=True)
     isCurrentAddress = models.BooleanField(default=False)
-
 
     def _str_(self): 
         return self.name

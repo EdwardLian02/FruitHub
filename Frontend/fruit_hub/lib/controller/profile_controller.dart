@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:fruit_hub/apiService/api_controller.dart';
+import 'package:fruit_hub/controller/scroll_controller.dart';
 import 'package:fruit_hub/model/user_model.dart';
 import 'package:fruit_hub/services/secure_storage_service.dart';
 import 'package:fruit_hub/widget_helper/messenger_helper.dart';
@@ -64,6 +65,8 @@ class ProfileController extends GetxController {
       if (response.isOk) {
         user.value = UserModel.fromJson(response.body);
         MessengerHelper.showSuccessToasteMessage("User Info Updated");
+
+        Get.delete<ScrollableController>();
         Get.offNamed('profile');
       }
     } catch (e) {

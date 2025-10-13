@@ -8,6 +8,7 @@ class ScrollableController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    print("Initializing scroll controller");
     scrollController = ScrollController();
     scrollController.addListener(_scrollListener);
   }
@@ -33,6 +34,8 @@ class ScrollableController extends GetxController {
 
   @override
   void onClose() {
+    print("Closing scroll controller");
+
     scrollController.removeListener(_scrollListener);
     scrollController.dispose();
     super.onClose();
