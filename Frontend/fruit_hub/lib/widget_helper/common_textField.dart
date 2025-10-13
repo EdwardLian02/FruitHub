@@ -7,9 +7,11 @@ class CommonTextfield extends StatelessWidget {
   final String? Function(String?)? validator;
   final TextEditingController? controller;
   final bool? obsecureText;
+  final int? maxLines;
   const CommonTextfield({
     super.key,
     required this.hintText,
+    this.maxLines = 1,
     this.validator,
     this.controller,
     this.onChanged,
@@ -23,6 +25,7 @@ class CommonTextfield extends StatelessWidget {
       validator: validator,
       onChanged: onChanged,
       obscureText: obsecureText ?? false,
+      maxLines: maxLines,
       decoration: InputDecoration(
         filled: true,
         fillColor: MyColor.textFieldFillColor,

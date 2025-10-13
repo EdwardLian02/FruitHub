@@ -1,15 +1,17 @@
-import 'package:fruit_hub/model/menu_model.dart';
+import 'dart:convert';
+import 'dart:ffi';
+
 import 'package:get/get.dart';
 
 class AddressModel {
-  String id;
+  String? id;
   String name;
   String address;
   String phone;
   RxBool isCurrentAddress;
 
   AddressModel({
-    required this.id,
+    this.id,
     required this.name,
     required this.address,
     required this.phone,
@@ -17,17 +19,18 @@ class AddressModel {
   }) : isCurrentAddress = isCurrentAddress.obs;
 
   factory AddressModel.fromJson(Map<String, dynamic> json) => AddressModel(
-        id: json['id'],
-        name: json['name'],
-        address: json['address'],
+        id: json['id'] as String?,
+        name: json['name'] as String,
+        address: json['address'] as String,
         phone: json['phone'] ?? "no phone",
-        isCurrentAddress: json['isCurrentAddress'],
+        isCurrentAddress: json['isCurrentAddress'] as bool,
       );
 
-  Map<String, dynamic> toJson(AddressModel model) => {
-        "name": model.name,
-        "address": model.address,
-        "phone": model.phone,
-        "isCurrentAddress": model.isCurrentAddress,
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "name": name,
+        "address": address,
+        "phone": phone,
+        "isCurrentAddress": isCurrentAddress,
       };
 }

@@ -3,6 +3,9 @@ import 'package:fruit_hub/controller/address_controller.dart';
 import 'package:fruit_hub/helper/app_constant.dart';
 import 'package:fruit_hub/model/address_model.dart';
 import 'package:fruit_hub/widget_helper/address_card.dart';
+import 'package:fruit_hub/widget_helper/common_button.dart';
+import 'package:fruit_hub/widget_helper/common_outline_button.dart';
+import 'package:fruit_hub/widget_helper/common_textField.dart';
 import 'package:get/get.dart';
 
 class AddressScreen extends StatelessWidget {
@@ -33,7 +36,8 @@ class AddressScreen extends StatelessWidget {
                 children: [
                   Expanded(
                       child: GestureDetector(
-                    onTap: () {},
+                    onTap: () =>
+                        _buildAddNewAddressPopUp(context, addressController),
                     child: Container(
                         decoration: BoxDecoration(
                           color: MyColor.lowOrangeColor,
@@ -77,4 +81,105 @@ class AddressScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+void _buildAddNewAddressPopUp(context, AddressController addressController) {
+  final formkey = GlobalKey<FormState>();
+  showDialog(
+    context: context,
+    builder: (context) => AlertDialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+      backgroundColor: Colors.white,
+      title: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Image.asset(
+            "assets/images/icon/location_icon.png",
+            width: 20,
+          ),
+          SizedBox(width: 10),
+          Text(
+            "Add new Address",
+            style: TextStyle(
+              fontSize: FontTheme.textSizeLarge,
+            ),
+          ),
+        ],
+      ),
+      content: Form(
+        key: formkey,
+        child: Padding(
+          padding: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              CommonTextfield(
+                controller: addressController.addressNameController,
+                hintText: "Address name",
+                validator: (value) {
+                  if (value == null || value == "") {
+                    return "*This field is required";
+                  }
+                  return null;
+                },
+              ),
+              SizedBox(height: 10),
+              CommonTextfield(
+                controller: addressController.addressDetailController,
+                hintText: "Address Detail",
+                maxLines: 3,
+                validator: (value) {
+                  if (value == null || value == "") {
+                    return "*This field is required";
+                  }
+                  return null;
+                },
+              ),
+              SizedBox(height: 10),
+              CommonTextfield(
+                controller: addressController.phoneController,
+                hintText: "+959",
+                validator: (value) {
+                  if (value == null || value == "") {
+                    return "*This field is required";
+                  }
+                  return null;
+                },
+              ),
+              SizedBox(height: 20),
+              Row(
+                children: [
+                  CommonOutlineButton(
+                    onTap: () => Get.back(),
+                    name: "Cancel",
+                  ),
+                  SizedBox(width: 20),
+                  Expanded(
+                    child: CommonButton(
+                      onTap: () async {
+                        if (formkey.currentState!.validate()) {
+                          final address = {
+                            "name":
+                                addressController.addressNameController.text,
+                            "address":
+                                addressController.addressDetailController.text,
+                            "phone": addressController.phoneController.text,
+                            "isCurrentAddress": false,
+                          };
+                          await addressController.createNewAddress(address);
+                        }
+                      },
+                      name: "Save",
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    ),
+  );
 }
