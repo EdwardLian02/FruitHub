@@ -5,11 +5,12 @@ import 'package:fruit_hub/loading_screen.dart';
 import 'package:fruit_hub/widget_helper/common_button.dart';
 import 'package:fruit_hub/widget_helper/common_outline_button.dart';
 import 'package:fruit_hub/widget_helper/common_textField.dart';
-import 'package:fruit_hub/widget_helper/my_app_bar.dart';
 import 'package:get/get.dart';
 
 class ManageInfoScreen extends StatelessWidget {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  final _formKey = GlobalKey<FormState>();
+
   ManageInfoScreen({super.key});
 
   @override
@@ -31,69 +32,84 @@ class ManageInfoScreen extends StatelessWidget {
             Padding(
               padding:
                   const EdgeInsets.symmetric(horizontal: 16, vertical: 100),
-              child: Column(
-                children: [
-                  Stack(
-                    children: [
-                      CircleAvatar(
-                        radius: 60,
-                        backgroundImage: NetworkImage(
-                            profileController.user.value!.profilePic),
-                      ),
-                      Positioned(
-                        bottom: 0,
-                        right: 10,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(2.0),
-                            child: Icon(
-                              Icons.camera_alt,
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    //Photo upload section
+                    Stack(
+                      children: [
+                        CircleAvatar(
+                          radius: 60,
+                          backgroundImage: NetworkImage(
+                              profileController.user.value!.profilePic),
+                        ),
+                        Positioned(
+                          bottom: 0,
+                          right: 10,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(2.0),
+                              child: Icon(
+                                Icons.camera_alt,
+                              ),
                             ),
                           ),
-                        ),
-                      )
-                    ],
-                  ),
-                  SizedBox(height: 20),
-                  CommonTextfield(
-                    controller: profileController.nameController,
-                    hintText: "Name",
-                  ),
-                  SizedBox(height: 20),
-                  CommonTextfield(
-                    controller: profileController.phoneController,
-                    hintText: "Phone",
-                  ),
-                  SizedBox(height: 20),
-                  Row(
-                    children: [
-                      Expanded(
-                          child: CommonOutlineButton(
-                              onTap: () => Get.back(), name: "Cancel")),
-                      SizedBox(width: 20),
-                      Expanded(
-                        child: CommonButton(
-                            onTap: () async {
-                              final updatedData = {
-                                "username":
-                                    profileController.nameController.text,
-                                "user_phone":
-                                    profileController.phoneController.text,
-                              };
+                        )
+                      ],
+                    ),
+                    SizedBox(height: 20),
 
-                              await profileController.updateUserInfo(
-                                  profileController.user.value!.id,
-                                  updatedData);
-                            },
-                            name: "Save"),
-                      ),
-                    ],
-                  ),
-                ],
+                    //Textfield section
+                    CommonTextfield(
+                      controller: profileController.nameController,
+                      hintText: "Name",
+                      validator: (value) {
+                        if (value == null || value == "") {
+                          return "Name should be ADDED";
+                        }
+                      },
+                    ),
+                    SizedBox(height: 20),
+                    CommonTextfield(
+                      controller: profileController.phoneController,
+                      hintText: "Phone",
+                    ),
+                    SizedBox(height: 20),
+
+                    //Save & Cancel button row
+                    Row(
+                      children: [
+                        Expanded(
+                            child: CommonOutlineButton(
+                                onTap: () => Get.back(), name: "Cancel")),
+                        SizedBox(width: 20),
+                        Expanded(
+                          child: CommonButton(
+                              onTap: () async {
+                                if (_formKey.currentState!.validate()) {
+                                  final updatedData = {
+                                    "username":
+                                        profileController.nameController.text,
+                                    "user_phone":
+                                        profileController.phoneController.text,
+                                  };
+
+                                  await profileController.updateUserInfo(
+                                      profileController.user.value!.id,
+                                      updatedData);
+                                }
+                              },
+                              name: "Save"),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
             Obx(() => profileController.isLoading.isTrue
