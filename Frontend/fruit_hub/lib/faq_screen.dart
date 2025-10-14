@@ -95,6 +95,7 @@ class FAQScreen extends StatelessWidget {
                           ),
                         ),
                       ),
+                      Divider(),
                     ],
                   )),
             ),

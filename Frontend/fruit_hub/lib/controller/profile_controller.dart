@@ -30,11 +30,9 @@ class ProfileController extends GetxController {
     resetVariable();
     try {
       final response = await _apiController.fetchUserInfo(token);
-      print("BEfore response is ok");
+
       if (response.isOk) {
         user.value = UserModel.fromJson(response.body[0]);
-
-        print("Assigned user info!");
       } else {
         isError(true);
         errorMessage("Something went wrong");
@@ -85,12 +83,10 @@ class ProfileController extends GetxController {
 
   @override
   void onInit() async {
-    // TODO: implement onInit
     super.onInit();
 
     await fetchUserInfo();
     nameController = TextEditingController();
     phoneController = TextEditingController();
-    print("Finish initializing controller");
   }
 }

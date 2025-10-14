@@ -66,11 +66,14 @@ class AddressScreen extends StatelessWidget {
                   itemBuilder: (context, index) {
                     final addressObj = AddressModel.fromJson(
                         addressController.addressList[index]);
-                    return AddressCard(
-                      address: addressObj,
-                      onSelect: (String idValue) {
-                        addressController.selectAddress(idValue);
-                      },
+                    return GestureDetector(
+                      onTap: () {},
+                      child: AddressCard(
+                        address: addressObj,
+                        onSelect: (String idValue) {
+                          addressController.selectAddress(idValue);
+                        },
+                      ),
                     );
                   },
                 ),
@@ -115,6 +118,50 @@ void _buildAddNewAddressPopUp(context, AddressController addressController) {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
+              Obx(() => AnimatedSize(
+                    duration: Duration(milliseconds: 300),
+                    curve: Curves.elasticInOut,
+                    child: addressController.isLoading.isTrue
+                        ? Center(
+                            child: CircularProgressIndicator(),
+                          )
+                        : addressController.isError.isTrue
+                            ? Container(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 10.0, vertical: 5),
+                                decoration: BoxDecoration(
+                                  color: Colors.red.withOpacity(0.7),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Column(
+                                  children: [
+                                    Align(
+                                      alignment: Alignment.centerRight,
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          addressController.isError(false);
+                                        },
+                                        child: Icon(
+                                          Icons.close,
+                                          color: Colors.white,
+                                          size: 20,
+                                        ),
+                                      ),
+                                    ),
+                                    Text(
+                                      addressController.errorMessage.value,
+                                      style: TextStyle(
+                                        color: MyColor.whiteTextColor,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            : SizedBox.shrink(),
+                  )),
+              SizedBox(
+                height: 10,
+              ),
               CommonTextfield(
                 controller: addressController.addressNameController,
                 hintText: "Address name",
@@ -183,3 +230,29 @@ void _buildAddNewAddressPopUp(context, AddressController addressController) {
     ),
   );
 }
+
+// void _buildPopUpMenu(context, tapPosition) {
+//   //Get the tap position
+
+//   showMenu(
+//     position: RelativeRect.fromLTRB(
+//       tapPosition.dx,
+//       tapPosition.dy,
+//       tapPosition.dx,
+//       tapPosition.dy,
+//     ),
+//     color: Colors.white,
+//     elevation: 1.0,
+//     context: context,
+//     items: [
+//       const PopupMenuItem(
+//         value: 'edit',
+//         child: Text('Edit'),
+//       ),
+//       const PopupMenuItem(
+//         value: 'delete',
+//         child: Text('Delete'),
+//       ),
+//     ],
+//   );
+// }

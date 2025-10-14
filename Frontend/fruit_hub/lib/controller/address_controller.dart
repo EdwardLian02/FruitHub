@@ -1,11 +1,7 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:fruit_hub/apiService/api_controller.dart';
-import 'package:fruit_hub/model/address_model.dart';
 import 'package:fruit_hub/services/secure_storage_service.dart';
 import 'package:get/get.dart';
-import 'package:intl/number_symbols_data.dart';
 
 class AddressController extends GetxController {
   final _apiController = Get.put(ApiController());
@@ -24,7 +20,7 @@ class AddressController extends GetxController {
   Future<void> fetchAddressList() async {
     String? token = await _secureStorage.readData('token');
     if (token == null) return;
-
+    resetVariable();
     try {
       final response = await _apiController.fetchAddress(token);
 
@@ -35,7 +31,7 @@ class AddressController extends GetxController {
         currentAddressId.value = addressList
             .firstWhere((address) => address['isCurrentAddress'] == true)['id'];
       } else {
-        errorMessage("Something went wrong.");
+        errorMessage("Something went Wrong");
       }
     } catch (e) {
       errorMessage(e.toString());
@@ -43,23 +39,25 @@ class AddressController extends GetxController {
   }
 
   Future<void> createNewAddress(address) async {
-    print("HI create address function ");
     String? token = await _secureStorage.readData('token');
 
-    print(token);
     if (token == null) return;
     resetVariable();
 
     try {
-      print("IN try block");
       final response = await _apiController.createAddress(token, address);
-      print(response.body);
+
       if (response.isOk) {
-        print("response is ok");
         addressList.add(response.body);
+        Get.back();
       } else {
         isError(true);
-        errorMessage("Something went wrong");
+
+        final errorResponse = response.body as Map<String, dynamic>;
+        errorResponse.forEach((key, value) {
+          print("$key $value");
+          errorMessage.value += "* ${value[0]}\n";
+        });
       }
     } catch (e) {
       isError(true);
@@ -77,6 +75,10 @@ class AddressController extends GetxController {
     isLoading(true);
     isError(false);
     errorMessage("");
+
+    addressDetailController.clear();
+    addressNameController.clear();
+    phoneController.clear();
   }
 
   @override
