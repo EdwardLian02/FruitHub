@@ -24,5 +24,10 @@ class UserAddressSerializer(serializers.ModelSerializer):
                     'phone',
                     'created_at'
                 ]
-        
-        
+    
+        read_only_fields = [
+            'id', 
+            'isCurrentAddress', 
+            'created_at',
+        ]
+

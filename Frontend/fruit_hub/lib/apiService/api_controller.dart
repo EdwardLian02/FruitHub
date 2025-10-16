@@ -114,12 +114,18 @@ class ApiController extends GetConnect {
       await get('api/user/address', headers: {'Authorization': 'token $token'});
 
   Future<Response> createAddress(String token, address) async {
-    print("IN api controller create address method");
-    print(address);
     return await post('api/user/address/', jsonEncode(address), headers: {
       'Authorization': 'token $token',
     });
   }
+
+  Future<Response> updateAddress(String token, address) async =>
+      await patch('api/user/address/${address['id']}/', jsonEncode(address),
+          headers: {'Authorization': 'token $token'});
+
+  Future<Response> deleteAddress(String token, addressId) async =>
+      await delete('api/user/address/$addressId/',
+          headers: {'Authorization': 'token $token'});
 
   Future<Response> fetchOrder(String token) => get('api/order', headers: {
         'Authorization': 'token $token',

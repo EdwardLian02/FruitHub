@@ -35,21 +35,20 @@ class AddressCard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Row(
-                  children: [
-                    Image.asset(
-                      "assets/images/icon/location_icon.png",
-                      width: 25,
+                Image.asset(
+                  "assets/images/icon/location_icon.png",
+                  width: 25,
+                ),
+                SizedBox(width: 10),
+                Expanded(
+                  child: Text(
+                    address.name,
+                    style: TextStyle(
+                      fontSize: FontTheme.textSizeLarge,
+                      fontWeight: FontWeight.bold,
                     ),
-                    SizedBox(width: 10),
-                    Text(
-                      address.name,
-                      style: TextStyle(
-                        fontSize: FontTheme.textSizeLarge,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
+                    maxLines: 2,
+                  ),
                 ),
                 Obx(
                   () => Radio(

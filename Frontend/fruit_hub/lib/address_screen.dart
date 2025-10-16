@@ -36,8 +36,14 @@ class AddressScreen extends StatelessWidget {
                 children: [
                   Expanded(
                       child: GestureDetector(
-                    onTap: () =>
-                        _buildAddNewAddressPopUp(context, addressController),
+                    onTap: () {
+                      addressController.resetTextController();
+                      _buildAddressFormPopUp(
+                        context: context,
+                        addressController: addressController,
+                        formType: FormType.add,
+                      );
+                    },
                     child: Container(
                         decoration: BoxDecoration(
                           color: MyColor.lowOrangeColor,
@@ -67,7 +73,13 @@ class AddressScreen extends StatelessWidget {
                     final addressObj = AddressModel.fromJson(
                         addressController.addressList[index]);
                     return GestureDetector(
-                      onTap: () {},
+                      onLongPressStart: (detail) => _buildPopUpMenu(
+                        context: context,
+                        tapPosition: detail.globalPosition,
+                        addressController: addressController,
+                        addressObj: addressObj,
+                        index: index,
+                      ),
                       child: AddressCard(
                         address: addressObj,
                         onSelect: (String idValue) {
@@ -86,8 +98,21 @@ class AddressScreen extends StatelessWidget {
   }
 }
 
-void _buildAddNewAddressPopUp(context, AddressController addressController) {
+//Enum for type selection
+enum FormType {
+  add,
+  update,
+}
+
+void _buildAddressFormPopUp({
+  required context,
+  required AddressController addressController,
+  required FormType formType,
+  index,
+  addressId,
+}) {
   final formkey = GlobalKey<FormState>();
+
   showDialog(
     context: context,
     builder: (context) => AlertDialog(
@@ -104,7 +129,7 @@ void _buildAddNewAddressPopUp(context, AddressController addressController) {
           ),
           SizedBox(width: 10),
           Text(
-            "Add new Address",
+            formType == FormType.add ? "Add new Address" : "Update Address",
             style: TextStyle(
               fontSize: FontTheme.textSizeLarge,
             ),
@@ -208,6 +233,7 @@ void _buildAddNewAddressPopUp(context, AddressController addressController) {
                       onTap: () async {
                         if (formkey.currentState!.validate()) {
                           final address = {
+                            "id": addressId,
                             "name":
                                 addressController.addressNameController.text,
                             "address":
@@ -215,7 +241,12 @@ void _buildAddNewAddressPopUp(context, AddressController addressController) {
                             "phone": addressController.phoneController.text,
                             "isCurrentAddress": false,
                           };
-                          await addressController.createNewAddress(address);
+                          if (formType == FormType.add) {
+                            await addressController.createNewAddress(address);
+                          } else {
+                            await addressController.updateAddress(
+                                address, index);
+                          }
                         }
                       },
                       name: "Save",
@@ -231,28 +262,50 @@ void _buildAddNewAddressPopUp(context, AddressController addressController) {
   );
 }
 
-// void _buildPopUpMenu(context, tapPosition) {
-//   //Get the tap position
+//Menu : Update , Delete
+void _buildPopUpMenu({
+  required context,
+  required tapPosition,
+  required AddressController addressController,
+  required AddressModel addressObj,
+  required index,
+}) {
+  //Get the tap position
 
-//   showMenu(
-//     position: RelativeRect.fromLTRB(
-//       tapPosition.dx,
-//       tapPosition.dy,
-//       tapPosition.dx,
-//       tapPosition.dy,
-//     ),
-//     color: Colors.white,
-//     elevation: 1.0,
-//     context: context,
-//     items: [
-//       const PopupMenuItem(
-//         value: 'edit',
-//         child: Text('Edit'),
-//       ),
-//       const PopupMenuItem(
-//         value: 'delete',
-//         child: Text('Delete'),
-//       ),
-//     ],
-//   );
-// }
+  showMenu(
+    position: RelativeRect.fromLTRB(
+      tapPosition.dx,
+      tapPosition.dy,
+      tapPosition.dx,
+      tapPosition.dy,
+    ),
+    color: Colors.white,
+    elevation: 1.0,
+    context: context,
+    items: [
+      PopupMenuItem(
+        onTap: () {
+          addressController.addressNameController.text = addressObj.name;
+          addressController.addressDetailController.text = addressObj.address;
+          addressController.phoneController.text = addressObj.phone;
+
+          _buildAddressFormPopUp(
+            context: context,
+            formType: FormType.update,
+            addressController: addressController,
+            index: index,
+            addressId: addressObj.id,
+          );
+        },
+        value: 'edit',
+        child: Text('Edit'),
+      ),
+      PopupMenuItem(
+        onTap: () async =>
+            await addressController.deleteAddress(addressObj.id, index),
+        value: 'delete',
+        child: Text('Delete'),
+      ),
+    ],
+  );
+}
