@@ -1,19 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:fruit_hub/controller/address_controller.dart';
 import 'package:fruit_hub/helper/app_constant.dart';
 import 'package:fruit_hub/model/address_model.dart';
-import 'package:get/get.dart';
-import 'package:get/get_rx/get_rx.dart';
 
 class AddressCard extends StatelessWidget {
   final AddressModel address;
-  final Function(String) onSelect;
-
-  const AddressCard({super.key, required this.address, required this.onSelect});
+  final void Function()? onTap;
+  const AddressCard({super.key, required this.address, this.onTap});
 
   @override
   Widget build(BuildContext context) {
-    final addressController = Get.find<AddressController>();
     return Container(
       margin: EdgeInsets.symmetric(vertical: 5),
       width: double.maxFinite,
@@ -50,16 +45,14 @@ class AddressCard extends StatelessWidget {
                     maxLines: 2,
                   ),
                 ),
-                Obx(
-                  () => Radio(
-                    activeColor: MyColor.primaryColor,
-                    value: address.id,
-                    groupValue: addressController.currentAddressId.value,
-                    onChanged: (value) {
-                      if (value != null) {
-                        onSelect(value);
-                      }
-                    },
+                Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: GestureDetector(
+                    onTap: onTap,
+                    child: Image.asset(
+                      "assets/images/icon/eye-icon.png",
+                      width: 22,
+                    ),
                   ),
                 )
               ],

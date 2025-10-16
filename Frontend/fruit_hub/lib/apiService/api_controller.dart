@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:fruit_hub/helper/app_constant.dart';
-import 'package:fruit_hub/model/address_model.dart';
 import 'package:fruit_hub/model/auth_model.dart';
 import 'package:fruit_hub/model/basket_model.dart';
 import 'package:fruit_hub/model/category_model.dart';

@@ -14,7 +14,6 @@ class AddressController extends GetxController {
 
   RxList addressList = [].obs;
   RxBool isError = false.obs;
-  RxString currentAddressId = "".obs;
   RxString errorMessage = "".obs;
   RxBool isLoading = false.obs;
 
@@ -27,10 +26,6 @@ class AddressController extends GetxController {
 
       if (response.isOk) {
         addressList(response.body);
-
-        // assign current selected address id to the value
-        currentAddressId.value = addressList
-            .firstWhere((address) => address['isCurrentAddress'] == true)['id'];
       } else {
         errorMessage("Something went Wrong");
       }
@@ -52,13 +47,13 @@ class AddressController extends GetxController {
 
       if (response.isOk) {
         addressList.add(response.body);
+        MessengerHelper.showSuccessToasteMessage("Created");
         Get.back();
       } else {
         isError(true);
 
         final errorResponse = response.body as Map<String, dynamic>;
         errorResponse.forEach((key, value) {
-          print("$key $value");
           errorMessage.value += "* ${value[0]}\n";
         });
       }
@@ -88,7 +83,6 @@ class AddressController extends GetxController {
 
         final errorResponse = response.body as Map<String, dynamic>;
         errorResponse.forEach((key, value) {
-          print("$key $value");
           errorMessage.value += "* ${value[0]}\n";
         });
       }
@@ -117,7 +111,6 @@ class AddressController extends GetxController {
 
         final errorResponse = response.body as Map<String, dynamic>;
         errorResponse.forEach((key, value) {
-          print("$key $value");
           errorMessage.value += "* ${value[0]}\n";
         });
       }
@@ -127,10 +120,6 @@ class AddressController extends GetxController {
     } finally {
       isLoading(false);
     }
-  }
-
-  void selectAddress(String id) {
-    currentAddressId.value = id;
   }
 
   void resetVariable() {

@@ -81,11 +81,25 @@ class AddressScreen extends StatelessWidget {
                         index: index,
                       ),
                       child: AddressCard(
-                        address: addressObj,
-                        onSelect: (String idValue) {
-                          addressController.selectAddress(idValue);
-                        },
-                      ),
+                          address: addressObj,
+                          onTap: () {
+                            //First assign the controller
+                            addressController.addressNameController.text =
+                                addressObj.name;
+                            addressController.addressDetailController.text =
+                                addressObj.address;
+                            addressController.phoneController.text =
+                                addressObj.phone;
+
+                            //Call the form
+                            _buildAddressFormPopUp(
+                              context: context,
+                              addressController: addressController,
+                              index: index,
+                              addressId: addressObj.id,
+                              formType: FormType.update,
+                            );
+                          }),
                     );
                   },
                 ),
@@ -129,7 +143,7 @@ void _buildAddressFormPopUp({
           ),
           SizedBox(width: 10),
           Text(
-            formType == FormType.add ? "Add new Address" : "Update Address",
+            formType == FormType.add ? "Add new Address" : "Manage Address",
             style: TextStyle(
               fontSize: FontTheme.textSizeLarge,
             ),
