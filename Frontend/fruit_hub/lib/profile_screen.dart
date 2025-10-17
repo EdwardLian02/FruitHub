@@ -402,6 +402,7 @@ Widget _buildAboutTileSection() {
         ),
         lowBackgroundColor: Colors.red.shade50,
         title: "Rate Us",
+        onTap: () => Get.toNamed('rate-us'),
       ),
       SizedBox(height: 10),
       ProfileItemTile(

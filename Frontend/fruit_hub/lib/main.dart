@@ -10,6 +10,7 @@ import 'package:fruit_hub/home_screen.dart';
 import 'package:fruit_hub/login_screen.dart';
 import 'package:fruit_hub/order_list_screen.dart';
 import 'package:fruit_hub/profile_screen.dart';
+import 'package:fruit_hub/rate_us_screen.dart';
 import 'package:fruit_hub/register_screen.dart';
 import 'package:fruit_hub/screen_mode_screen.dart';
 import 'package:fruit_hub/search_screen.dart';
@@ -60,6 +61,7 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/screen-mode', page: () => ScreenModeScreen()),
         GetPage(name: '/address', page: () => AddressScreen()),
         GetPage(name: '/faq', page: () => FAQScreen()),
+        GetPage(name: '/rate-us', page: () => RateUsScreen()),
         GetPage(name: '/test-screen', page: () => TestScreen()),
       ],
     );
