@@ -18,7 +18,6 @@ import 'package:fruit_hub/splash_screen.dart';
 import 'package:fruit_hub/splash_screen2.dart';
 import 'package:fruit_hub/order_success_screen.dart';
 import 'package:fruit_hub/test_screen.dart';
-import 'package:fruit_hub/widget_helper/address_card.dart';
 import 'package:fruit_hub/widget_helper/manage_info_screen.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';

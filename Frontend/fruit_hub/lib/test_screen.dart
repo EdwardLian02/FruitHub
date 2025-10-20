@@ -8,7 +8,17 @@ class TestScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Text("HI"),
-    );
+        body: Center(
+      child: InkWell(
+        onDoubleTap: () {},
+        highlightColor: Colors.green.withOpacity(0.5),
+        onLongPress: () {},
+        child: Ink(
+          width: 400,
+          height: 400,
+          color: Colors.black,
+        ),
+      ),
+    ));
   }
 }

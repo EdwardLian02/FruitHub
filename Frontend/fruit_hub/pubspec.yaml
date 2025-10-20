@@ -28,6 +28,7 @@ dependencies:
   firebase_messaging: ^16.0.2
   flutter_local_notifications: ^19.4.2
   timeline_tile: ^2.0.0
+  flutter_rating_bar: ^4.0.1
 
 
 
